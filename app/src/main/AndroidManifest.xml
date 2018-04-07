@@ -62,6 +62,29 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".News"
+            android:label="@string/title_activity_news"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="com.example.minal.studentapp.News" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Elearning"
+            android:label="@string/title_activity_elearning"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="com.example.minal.studentapp.Elearning" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".edit_deadline"></activity>
+
+
     </application>
 
 </manifest>

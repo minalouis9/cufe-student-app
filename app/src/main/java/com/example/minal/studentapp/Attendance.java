@@ -74,19 +74,20 @@ public class Attendance extends AppCompatActivity {
             try{
                 data = resultString.toString();
                 JSONObject JBO_AllData = new JSONObject(data);
-                JSONArray Data_TermClasswork = (JSONArray) JBO_AllData.get("Entry");
-                for (int iterator = 0; iterator < Data_TermClasswork.length(); iterator++) {
-                    JSONObject DataInstance_SubjectData = (JSONObject) Data_TermClasswork.get(iterator);
+                JSONObject AbsentObject = (JSONObject) JBO_AllData.get("Absence");
+                JSONArray AbsentData = (JSONArray) AbsentObject.get("Entry");
+                for (int iterator = 0; iterator < AbsentData.length(); iterator++) {
+                    JSONObject DataInstance_SubjectData = (JSONObject) AbsentData.get(iterator);
                     SingleParsed_Week = DataInstance_SubjectData.get("Week") + "";
                     SingleParsed_Day = DataInstance_SubjectData.get("Day") + "";
                     SingleParsed_Session = DataInstance_SubjectData.get("Session") + "";
                     SingleParsed_SubjectName = DataInstance_SubjectData.get("Course_Name") + "";
 
 
-                    dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n";
-                    dataParsed_Day = dataParsed_Day + SingleParsed_Day + "\n";
-                    dataParsed_Week = dataParsed_Week + SingleParsed_Week+ "\n";
-                    dataParsed_Session = dataParsed_Session + SingleParsed_Session+ "\n";
+                    dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n\n";
+                    dataParsed_Day = dataParsed_Day + SingleParsed_Day + "\n\n";
+                    dataParsed_Week = dataParsed_Week + SingleParsed_Week+ "\n\n";
+                    dataParsed_Session = dataParsed_Session + SingleParsed_Session+ "\n\n";
 
                 }
 

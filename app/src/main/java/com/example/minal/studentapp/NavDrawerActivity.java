@@ -14,17 +14,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+ConnectionDetector cdr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        cdr=new ConnectionDetector(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,6 +61,44 @@ public class NavDrawerActivity extends AppCompatActivity
                 OpenAttendance();
             }
         });
+        CardView News = findViewById(R.id.NewsCardId);
+        News.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                if(cdr.isConnected())
+                    OpenNews();
+                else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
+            }
+        });
+        CardView Elearning = findViewById(R.id.ElearningCardId);
+        Elearning.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                if(cdr.isConnected())
+                    OpenElearning();
+                else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+        CardView Deadlines = findViewById(R.id.DeadlinesCardId);
+        Deadlines.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                OpenDeadline();
+            }
+        });
+    }
+
+
+    private void OpenDeadline()
+    {
+        Intent To_Deadlines = new Intent(this, Deadlines_Track.class);
+        startActivity(To_Deadlines);
     }
 
     public void OpenMaps()
@@ -73,7 +112,16 @@ public class NavDrawerActivity extends AppCompatActivity
         Intent IntentAttendance = new Intent(this,Attendance.class);
         startActivity(IntentAttendance);
     }
-
+    public void OpenElearning()
+    {
+        Intent IntentElearning = new Intent(this,Elearning.class);
+        startActivity(IntentElearning);
+    }
+    public void OpenNews()
+    {
+        Intent IntentNews = new Intent(this,News.class);
+        startActivity(IntentNews);
+    }
     public void OpenTerm_classwork()
     {
         Intent IntentTerm_classworkActivity = new Intent(this,Term_Classwork.class);
