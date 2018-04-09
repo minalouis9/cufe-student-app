@@ -6,10 +6,43 @@
     android:layout_height="match_parent"
     tools:context="com.example.minal.studentapp.Attendance">
 
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#ff00"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        />
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar1"
+        android:layout_marginStart="237dp"
+        android:layout_marginTop="435dp"
+        app:srcCompat="@drawable/att" />
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="false"
+        android:layout_marginStart="237dp"
+        android:layout_marginTop="-45dp"
+        app:srcCompat="@drawable/att1" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
@@ -32,22 +65,28 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:layout_marginLeft="10dp"
-                    android:text="Subject Name" />
+                    android:text="Subject Name"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:textColor="#ff00"/>
                 <TextView
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
-                    android:text="Day" />
+                    android:text="Day"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:textColor="#ff00"/>
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginLeft="10dp"
-                    android:text="Week" />
+                    android:layout_marginLeft="30dp"
+                    android:text="Week"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:textColor="#ff00"/>
 
 
 
@@ -56,8 +95,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginLeft="10dp"
-                    android:text="Session" />
+                    android:layout_marginLeft="5dp"
+                    android:text="Session"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:textColor="#ff00"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -73,6 +114,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/imageView3"
+                android:layout_centerHorizontal="true"
                 android:orientation="horizontal">
 
                 <TextView
@@ -81,34 +124,43 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="3"
-                    android:text="TextView" />
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="TextView"
+                    android:textColor="#000" />
 
                 <TextView
                     android:id="@+id/text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="TextView"
+                    android:textColor="#000" />
 
                 <TextView
                     android:id="@+id/text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="TextView"
+                    android:textColor="#000" />
 
 
                 <TextView
                     android:id="@+id/text4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="TextView"
+                    android:textColor="#000" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
