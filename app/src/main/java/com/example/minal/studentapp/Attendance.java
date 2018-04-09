@@ -89,6 +89,12 @@ public class Attendance extends AppCompatActivity {
                     dataParsed_Week = dataParsed_Week + SingleParsed_Week+ "\n\n";
                     dataParsed_Session = dataParsed_Session + SingleParsed_Session+ "\n\n";
 
+                    if(SingleParsed_SubjectName.length()>18)
+                    {
+                        dataParsed_Day+="\n";
+                        dataParsed_Week+="\n";
+                        dataParsed_Session+="\n";
+                    }
                 }
 
 
