@@ -34,21 +34,24 @@ public class LoginActivity extends AppCompatActivity {
     private String data =null;
     private String dataParsed =null;
     private String Authenticated = "Authenticated";
-
+    private ConnectionDetector cdr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_login);
-
+        cdr=new ConnectionDetector(this);
 
         CardView Login = findViewById(R.id.Login_Card);
         Login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
+                if(cdr.isConnected()){
                 //login();
                 LoginActivity.AsyncCallWS_LoginAuthentication loginAuthenticator = new LoginActivity.AsyncCallWS_LoginAuthentication();
                 loginAuthenticator.execute();
+                }
+                else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
             }
         });
 

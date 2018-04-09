@@ -49,7 +49,9 @@ ConnectionDetector cdr;
             @Override
             public void onClick(View v)
             {
+                if(cdr.isConnected())
                 OpenTerm_classwork();
+                 else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -58,7 +60,9 @@ ConnectionDetector cdr;
             @Override
             public void onClick(View v)
             {
+                if(cdr.isConnected())
                 OpenAttendance();
+                else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
             }
         });
         CardView News = findViewById(R.id.NewsCardId);
