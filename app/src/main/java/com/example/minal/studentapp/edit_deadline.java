@@ -10,16 +10,19 @@ import android.widget.Toast;
 
 
 public class edit_deadline extends AppCompatActivity {
+
+    //Data firelds:
     public static String FileName = null;
 
+    //Methods:
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_deadline);
-            //first thing is to create the deadline itself
+
+        //first thing is to create the deadline itself
         Deadline currentDeadline_Object = new Deadline(FileName,getApplicationContext(),0);
-
-
         //Update this interface:
         updateInterface(currentDeadline_Object);
 
@@ -27,23 +30,21 @@ public class edit_deadline extends AppCompatActivity {
         Edit_Button.setText("Edit");
     }
 
-    private void Invoke_Toast(String ToastMessage,Context ctx){
-
+    private void Invoke_Toast(String ToastMessage,Context ctx)
+    {
         Toast Error_CreatingDeadline = Toast.makeText(ctx,ToastMessage,Toast.LENGTH_LONG);
         Error_CreatingDeadline.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         Error_CreatingDeadline.show();
     }
 
-
-
     private void updateInterface(Deadline deadline)
     {
-        try {
+        try
+        {
             UpdateHeader(deadline.getLabel());
             UpdateDescription(deadline.getDescription());
             UpdateDaysElapsed(deadline.getDaysBefor());
             UpdateType(deadline.getType());
-
         }
         catch(Exception e)
         {
@@ -71,23 +72,25 @@ public class edit_deadline extends AppCompatActivity {
         Days_textview.setText(Days);
     }
 
-
-
-    private void UpdateType(String type) {
-
-        if (type.compareTo("Quiz") == 0) {
+    private void UpdateType(String type)
+    {
+        if (type.compareTo("Quiz") == 0)
+        {
             RadioButton quiz_RadioButton = (RadioButton) findViewById(R.id.Quiz_RadioButton_Edit);
             quiz_RadioButton.setChecked(true);
-        } else if (type.compareTo("Assignment") == 0)
+        }
+        else if (type.compareTo("Assignment") == 0)
         {
             RadioButton assignment_RadioButton = (RadioButton) findViewById(R.id.Assignment_RadioButton_Edit);
             assignment_RadioButton.setChecked(true);
         }
-        else if(type.compareTo("Project")==0) {
+        else if(type.compareTo("Project")==0)
+        {
             RadioButton project_RadioButton = (RadioButton) findViewById(R.id.ProjectPhase_RadioButton_Edit);
             project_RadioButton.setChecked(true);
         }
-        else {
+        else
+        {
             RadioButton other_RadioButton = (RadioButton) findViewById(R.id.Other_RadioButton_Edit);
             other_RadioButton.setChecked(true);
         }

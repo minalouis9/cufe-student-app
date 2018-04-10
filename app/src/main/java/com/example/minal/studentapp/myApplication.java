@@ -11,22 +11,18 @@ import com.android.volley.toolbox.Volley;
  * Created by ahmed on 3/7/2018.
  */
 
-/**
- * Created by ravi on 18/01/18.
- */
-
-
 public class myApplication extends Application {
 
+    //Data firelds:
     public static final String TAG = myApplication.class
             .getSimpleName();
-
     private RequestQueue mRequestQueue;
-
     private static myApplication mInstance;
 
+    //Methods:
     @Override
-    public void onCreate() {
+    public void onCreate()
+    {
         super.onCreate();
         mInstance = this;
     }
@@ -35,7 +31,8 @@ public class myApplication extends Application {
         return mInstance;
     }
 
-    public RequestQueue getRequestQueue() {
+    public RequestQueue getRequestQueue()
+    {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         }
@@ -43,19 +40,22 @@ public class myApplication extends Application {
         return mRequestQueue;
     }
 
-    public <T> void addToRequestQueue(Request<T> req, String tag) {
-        // set the default tag if tag is empty
+    public <T> void addToRequestQueue(Request<T> req, String tag)
+    {
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
         getRequestQueue().add(req);
     }
 
-    public <T> void addToRequestQueue(Request<T> req) {
+    public <T> void addToRequestQueue(Request<T> req)
+    {
         req.setTag(TAG);
         getRequestQueue().add(req);
     }
 
-    public void cancelPendingRequests(Object tag) {
-        if (mRequestQueue != null) {
+    public void cancelPendingRequests(Object tag)
+    {
+        if (mRequestQueue != null)
+        {
             mRequestQueue.cancelAll(tag);
         }
     }

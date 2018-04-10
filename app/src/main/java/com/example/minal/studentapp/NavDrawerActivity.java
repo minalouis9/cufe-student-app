@@ -18,25 +18,33 @@ import android.widget.Toast;
 
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-ConnectionDetector cdr;
+
+    //Data fields:
+    private ConnectionDetector cdr;
+
+    //Methods:
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_drawer);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         cdr=new ConnectionDetector(this);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        toggle.syncState();
+            toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+            navigationView.setNavigationItemSelectedListener(this);
 
         CardView Maps = findViewById(R.id.CampusmapCardId);
-        Maps.setOnClickListener(new View.OnClickListener(){
+            Maps.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
@@ -45,7 +53,7 @@ ConnectionDetector cdr;
         });
 
         CardView Term_classwork = findViewById(R.id.CourseworkCardId);
-        Term_classwork.setOnClickListener(new View.OnClickListener(){
+            Term_classwork.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
@@ -54,38 +62,39 @@ ConnectionDetector cdr;
         });
 
         CardView Attendance = findViewById(R.id.AttendanceCardId);
-        Attendance.setOnClickListener(new View.OnClickListener(){
+            Attendance.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
                 OpenAttendance();
             }
         });
+
         CardView News = findViewById(R.id.NewsCardId);
-        News.setOnClickListener(new View.OnClickListener(){
-            @Override
+            News.setOnClickListener(new View.OnClickListener(){
+                @Override
             public void onClick(View v)
             {
                 if(cdr.isConnected())
                     OpenNews();
                 else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
             }
-        });
+            });
+
         CardView Elearning = findViewById(R.id.ElearningCardId);
-        Elearning.setOnClickListener(new View.OnClickListener(){
+            Elearning.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
-                if(cdr.isConnected())
-                    OpenElearning();
-                else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
-
+                    if(cdr.isConnected())
+                        OpenElearning();
+                    else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
             }
-        });
+            });
 
 
         CardView Deadlines = findViewById(R.id.DeadlinesCardId);
-        Deadlines.setOnClickListener(new View.OnClickListener(){
+            Deadlines.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
@@ -93,7 +102,6 @@ ConnectionDetector cdr;
             }
         });
     }
-
 
     private void OpenDeadline()
     {
@@ -112,16 +120,19 @@ ConnectionDetector cdr;
         Intent IntentAttendance = new Intent(this,Attendance.class);
         startActivity(IntentAttendance);
     }
+
     public void OpenElearning()
     {
         Intent IntentElearning = new Intent(this,Elearning.class);
         startActivity(IntentElearning);
     }
+
     public void OpenNews()
     {
         Intent IntentNews = new Intent(this,News.class);
         startActivity(IntentNews);
     }
+
     public void OpenTerm_classwork()
     {
         Intent IntentTerm_classworkActivity = new Intent(this,Term_Classwork.class);
@@ -129,31 +140,36 @@ ConnectionDetector cdr;
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+
+        if (drawer.isDrawerOpen(GravityCompat.START))
+        {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else
+        {
             super.onBackPressed();
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav_drawer, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+       int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             return true;
         }
 
@@ -162,26 +178,25 @@ ConnectionDetector cdr;
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item)
+    {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.Home_Itm) {
+        if (id == R.id.Home_Itm)
+        {
             // Handle the camera action
-        } else if (id == R.id.Profile_Itm) {
-
-        } else if (id == R.id.Calendar_Itm) {
-
-        } else if (id == R.id.Exams_Itm) {
-
-        } else if (id == R.id.Stats_Itm) {
-
-        } else if (id == R.id.Logout_Itm) {
-
         }
+        else if (id == R.id.Profile_Itm)
+        {}
+        else if (id == R.id.Calendar_Itm) {}
+        else if (id == R.id.Exams_Itm) {}
+        else if (id == R.id.Stats_Itm) {}
+        else if (id == R.id.Logout_Itm) {}
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 }

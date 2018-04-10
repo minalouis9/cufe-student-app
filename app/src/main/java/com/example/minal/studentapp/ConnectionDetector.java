@@ -9,20 +9,27 @@ import android.net.NetworkInfo;
  * Created by lenovoo on 04/04/2018.
  */
 
-public class ConnectionDetector {
-    Context context;
+public class ConnectionDetector
+{
+    //Data firelds:
+    private Context context;
+
+    //Methods:
     public ConnectionDetector(Context context){
         this.context=context;
     }
-
 
     public boolean isConnected()
     {
         ConnectivityManager connectivity=(ConnectivityManager)
                 context.getSystemService(Service.CONNECTIVITY_SERVICE);
-        if(connectivity!=null){
+
+        if(connectivity!=null)
+        {
             NetworkInfo info=connectivity.getActiveNetworkInfo();
-            if(info !=null){
+
+            if(info !=null)
+            {
                 if(info.getState()==NetworkInfo.State.CONNECTED)
                     return true;
             }

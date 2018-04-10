@@ -14,19 +14,16 @@ import java.io.IOException;
 
 public class SOAP_Access {
 
+    //Data members:
     private static String SOAP_ACTION = "http://tempuri.org/GetData";
     private static String METHOD_NAME = "GetData";
     private static String NAMESPACE = "http://tempuri.org/";
     private static String URL = "http://chws.eng.cu.edu.eg/webservice1.asmx";
-
     String TAG = "Response";
-
     public static SoapObject Request=null;
 
-    private SOAP_Access()
-    {
-    }
 
+    //Methods:
     static SOAP_Access _instance = null;
 
     static SOAP_Access _getInstance()
@@ -37,12 +34,12 @@ public class SOAP_Access {
         return _instance;
     }
 
+    private SOAP_Access() {}
 
-    public SoapPrimitive getResponse(String InvokeMessage) {
-
-
-        try {
-
+    public SoapPrimitive getResponse(String InvokeMessage)
+    {
+        try
+        {
             this.Request.addProperty("Params_CommaSeparated", InvokeMessage);
 
             SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
@@ -51,28 +48,38 @@ public class SOAP_Access {
 
             HttpTransportSE transport = new HttpTransportSE(URL);
 
-            try {
+            try
+            {
                 transport.call(SOAP_ACTION, soapEnvelope);
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 e.printStackTrace();
-            } catch (XmlPullParserException e) {
+            }
+            catch (XmlPullParserException e)
+            {
                 e.printStackTrace();
             }
             SoapPrimitive resultString = null;
-            try {
+
+            try
+            {
                 resultString = (SoapPrimitive) soapEnvelope.getResponse();
+
                 Log.i(TAG, "Grades: " + resultString);
-
-            } catch (SoapFault soapFault) {
+            }
+            catch (SoapFault soapFault)
+            {
                 soapFault.printStackTrace();
-
             }
 
-
             return resultString;
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             Log.e(TAG, "Error: " + ex.getMessage());
         }
+
         return null;
     }
 }

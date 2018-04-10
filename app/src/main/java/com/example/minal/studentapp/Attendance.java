@@ -12,6 +12,7 @@ import org.ksoap2.serialization.SoapPrimitive;
 
 public class Attendance extends AppCompatActivity {
 
+    //Data firelds:
     private String TAG = "Response to Class Grades: ";
     private String ID = LoginActivity.username;
     private String Password = LoginActivity.password;
@@ -28,12 +29,14 @@ public class Attendance extends AppCompatActivity {
     private String dataParsed_Session = "";
     private String SingleParsed_Session = "";
 
+    //Methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
+
         AsyncCallWS_ReadAttendance gradesReader = new AsyncCallWS_ReadAttendance();
-        gradesReader.execute();
+            gradesReader.execute();
 
     }
 
@@ -47,21 +50,25 @@ public class Attendance extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             Log.i(TAG, "doInBackground");
-            Get_Attendance();
-            return null;
+             Get_Attendance();
+                return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             Log.i(TAG, "onPostExecute");
+
             TextView textView_SubjectName = (TextView) findViewById(R.id.text3);
-            textView_SubjectName.setText(dataParsed_SubjectName);
+                textView_SubjectName.setText(dataParsed_SubjectName);
+
             TextView textView_Day = (TextView) findViewById(R.id.text1);
-            textView_Day.setText(dataParsed_Day);
+                textView_Day.setText(dataParsed_Day);
+
             TextView textView_Week = (TextView) findViewById(R.id.text2);
-            textView_Week.setText(dataParsed_Week);
+                textView_Week.setText(dataParsed_Week);
+
             TextView textView_Session = (TextView) findViewById(R.id.text4);
-            textView_Session.setText(dataParsed_Session);
+                textView_Session.setText(dataParsed_Session);
         }
 
 
@@ -71,38 +78,37 @@ public class Attendance extends AppCompatActivity {
 
             resultString = serverAccessClass.getResponse(Attendance_invoke);
 
-            try{
+            try
+            {
                 data = resultString.toString();
+
                 JSONObject JBO_AllData = new JSONObject(data);
                 JSONObject AbsentObject = (JSONObject) JBO_AllData.get("Absence");
                 JSONArray AbsentData = (JSONArray) AbsentObject.get("Entry");
-                for (int iterator = 0; iterator < AbsentData.length(); iterator++) {
-                    JSONObject DataInstance_SubjectData = (JSONObject) AbsentData.get(iterator);
-                    SingleParsed_Week = DataInstance_SubjectData.get("Week") + "";
-                    SingleParsed_Day = DataInstance_SubjectData.get("Day") + "";
-                    SingleParsed_Session = DataInstance_SubjectData.get("Session") + "";
-                    SingleParsed_SubjectName = DataInstance_SubjectData.get("Course_Name") + "";
+
+                for (int iterator = 0; iterator < AbsentData.length(); iterator++)
+                    {
+                        JSONObject DataInstance_SubjectData = (JSONObject) AbsentData.get(iterator);
+                        SingleParsed_Week = DataInstance_SubjectData.get("Week") + "";
+                        SingleParsed_Day = DataInstance_SubjectData.get("Day") + "";
+                        SingleParsed_Session = DataInstance_SubjectData.get("Session") + "";
+                        SingleParsed_SubjectName = DataInstance_SubjectData.get("Course_Name") + "";
 
 
-                    dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n\n";
-                    dataParsed_Day = dataParsed_Day + SingleParsed_Day + "\n\n";
-                    dataParsed_Week = dataParsed_Week + SingleParsed_Week+ "\n\n";
-                    dataParsed_Session = dataParsed_Session + SingleParsed_Session+ "\n\n";
-
-                }
-
+                        dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n\n";
+                        dataParsed_Day = dataParsed_Day + SingleParsed_Day + "\n\n";
+                        dataParsed_Week = dataParsed_Week + SingleParsed_Week+ "\n\n";
+                        dataParsed_Session = dataParsed_Session + SingleParsed_Session+ "\n\n";
+                    }
 
 
-            } catch(JSONException e)
 
+            }
+            catch(JSONException e)
             {
                 e.printStackTrace();
             }
-
-
         }
-
     }
-
 }
 

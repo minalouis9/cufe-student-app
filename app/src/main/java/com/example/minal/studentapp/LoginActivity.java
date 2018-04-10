@@ -21,10 +21,9 @@ import org.ksoap2.serialization.SoapPrimitive;
 
 public class LoginActivity extends AppCompatActivity {
 
-
+    //Data fields:
     public static String username,password;
     private String TAG = "Response Login: ";
-
     private EditText editText_ID=null,editText_Password=null;
     private CheckBox saveLogin_CheckBox=null;
     private SharedPreferences loginPreferences=null;
@@ -35,11 +34,12 @@ public class LoginActivity extends AppCompatActivity {
     private String dataParsed =null;
     private String Authenticated = "Authenticated";
 
+    //Methods:
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_login);
-
 
         CardView Login = findViewById(R.id.Login_Card);
         Login.setOnClickListener(new View.OnClickListener(){
@@ -52,21 +52,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         editText_ID = findViewById(R.id.ID_Text);
         editText_Password = findViewById(R.id.Password_Text);
         saveLogin_CheckBox = findViewById(R.id.RememberMecheckBox);
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefs_Editor = loginPreferences.edit();
-
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        if (saveLogin == true) {
+
+        if (saveLogin == true)
+        {
             editText_ID.setText(loginPreferences.getString("username", ""));
             editText_Password.setText(loginPreferences.getString("password", ""));
             saveLogin_CheckBox.setChecked(true);
         }
     }
-
 
     //Andrew part
     private class AsyncCallWS_LoginAuthentication extends AsyncTask<Void, Void, Void> {
@@ -77,38 +76,40 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(Void... params)
+        {
             Log.i(TAG, "doInBackground");
             Get_Login();
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(Void result)
+        {
             Log.i(TAG, "onPostExecute");
+
             if(dataParsed.compareTo(Authenticated) == 0)
                 login();
             else
                 onLoginFailed();
         }
 
-        public void Get_Login() {
-
+        public void Get_Login()
+        {
             username = editText_ID.getText().toString();
             password = editText_Password.getText().toString();
 
             SOAP_Access serverAccessClass= SOAP_Access._getInstance();
 
             resultString = serverAccessClass.getResponse(username+","+password+",0");
-
-            try {
+            try
+            {
                 data = resultString.toString();
                 JSONObject JBO = new JSONObject(data);
                 JSONObject JO = (JSONObject)JBO.get("Authentication");
                 dataParsed = (String) JO.get("Status");
-
-            } catch (
-                    JSONException e)
+            }
+            catch (JSONException e)
             {
                 e.printStackTrace();
             }
@@ -116,9 +117,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void login() {
-
-        if (!validateInput()) {
+    public void login()
+    {
+        if (!validateInput())
+        {
             onLoginFailed();
             return;
         }
@@ -129,19 +131,25 @@ public class LoginActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText_ID.getWindowToken(), 0);
 
-        if (saveLogin_CheckBox.isChecked()) {
+        if (saveLogin_CheckBox.isChecked())
+        {
             loginPrefs_Editor.putBoolean("saveLogin", true);
             loginPrefs_Editor.putString("username", username);
             loginPrefs_Editor.putString("password", password);
             loginPrefs_Editor.commit();
-        } else {
+        }
+        else
+        {
             loginPrefs_Editor.clear();
             loginPrefs_Editor.commit();
         }
 
         CardView Login = findViewById(R.id.Login_Card);
+
         EditText ID_text = findViewById(R.id.ID_Text);
+
         EditText Pass_text = findViewById(R.id.Password_Text);
+
         Login.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
@@ -149,8 +157,6 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
-
-        // TODO: Implement your own authentication logic here.
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -164,46 +170,57 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         // disable going back to the MainActivity
         moveTaskToBack(true);
     }
 
-    public void onLoginSuccess() {
+    public void onLoginSuccess()
+    {
         CardView Login = findViewById(R.id.Login_Card);
         Login.setEnabled(true);
+
         Intent IntentActivity2 = new Intent(this,NavDrawerActivity.class);
         startActivity(IntentActivity2);
         finish();
     }
 
-    public void onLoginFailed() {
+    public void onLoginFailed()
+    {
         CardView Login = findViewById(R.id.Login_Card);
+
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
         Login.setEnabled(true);
     }
 
-    public boolean validateInput() {
+    public boolean validateInput()
+    {
         boolean isvalid = true;
 
         EditText ID_text = findViewById(R.id.ID_Text);
         EditText Pass_text = findViewById(R.id.Password_Text);
 
-
         String ID = (ID_text.getText().toString());
         String password = Pass_text.getText().toString();
 
-        if (ID.isEmpty()) {
+        if (ID.isEmpty())
+        {
             ID_text.setError("Enter a valid ID");
             isvalid = false;
-        } else {
+        }
+        else
+        {
             ID_text.setError(null);
         }
 
-        if (password.isEmpty()) {
+        if (password.isEmpty())
+        {
             Pass_text.setError("Enter a valid password");
             isvalid = false;
-        } else {
+        }
+        else
+        {
             Pass_text.setError(null);
         }
 

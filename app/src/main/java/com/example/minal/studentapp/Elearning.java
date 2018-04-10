@@ -11,28 +11,28 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class Elearning extends AppCompatActivity {
-    WebView wv;
 
+    //Data firelds:
+    private WebView wv;
 
+    //Methods:
     @Override
     public void onBackPressed()
     {
-        if(wv.canGoBack())
-            wv.goBack();
-        else
-            super.onBackPressed();
-
+        if(wv.canGoBack()) wv.goBack();
+        else super.onBackPressed();
     }
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_elearning);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        //shift to website:
         wv=(WebView)findViewById(R.id.WV2);
         wv.getSettings().setJavaScriptEnabled(true);
         wv.setFocusable(true);
@@ -46,7 +46,4 @@ public class Elearning extends AppCompatActivity {
         wv.loadUrl("http://www.elearn.eng.cu.edu.eg");
         wv.setWebViewClient(new WebViewClient());
     }
-
-
-
 }

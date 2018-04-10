@@ -8,6 +8,7 @@ import android.view.View;
 
 public class HomescreenActivity extends AppCompatActivity {
 
+    //Methods:
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +31,6 @@ public class HomescreenActivity extends AppCompatActivity {
                 OpenMaps();
             }
         });
-
-
     }
 
     public void OpenMaps()
@@ -45,5 +44,4 @@ public class HomescreenActivity extends AppCompatActivity {
         Intent IntentTerm_classworkActivity = new Intent(this,Term_Classwork.class);
         startActivity(IntentTerm_classworkActivity);
     }
-
 }

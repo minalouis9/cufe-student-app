@@ -17,18 +17,20 @@ import android.widget.Toast;
 
 public class NewDeadline extends AppCompatActivity {
 
+    //Data firelds:
     private static final String TAG = "Deadline Tags";
     public static  String Mode = "ND";
 
+    //Methods:
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_deadline);
+
         Log.i(TAG,"NewDeadline OnCreate is invoked");
 
-
         CardView NewDeadline_Invoke = findViewById(R.id.Add_Card);
-
         final String ToastMessage = "Not Yet";
 
         NewDeadline_Invoke.setOnClickListener(
@@ -36,26 +38,23 @@ public class NewDeadline extends AppCompatActivity {
                     public void onClick(View v) {
                         Log.i(TAG, "Listener is invoked");
 
-                        if (CheckNoEmptyField(ToastMessage) == false) {
-
+                        if (CheckNoEmptyField(ToastMessage) == false)
+                        {
                             Invoke_Toast(ToastMessage,getApplicationContext());
-                        } else {
+                        }
+                        else
+                        {
                             if(Mode.compareTo("ND") == 0) CreateDeadline();
-                            else
-                            {
+                            else {}
 
-                            }
                             //Shift Back to Deadlines Viewer:
                             Intent To_Deadlines = new Intent(getBaseContext(), Deadlines_Track.class);
                             startActivity(To_Deadlines);
                         }
                     }
                 }
-
         );
     }
-
-
 
     public void CreateDeadline()
     {
@@ -67,7 +66,6 @@ public class NewDeadline extends AppCompatActivity {
         RadioButton Radiobutton_Ass  = (RadioButton) findViewById(R.id.Assignment_RadioButton);
         DatePicker DeadlineDueDate_Text = (DatePicker) findViewById(R.id.datePicker);
         EditText DeadlineDaysToRemind_Text = (EditText) findViewById(R.id.ElapsedDays_Text);
-        // EditText DeadlineHoursToRemind_Text = (EditText) findViewById(R.id.ElapsedHours_Text);
 
         //Reading Values:
         Deadline_Write newDeadlineFile = new Deadline_Write(DeadlineLabel_Text.getText().toString(), getApplicationContext());
@@ -75,23 +73,24 @@ public class NewDeadline extends AppCompatActivity {
         newDeadlineFile.addDeadlineLabel(DeadlineLabel_Text.getText().toString());
         newDeadlineFile.addDeadlineDescription(DeadlineDesc_Text.getText().toString());
 
-        if( Radiobutton_Quiz.isChecked()) newDeadlineFile.addDeadlineType("Quiz");
-        else if( Radiobutton_Project.isChecked()) newDeadlineFile.addDeadlineType("Project");
-        else if( Radiobutton_Ass.isChecked()) newDeadlineFile.addDeadlineType("Assignment");
-        else newDeadlineFile.addDeadlineType("Other");
+        if( Radiobutton_Quiz.isChecked())
+            newDeadlineFile.addDeadlineType("Quiz");
+        else if( Radiobutton_Project.isChecked())
+            newDeadlineFile.addDeadlineType("Project");
+        else if( Radiobutton_Ass.isChecked())
+            newDeadlineFile.addDeadlineType("Assignment");
+        else
+            newDeadlineFile.addDeadlineType("Other");
 
         newDeadlineFile.addDeadlineDueDate(checkDigit(DeadlineDueDate_Text.getDayOfMonth())+"/"+checkDigit(DeadlineDueDate_Text.getMonth()+1)+"/"+DeadlineDueDate_Text.getYear());
-        //newDeadlineFile.addDeadlineTimeElapsed(DeadlineDaysToRemind_Text.getText().toString(),DeadlineHoursToRemind_Text.getText().toString());
         newDeadlineFile.addDeadlineTimeElapsed(DeadlineDaysToRemind_Text.getText().toString());
         newDeadlineFile.CloseFile();
-
     }
 
     public String checkDigit(int number)
     {
         return number<=9?"0"+number:String.valueOf(number);
     }
-
 
     //Utility functions:
     private Boolean CheckNoEmptyField(String TM)
@@ -103,7 +102,6 @@ public class NewDeadline extends AppCompatActivity {
         RadioButton Radiobutton_Ass  = (RadioButton) findViewById(R.id.Assignment_RadioButton);
         RadioButton Radiobutton_Other = (RadioButton) findViewById(R.id.Other_RadioButton);
         EditText DeadlineDaysToRemind_Text = (EditText) findViewById(R.id.ElapsedDays_Text);
-        // EditText DeadlineHoursToRemind_Text = (EditText) findViewById(R.id.ElapsedHours_Text);
 
         if(DeadlineLabel_Text.getText().toString() == null)
         {
@@ -128,11 +126,12 @@ public class NewDeadline extends AppCompatActivity {
             TM = "Please Fill Description Field";
             return false;
         }
+
         return true;
     }
 
-    private void Invoke_Toast(String ToastMessage,Context ctx){
-
+    private void Invoke_Toast(String ToastMessage,Context ctx)
+    {
         Toast Error_CreatingDeadline = Toast.makeText(ctx,ToastMessage,Toast.LENGTH_LONG);
         Error_CreatingDeadline.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         Error_CreatingDeadline.show();

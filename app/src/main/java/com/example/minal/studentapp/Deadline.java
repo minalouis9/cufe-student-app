@@ -28,61 +28,64 @@ import java.util.concurrent.TimeUnit;
  * Created by ahmed on 3/6/2018.
  */
 
-public class Deadline {
-
+public class Deadline
+{
+    //Data firelds:
     private String Label, Description, Type, DueDate, DaysBefor, HoursBefore;
-
     private static final String TAG = "Deadline_Instantiation";
-
     private int index;
 
+    //Methods:
     Deadline(String FileName, Context cntx, int inputIndex)
     {
 
         FileInputStream ReadFile = null;
-        try {
+
+        try
+        {
             ReadFile = cntx.openFileInput(FileName);
             InputStreamReader Reader = new InputStreamReader(ReadFile);
             BufferedReader Readings_Buffer = new BufferedReader(Reader);
 
             this.setLabel(Readings_Buffer.readLine().toString());
             Log.i(TAG,"Label: "+ this.getLabel());
+
             this.setDescription(Readings_Buffer.readLine().toString());
             Log.i(TAG,"Desc: "+ this.getDescription());
+
             this.setType(Readings_Buffer.readLine().toString());
             Log.i(TAG,"Type: "+ this.getType());
-            //this.setDueDate(Readings_Buffer.readLine().toString());
+
             this.setDueDate(Readings_Buffer.readLine().toString());
             Log.i(TAG,"Duedate: "+ this.getDueDate());
+
             this.setDaysBefor(Readings_Buffer.readLine().toString());
             Log.i(TAG,"daysBefore: "+ this.getDaysBefor());
-            /*this.setHoursBefore(Readings_Buffer.readLine().toString());
-            Log.i(TAG,"Hours before: "+ this.getHoursBefore());
-*/
             this.index = inputIndex;
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e)
+        {
             e.printStackTrace();
 
             this.Invoke_Toast("Could not Create Deadline! File Not Found",cntx);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
             this.Invoke_Toast("Could not create Reminder! File Could not be read",cntx);
         }
-
-
     }
 
     private void Invoke_Toast(String ToastMessage,Context ctx){
-
         Toast Error_CreatingDeadline = Toast.makeText(ctx,ToastMessage,Toast.LENGTH_LONG);
-        Error_CreatingDeadline.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        Error_CreatingDeadline.show();
+            Error_CreatingDeadline.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            Error_CreatingDeadline.show();
     }
 
     public void setLabel(String LabelInput)
     {
         this.Label = LabelInput;
     }
+
     public String getLabel()
     {
         return this.Label;
@@ -92,6 +95,7 @@ public class Deadline {
     {
         this.Description = DescriptionInput;
     }
+
     public String getDescription()
     {
         return this.Description;
@@ -111,6 +115,7 @@ public class Deadline {
     {
         this.DueDate = DueDateInput;
     }
+
     public String getDueDate()
     {
         return this.DueDate;
@@ -120,6 +125,7 @@ public class Deadline {
     {
         this.DaysBefor = DaysBeforInput;
     }
+
     public String getDaysBefor()
     {
         return this.DaysBefor;
@@ -129,47 +135,52 @@ public class Deadline {
     {
         this.HoursBefore = HoursBeforeInput;
     }
+
     public String getHoursBefore()
     {
         return this.HoursBefore;
     }
 
-    public int getIndex(){
+    public int getIndex()
+    {
         return this.index;
     }
 
-
     public long UpdateDaysAndHoursBefore(TimeUnit timeUnit)
     {
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
         Date firstDate = null;
-        try {
+
+        try
+        {
             firstDate = sdf.parse(this.getDueDate());
-        } catch (ParseException e) {
+        }
+        catch (ParseException e)
+        {
             e.printStackTrace();
         }
+
         Date secondDate = null;
-        try {
-            //secondDate = sdf.parse((DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDate.now())).toString());
-            secondDate = sdf.parse(
-                    Calendar.getInstance().getTime().toString());
-        } catch (ParseException e) {
+
+        try
+        {
+            secondDate = sdf.parse(Calendar.getInstance().getTime().toString());
+        }
+        catch (ParseException e)
+        {
             e.printStackTrace();
         }
 
         long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
-        /*Date date1 = new Date(Integer.parseInt(this.DueDate.substring(6,9)),Integer.parseInt(this.DueDate.substring(0,1)),Integer.parseInt(this.DueDate.substring(3,4)));
-*/
         return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
-
     }
 
     public String GetBasicInfo()
     {
         String Label_Basic = this.Label;
+
         if( this.Label.length() > 20)
         {
             Label_Basic = this.Label.substring(0,19);
@@ -184,6 +195,7 @@ public class Deadline {
     public int getThumbnail()
     {
         Log.i(TAG," Getting Thumbnail: " +"Type: " + this.getType()+" Label: "+this.getLabel());
+
         if(this.Type.equals("Quiz"))
         {
             Log.i(TAG,"Returning Quiz");
@@ -214,64 +226,72 @@ public class Deadline {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
 
-
-
         // String str_date = "20/2/2018";
         DateFormat formatter;
         Date date2 = null;
         formatter = new SimpleDateFormat("dd/MM/yyyy");
-        try {
+
+        try
+        {
             date2 = formatter.parse(this.getDueDate());
             String dateString = dateFormat.format(date).substring(0,10);
-
             Map<TimeUnit,Long> map = computeDiff(date,date2);
+
             return getTimeElapsed(map);
 
-        } catch (ParseException e) {
+        } catch (ParseException e)
+        {
             e.printStackTrace();
         }
 
-
         return "Not_Calculated";
-
     }
 
     private String getTimeElapsed(Map<TimeUnit,Long> map)
     {
         String timeElapsed ="";
         boolean flag1=false,flag2=false,flag3=false;
+
         if(map.get(TimeUnit.DAYS) != 0)
         {
             timeElapsed+= map.get(TimeUnit.DAYS).toString() + " Days";
             flag1=true;
         }
+
         if(map.get(TimeUnit.HOURS) != 0)
         {
             if(flag1 == true) timeElapsed +=", ";
             timeElapsed+= map.get(TimeUnit.HOURS).toString() + " Hours";
             flag2 = true;
         }
+
         if(map.get(TimeUnit.MINUTES) != 0)
         {
             if(flag2 == true || flag1 == true) timeElapsed +=", ";
             timeElapsed+= map.get(TimeUnit.MINUTES).toString() + " Minutes";
             flag2 = true;
         }
+
         return timeElapsed;
     }
 
-    private Map<TimeUnit,Long> computeDiff(Date date1, Date date2) {
+    private Map<TimeUnit,Long> computeDiff(Date date1, Date date2)
+    {
         long diffInMillies = Math.abs(date2.getTime() - date1.getTime());
+
         List<TimeUnit> units = new ArrayList<TimeUnit>(EnumSet.allOf(TimeUnit.class));
         Collections.reverse(units);
+
         Map<TimeUnit,Long> result = new LinkedHashMap<TimeUnit,Long>();
         long milliesRest = diffInMillies;
+
         for ( TimeUnit unit : units ) {
             long diff = unit.convert(milliesRest,TimeUnit.MILLISECONDS);
             long diffInMilliesForUnit = unit.toMillis(diff);
             milliesRest = milliesRest - diffInMilliesForUnit;
             result.put(unit,diff);
         }
+
         return result;
     }
 }
