@@ -1,17 +1,30 @@
 package com.example.minal.studentapp;
 
+import android.app.DownloadManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.DownloadListener;
+import android.webkit.URLUtil;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 public class News extends AppCompatActivity {
     WebView wv;
+    String url="http://eng.cu.edu.eg/ar/credit-hour-system/";
+
+
+
+
     @Override
     public void onBackPressed()
     {
@@ -33,6 +46,7 @@ public class News extends AppCompatActivity {
 
 
         wv=(WebView)findViewById(R.id.Wv);
+
         wv.getSettings().setJavaScriptEnabled(true);
         wv.setFocusable(true);
         wv.setFocusableInTouchMode(true);
@@ -43,8 +57,18 @@ public class News extends AppCompatActivity {
         wv.getSettings().setDomStorageEnabled(true);
         wv.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         wv.getSettings().setBuiltInZoomControls(true);
-        wv.loadUrl("http://eng.cu.edu.eg/ar/credit-hour-system/");
+        wv.loadUrl(url);
         wv.setWebViewClient(new WebViewClient());
+        wv.setDownloadListener(new DownloadListener() {
+            public void onDownloadStart(String url, String userAgent,
+                                        String contentDisposition, String mimetype,
+                                        long contentLength) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
     }
+
 
 }
