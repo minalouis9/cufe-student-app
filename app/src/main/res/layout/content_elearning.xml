@@ -10,6 +10,8 @@
 
     <WebView
         android:id="@+id/WV2"
+        app:layout_editor_absoluteX="3dp"
+        app:layout_editor_absoluteY="3dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="8dp"

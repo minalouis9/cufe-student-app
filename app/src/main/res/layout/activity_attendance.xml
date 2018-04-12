@@ -126,6 +126,7 @@
                     android:layout_weight="3"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="TextView"
+                    android:text="Loading"
                     android:textColor="#000" />
 
                 <TextView
@@ -136,6 +137,7 @@
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="TextView"
+                    android:text="Loading"
                     android:textColor="#000" />
 
                 <TextView
@@ -146,6 +148,7 @@
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-smallcaps"
                     android:text="TextView"
+                    android:text="Loading"
                     android:textColor="#000" />
 
 
@@ -156,11 +159,18 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-smallcaps"
-                    android:text="TextView"
+                    android:text="Loading"
                     android:textColor="#000" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
     </ScrollView>
+    <Switch
+        android:id="@+id/Switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Absence"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

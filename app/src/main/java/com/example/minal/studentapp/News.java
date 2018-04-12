@@ -42,6 +42,7 @@ public class News extends AppCompatActivity {
         wv.getSettings().setAppCacheEnabled(true);
         wv.getSettings().setDomStorageEnabled(true);
         wv.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        wv.getSettings().setBuiltInZoomControls(true);
         wv.loadUrl("http://eng.cu.edu.eg/ar/credit-hour-system/");
         wv.setWebViewClient(new WebViewClient());
     }

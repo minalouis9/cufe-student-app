@@ -37,6 +37,7 @@ public class Elearning extends AppCompatActivity {
         wv.getSettings().setJavaScriptEnabled(true);
         wv.setFocusable(true);
         wv.setFocusableInTouchMode(true);
+        wv.getSettings().setBuiltInZoomControls(true);
         wv.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         wv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         wv.getSettings().setDatabaseEnabled(true);
@@ -44,6 +45,7 @@ public class Elearning extends AppCompatActivity {
         wv.getSettings().setDomStorageEnabled(true);
         wv.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         wv.loadUrl("http://www.elearn.eng.cu.edu.eg");
+        wv.loadUrl("http://www.elearn.eng.cu.edu.eg/login/index.php");
         wv.setWebViewClient(new WebViewClient());
     }
 
