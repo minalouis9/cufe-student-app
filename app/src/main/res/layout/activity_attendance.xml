@@ -147,7 +147,6 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-smallcaps"
-                    android:text="TextView"
                     android:text="Loading"
                     android:textColor="#000" />
 
