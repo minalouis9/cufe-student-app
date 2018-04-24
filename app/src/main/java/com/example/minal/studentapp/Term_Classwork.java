@@ -60,6 +60,7 @@ public class Term_Classwork extends AppCompatActivity {
             textView_MidtermGrade.setText(dataParsed_MidtermGrade);
             TextView textView_DailyWorkGrade = (TextView) findViewById(R.id.text3);
             textView_DailyWorkGrade.setText(dataParsed_DailyWorkGrade);
+
         }
 
 
@@ -82,7 +83,7 @@ public class Term_Classwork extends AppCompatActivity {
                 dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n";
                 dataParsed_MidtermGrade = dataParsed_MidtermGrade + SingleParsed_MidtermGrade + "\n";
                 dataParsed_DailyWorkGrade = dataParsed_DailyWorkGrade + SingleParsed_DailyWorkGrade + "\n";
-
+                
 
             }
 
