@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,9 +19,17 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.HttpClientStack;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+
 public class News extends AppCompatActivity {
     WebView wv;
     String url="http://eng.cu.edu.eg/ar/credit-hour-system/";
+    String fullString;
 
 
 
@@ -68,6 +77,31 @@ public class News extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
+        try {
+            URL url = new URL("http://eng.cu.edu.eg/ar/credit-hour-system/");
+            enableStrictMode();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+
+            String line;
+            while ( (line = br.readLine()) != null)
+                fullString += line;
+
+            br.close();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void enableStrictMode()
+    {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
     }
 
 
