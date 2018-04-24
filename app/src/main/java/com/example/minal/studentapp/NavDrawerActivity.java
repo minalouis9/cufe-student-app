@@ -79,11 +79,14 @@ ConnectionDetector cdr;
 
         CardView Elearning = findViewById(R.id.ElearningCardId);
         Elearning.setOnClickListener(new View.OnClickListener(){
+        CardView Statistic = findViewById(R.id.StatsticCardId);
+        Statistic.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
                 if(cdr.isConnected())
                     OpenElearning();
+                    OpenStatistics();
                 else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
             }
@@ -135,9 +138,17 @@ ConnectionDetector cdr;
         startActivity(IntentAttendance);
     }
     public void OpenElearning()
+    public void OpenProfile()
     {
         Intent IntentElearning = new Intent(this,Elearning.class);
         startActivity(IntentElearning);
+        Intent IntentProfile = new Intent(this,Profile.class);
+        startActivity(IntentProfile);
+    }
+    public void OpenStatistics()
+    {
+        Intent IntentStatistic = new Intent(this,Statistics.class);
+        startActivity(IntentStatistic);
     }
     public void OpenNews()
     {
@@ -191,6 +202,9 @@ ConnectionDetector cdr;
         if (id == R.id.Home_Itm) {
             // Handle the camera action
         } else if (id == R.id.Profile_Itm) {
+            if(cdr.isConnected())
+                OpenProfile();
+            else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.Calendar_Itm) {
 

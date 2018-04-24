@@ -1,5 +1,6 @@
 package com.example.minal.studentapp;
 
+import android.os.StrictMode;
 import android.util.Log;
 
 import org.ksoap2.SoapEnvelope;
@@ -23,6 +24,7 @@ public class SOAP_Access {
 
     public static SoapObject Request=null;
 
+
     private SOAP_Access()
     {
     }
@@ -39,6 +41,11 @@ public class SOAP_Access {
 
 
     public SoapPrimitive getResponse(String InvokeMessage) {
+
+
+        StrictMode.ThreadPolicy policy =
+                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
 
         try {
@@ -75,4 +82,5 @@ public class SOAP_Access {
         }
         return null;
     }
+
 }
