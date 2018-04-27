@@ -65,6 +65,7 @@ ConnectionDetector cdr;
                 else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
             }
         });
+
         CardView News = findViewById(R.id.NewsCardId);
         News.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -75,21 +76,30 @@ ConnectionDetector cdr;
                 else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
             }
         });
-        CardView Elearning = findViewById(R.id.ElearningCardId);
-        Elearning.setOnClickListener(new View.OnClickListener(){
+
         CardView Statistic = findViewById(R.id.StatsticCardId);
         Statistic.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
                 if(cdr.isConnected())
-                    OpenElearning();
                     OpenStatistics();
                 else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
             }
         });
 
+        CardView GPATranscript = findViewById(R.id.TranscriptCardId);
+        GPATranscript.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                if(cdr.isConnected())
+                    OpenTranscript();
+                else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
+
+            }
+        });
 
         CardView Deadlines = findViewById(R.id.DeadlinesCardId);
         Deadlines.setOnClickListener(new View.OnClickListener(){
@@ -101,6 +111,11 @@ ConnectionDetector cdr;
         });
     }
 
+    private void OpenTranscript()
+    {
+        Intent To_Transcript = new Intent(this, GPATranscript.class);
+        startActivity(To_Transcript);
+    }
 
     private void OpenDeadline()
     {
@@ -119,11 +134,8 @@ ConnectionDetector cdr;
         Intent IntentAttendance = new Intent(this,Attendance.class);
         startActivity(IntentAttendance);
     }
-    public void OpenElearning()
     public void OpenProfile()
     {
-        Intent IntentElearning = new Intent(this,Elearning.class);
-        startActivity(IntentElearning);
         Intent IntentProfile = new Intent(this,Profile.class);
         startActivity(IntentProfile);
     }
