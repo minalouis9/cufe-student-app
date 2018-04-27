@@ -1,5 +1,6 @@
 package com.example.minal.studentapp;
 
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -35,6 +36,15 @@ public class LoginActivity extends AppCompatActivity {
     private String dataParsed =null;
     private String Authenticated = "Authenticated";
     private ConnectionDetector cdr;
+    Intent mServiceIntent;
+    private SensorService mSensorService;
+
+    Context ctx;
+
+    public Context getCtx() {
+        return ctx;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +78,33 @@ public class LoginActivity extends AppCompatActivity {
             editText_Password.setText(loginPreferences.getString("password", ""));
             saveLogin_CheckBox.setChecked(true);
         }
+        ctx = this;
+        mSensorService = new SensorService(getCtx());
+        mServiceIntent = new Intent(getCtx(), mSensorService.getClass());
+        if (!isMyServiceRunning(mSensorService.getClass())) {
+            startService(mServiceIntent);
+        }
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i ("isMyServiceRunning?", true+"");
+                return true;
+            }
+        }
+        Log.i ("isMyServiceRunning?", false+"");
+        return false;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        stopService(mServiceIntent);
+        Log.i("MAINACT", "onDestroy!");
+        super.onDestroy();
+
     }
 
 

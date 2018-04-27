@@ -30,6 +30,7 @@ public class News extends AppCompatActivity {
     WebView wv;
     String url="http://eng.cu.edu.eg/ar/credit-hour-system/";
     String fullString;
+    News_Site stringsave;
 
 
 
@@ -51,7 +52,7 @@ public class News extends AppCompatActivity {
         setContentView(R.layout.activity_news);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        stringsave=new News_Site(this,"News_Site");
 
 
         wv=(WebView)findViewById(R.id.Wv);
@@ -95,8 +96,10 @@ public class News extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        stringsave.saveData(fullString);
 
     }
+
     public void enableStrictMode()
     {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
