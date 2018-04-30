@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
 import org.json.JSONArray;
@@ -57,8 +58,8 @@ public class GPATranscript extends AppCompatActivity {
         String Semester;
         for (int j = 0; j < Count-1; j++) {
 
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            params.width=1050;
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+            params.width=1500;
             params.topMargin=top;
             top+=130;
             // Create LinearLayout
