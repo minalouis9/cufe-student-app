@@ -214,4 +214,8 @@ ConnectionDetector cdr;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
+
+
