@@ -11,9 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
-
-
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -89,20 +87,28 @@
         </activity>
         <activity android:name=".edit_deadline" />
         <activity android:name=".GPATranscript" />
-        <activity android:name=".SemesterGPA"></activity>
+        <activity android:name=".SemesterGPA" />
 
         <service
             android:name=".SensorService"
             android:enabled="true" />
 
         <receiver
-
             android:name=".SensorBroadcast"
             android:enabled="true"
             android:exported="true"
             android:label="RestartServiceWhenStopped">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_ON" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
             <intent-filter>
                 <action android:name="com.example.minal.studentapp.SenorBroadcast" />
@@ -113,7 +119,8 @@
             android:name=".Profile"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Statistics"></activity>
+        <activity android:name=".Statistics" />
+        <activity android:name=".Warning"></activity>
     </application>
 
 </manifest>

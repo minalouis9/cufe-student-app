@@ -15,6 +15,7 @@ package com.example.minal.studentapp;
         import android.media.Ringtone;
         import android.media.RingtoneManager;
         import android.net.Uri;
+        import android.os.Handler;
         import android.os.IBinder;
         import android.os.StrictMode;
         import android.support.annotation.Nullable;
@@ -43,10 +44,16 @@ public class SensorService extends Service {
     private String Password = LoginActivity.password;
     private String Attendance_invoke = "1152013,0225541620,7";
     private String Term_Classwork_invoke = "1152013,0225541620,5";
+    private String Warning_invoke = "1152013,0225541620,8";
+    private String GPA_invoke = "1152013,0225541620,2";
     private SoapPrimitive resultString;
     private News_Site Attendanc;
     private News_Site New;
     private News_Site Termclasswork;
+    private News_Site Warning;
+    private News_Site Gpa;
+    public Handler handler = null;
+    public static Runnable runnable = null;
     String data="";
     public SensorService(Context applicationContext) {
         super();
@@ -55,39 +62,85 @@ public class SensorService extends Service {
 
     public SensorService() {
     }
+   /* @Override
+    public void onCreate() {
+        Toast.makeText(this, "Service created!", Toast.LENGTH_LONG).show();
 
+        handler = new Handler();
+        runnable = new Runnable() {
+            public void run() {
+                AttendanceAlert();
+                handler.postDelayed(runnable, 10000);
+            }
+        };
+
+        handler.postDelayed(runnable, 15000);
+
+    }*/
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         Attendanc=new News_Site(this,"Attendance");
         New=new News_Site(this,"News_Site");
         Termclasswork=new News_Site(this,"Term_Classwork");
-        /*Calendar cal = Calendar.getInstance();
+        Warning=new News_Site(this,"Warning");
+        Gpa=new News_Site(this,"Gpa");
+      /* Calendar cal = Calendar.getInstance();
         PendingIntent pintent = PendingIntent
-                .getService(this, 0, intent, 0);
+                .getBroadcast(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         // Start service every hour
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-                60*5 * 1000 , pintent);//1000*60 = 5 minute
-        AlarmManager mgr = (AlarmManager) getApplicationContext()
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
+                60000, pintent);//1000*60 = 5 minute
+        /*AlarmManager mgr = (AlarmManager) getApplicationContext()
                 .getSystemService(Context.ALARM_SERVICE);
-        Intent notificationIntent = new Intent(getApplicationContext(),
+        Intent notificationIntent = new Intent(this,
                 SensorService.class);
         //PendingIntent pendingIntent=PendingIntent.getService(getApplicationContext(), req, Intent.parseIntent(), 0);
         PendingIntent pintent = PendingIntent
-                .getService(this, 0, intent, 0);
-        mgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis(), AlarmManager.INTERVAL_HALF_HOUR, pintent);*/
-        AlarmManager am=(AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        Intent i = new Intent(getApplicationContext(), SensorService.class);
-        PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 600000, pi); // Millisec * Second * Minute
+                .getService(this, 0,notificationIntent , 0);
+        mgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                System.currentTimeMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES, pintent);
+       /* AlarmManager alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(this, SensorService.class),PendingIntent.FLAG_CANCEL_CURRENT);
+
+// Use inexact repeating which is easier on battery (system can phase events and not wake at exact times)
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),1000*60*2, pendingIntent);*/
+       /*handler = new Handler();
+        runnable = new Runnable() {
+            public void run() {
+                AttendanceAlert();
+                Term_ClassworkAlert();
+                WarningAlert();
+                handler.postDelayed(runnable, 60000);
+            }
+        };
+
+      //  handler.postDelayed(runnable, 15000);*/
 
         //NewsAlert();
-        AttendanceAlert();
-        Term_ClassworkAlert();
+      //  AttendanceAlert();
+        //Term_ClassworkAlert();
+       // WarningAlert();
+        //GPAAlert();
 
         return START_STICKY;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        handler = new Handler();
+        runnable = new Runnable() {
+            public void run() {
+                AttendanceAlert();
+                Term_ClassworkAlert();
+                WarningAlert();
+                handler.postDelayed(runnable, 60000);
+            }
+
+        };
+        handler.postDelayed(runnable, 15000);
     }
 
     @Override
@@ -98,53 +151,6 @@ public class SensorService extends Service {
         sendBroadcast(broadcastIntent);
     }
 
-    // To notify if there is any new News
-    /*public void NewsAlert()
-    {
-        try {
-            URL url = new URL("http://eng.cu.edu.eg/ar/credit-hour-system/");
-
-            enableStrictMode();
-
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-
-            String line;
-
-            while ( (line = br.readLine()) != null)
-                data += line;
-
-            br.close();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if(New.readSavedData()==null) {
-            if (New.readSavedData().equals(data)) {
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.att) // notification icon
-                        .setContentTitle("CUFE") // title for notification
-                        .setContentText("New") // message for notification
-                        .setAutoCancel(true).setDefaults(Notification.DEFAULT_ALL); // clear notification after click
-                Intent intent = new Intent(this, LoginActivity.class);
-                PendingIntent pi = PendingIntent.getActivity(this, 0, intent, Intent.FILL_IN_COMPONENT);
-                mBuilder.setContentIntent(pi);
-                NotificationManager mNotificationManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                mNotificationManager.notify(0, mBuilder.build());
-            }
-        }
-
-
-    }
-    public void enableStrictMode()
-    {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
-        StrictMode.setThreadPolicy(policy);
-    }*/
 // To notify if there is new absence
     public void AttendanceAlert() {
         SOAP_Access serverAccessClass = SOAP_Access._getInstance();
@@ -153,7 +159,7 @@ public class SensorService extends Service {
        String  SoapString= resultString.toString();
         SoapString+="\n";
         if(Attendanc.readSavedData()!=null) {
-            if (!(Attendanc.readSavedData().equals(SoapString))) {
+            if ((Attendanc.readSavedData().equals(SoapString))) {
                 Attendanc.saveData(resultString.toString());
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.attendance1) // notification icon
@@ -201,6 +207,69 @@ public class SensorService extends Service {
                 mNotificationManager.notify(1, mBuilder.build());
             }
         }else Termclasswork.saveData(resultString.toString());
+
+
+
+
+    }
+
+    public void GPAAlert() {
+        SOAP_Access serverAccessClass = SOAP_Access._getInstance();
+
+        resultString = serverAccessClass.getResponse(GPA_invoke);
+        String  SoapString= resultString.toString();
+        SoapString+="\n";
+        if(Gpa.readSavedData()!=null) {
+            if ((Gpa.readSavedData().equals(SoapString))) {
+                Gpa.saveData(resultString.toString());
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.transcript1) // notification icon
+                        .setContentTitle("CUFE") // title for notification
+                        .setContentText("Final Results are added") // message for notification
+                        .setAutoCancel(true).setDefaults(Notification.DEFAULT_VIBRATE).setOnlyAlertOnce(true); // clear notification after click
+                Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getApplicationContext().getPackageName() + "/raw/se");
+                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), alarmSound);
+                r.play();
+                Intent intent = new Intent(this, LoginActivity.class);
+                PendingIntent pi = PendingIntent.getActivity(this, 0, intent, Intent.FILL_IN_CATEGORIES);
+                mBuilder.setContentIntent(pi);
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                mNotificationManager.notify(3, mBuilder.build());
+            }
+        }else Gpa.saveData(resultString.toString());
+
+
+
+
+    }
+
+    public void WarningAlert() {
+        SOAP_Access serverAccessClass = SOAP_Access._getInstance();
+
+        resultString = serverAccessClass.getResponse(Warning_invoke);
+        String  SoapString= resultString.toString();
+        SoapString+="\n";
+        if(Warning.readSavedData()!=null) {
+            if (!(Warning.readSavedData().equals(SoapString))) {
+
+                Warning.saveData(resultString.toString());
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.warn) // notification icon
+                        .setContentTitle("CUFE") // title for notification
+                        .setContentText("Warning!! Enzaaaaaar") // message for notification
+                        .setAutoCancel(true).setDefaults(Notification.DEFAULT_VIBRATE).setOnlyAlertOnce(true); // clear notification after click
+                Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getApplicationContext().getPackageName() + "/raw/closed");
+                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), alarmSound);
+                r.play();
+                Intent intent = new Intent(this, LoginActivity.class);
+                PendingIntent pi = PendingIntent.getActivity(this, 0, intent, Intent.FILL_IN_CATEGORIES);
+                mBuilder.setContentIntent(pi);
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                mNotificationManager.notify(2, mBuilder.build());
+            }
+        }else Warning.saveData(resultString.toString());
 
 
 

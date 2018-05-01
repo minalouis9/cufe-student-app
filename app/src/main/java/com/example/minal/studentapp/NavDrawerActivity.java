@@ -144,6 +144,11 @@ ConnectionDetector cdr;
         Intent IntentStatistic = new Intent(this,Statistics.class);
         startActivity(IntentStatistic);
     }
+    public void OpenWarnings()
+    {
+        Intent IntentWarning = new Intent(this,Warning.class);
+        startActivity(IntentWarning);
+    }
     public void OpenNews()
     {
         Intent IntentNews = new Intent(this,News.class);
@@ -200,7 +205,10 @@ ConnectionDetector cdr;
                 OpenProfile();
             else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
-        } else if (id == R.id.Calendar_Itm) {
+        } else if (id == R.id.Warning_Itm) {
+            if(cdr.isConnected())
+                OpenWarnings();
+            else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.Exams_Itm) {
 
