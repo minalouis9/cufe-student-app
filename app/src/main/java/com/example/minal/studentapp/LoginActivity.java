@@ -24,14 +24,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public static String username,password;
-    public static Boolean StayLoggedin = false;
-    private String TAG = "Response Login: ";
+    //private String TAG = "Response Login: ";
 
     private EditText editText_ID=null,editText_Password=null;
     private CheckBox saveLogin_CheckBox=null;
-    private SharedPreferences loginPreferences=null;
-    private SharedPreferences.Editor loginPrefs_Editor=null;
+    public static SharedPreferences loginPreferences=null;
+    public static SharedPreferences.Editor loginPrefs_Editor=null;
     private Boolean saveLogin=null;
+    public static Boolean StayLogged=null;
     private SoapPrimitive resultString=null;
     private String data =null;
     private String dataParsed =null;
@@ -85,17 +85,23 @@ public class LoginActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                 }
                             }, 500);
+
                 }
-                else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
+                else
+                {
+                    if(StayLogged && saveLogin)
+                        onLoginSuccess();
+                }
             }
         });
 
+        StayLogged = loginPreferences.getBoolean("StayLogged",false);
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        if (saveLogin == true) {
+        if (saveLogin) {
             editText_ID.setText(loginPreferences.getString("username", ""));
             editText_Password.setText(loginPreferences.getString("password", ""));
             saveLogin_CheckBox.setChecked(true);
-            if(StayLoggedin)
+            if(StayLogged)
                 Login.performClick();
         }
         ctx = this;
@@ -132,19 +138,19 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            Log.i(TAG, "onPreExecute");
+            //Log.i(TAG, "onPreExecute");
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            Log.i(TAG, "doInBackground");
+            //Log.i(TAG, "doInBackground");
             Get_Login();
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            Log.i(TAG, "onPostExecute");
+            //Log.i(TAG, "onPostExecute");
             if(dataParsed.compareTo(Authenticated) == 0)
                 login();
             else
@@ -189,7 +195,7 @@ public class LoginActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(editText_ID.getWindowToken(), 0);
 
         if (saveLogin_CheckBox.isChecked()) {
-            StayLoggedin = true;
+            loginPrefs_Editor.putBoolean("StayLogged",true);
             loginPrefs_Editor.putBoolean("saveLogin", true);
             loginPrefs_Editor.putString("username", username);
             loginPrefs_Editor.putString("password", password);

@@ -231,7 +231,8 @@ ConnectionDetector cdr;
         } else if (id == R.id.Logout_Itm) {
             // disable going back to the MainActivity
             moveTaskToBack(true);
-            LoginActivity.StayLoggedin = false;
+            LoginActivity.loginPrefs_Editor.putBoolean("StayLogged",false);
+            LoginActivity.loginPrefs_Editor.commit();
             LogOut();
         }
 

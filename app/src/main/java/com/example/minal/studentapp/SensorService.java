@@ -47,6 +47,7 @@ public class SensorService extends Service {
     private News_Site Attendanc;
     private News_Site New;
     private News_Site Termclasswork;
+    private ConnectionDetector cdx;
     String data="";
     public SensorService(Context applicationContext) {
         super();
@@ -84,9 +85,11 @@ public class SensorService extends Service {
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 600000, pi); // Millisec * Second * Minute
 
         //NewsAlert();
-        AttendanceAlert();
-        Term_ClassworkAlert();
-
+        cdx = new ConnectionDetector(this);
+        if (cdx.isConnected()) {
+            AttendanceAlert();
+            Term_ClassworkAlert();
+        }
         return START_STICKY;
     }
 
