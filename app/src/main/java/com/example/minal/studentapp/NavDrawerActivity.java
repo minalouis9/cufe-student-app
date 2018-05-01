@@ -120,6 +120,13 @@ ConnectionDetector cdr;
         });
     }
 
+    private void LogOut()
+    {
+        Intent IntentLoginActivity = new Intent(this,LoginActivity.class);
+        startActivity(IntentLoginActivity);
+        finish();
+    }
+
     private void OpenTranscript()
     {
         Intent To_Transcript = new Intent(this, GPACalculator.class);
@@ -222,11 +229,18 @@ ConnectionDetector cdr;
         } else if (id == R.id.Stats_Itm) {
 
         } else if (id == R.id.Logout_Itm) {
-
+            // disable going back to the MainActivity
+            moveTaskToBack(true);
+            LoginActivity.StayLoggedin = false;
+            LogOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
+
+

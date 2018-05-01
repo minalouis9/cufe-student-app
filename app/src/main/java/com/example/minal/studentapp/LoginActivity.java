@@ -1,5 +1,6 @@
 package com.example.minal.studentapp;
 
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public static String username,password;
+    public static Boolean StayLoggedin = false;
     private String TAG = "Response Login: ";
 
     private EditText editText_ID=null,editText_Password=null;
@@ -35,6 +37,15 @@ public class LoginActivity extends AppCompatActivity {
     private String dataParsed =null;
     private String Authenticated = "Authenticated";
     private ConnectionDetector cdr;
+    Intent mServiceIntent;
+    private SensorService mSensorService;
+
+    Context ctx;
+
+    public Context getCtx() {
+        return ctx;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,36 +53,81 @@ public class LoginActivity extends AppCompatActivity {
         cdr=new ConnectionDetector(this);
 
         CardView Login = findViewById(R.id.Login_Card);
-        Login.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                if(cdr.isConnected()){
-                //login();
-                LoginActivity.AsyncCallWS_LoginAuthentication loginAuthenticator = new LoginActivity.AsyncCallWS_LoginAuthentication();
-                loginAuthenticator.execute();
-                }
-                else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
-            }
-        });
-
-
         editText_ID = findViewById(R.id.ID_Text);
         editText_Password = findViewById(R.id.Password_Text);
         saveLogin_CheckBox = findViewById(R.id.RememberMecheckBox);
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefs_Editor = loginPreferences.edit();
 
+        Login.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                if(cdr.isConnected()){
+                //login();
+
+                    final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
+                            R.style.AppTheme_Dark_Dialog);
+                    progressDialog.setIndeterminate(true);
+                    progressDialog.setMessage("Authenticating...");
+                    progressDialog.show();
+
+                    // TODO: Implement your own authentication logic here.
+                    LoginActivity.AsyncCallWS_LoginAuthentication loginAuthenticator = new LoginActivity.AsyncCallWS_LoginAuthentication();
+                    loginAuthenticator.execute();
+
+                    new android.os.Handler().postDelayed(
+                            new Runnable() {
+                                public void run() {
+                                    // On complete call either onLoginSuccess or onLoginFailed
+                                    onLoginSuccess();
+                                    // onLoginFailed();
+                                    progressDialog.dismiss();
+                                }
+                            }, 500);
+                }
+                else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
+            }
+        });
+
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
         if (saveLogin == true) {
             editText_ID.setText(loginPreferences.getString("username", ""));
             editText_Password.setText(loginPreferences.getString("password", ""));
             saveLogin_CheckBox.setChecked(true);
+            if(StayLoggedin)
+                Login.performClick();
+        }
+        ctx = this;
+        mSensorService = new SensorService(getCtx());
+        mServiceIntent = new Intent(getCtx(), mSensorService.getClass());
+        if (!isMyServiceRunning(mSensorService.getClass())) {
+            startService(mServiceIntent);
         }
     }
 
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i ("isMyServiceRunning?", true+"");
+                return true;
+            }
+        }
+        Log.i ("isMyServiceRunning?", false+"");
+        return false;
+    }
 
-    //Andrew part
+
+    @Override
+    protected void onDestroy() {
+        stopService(mServiceIntent);
+        Log.i("MAINACT", "onDestroy!");
+        super.onDestroy();
+
+    }
+
+
     private class AsyncCallWS_LoginAuthentication extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -133,6 +189,7 @@ public class LoginActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(editText_ID.getWindowToken(), 0);
 
         if (saveLogin_CheckBox.isChecked()) {
+            StayLoggedin = true;
             loginPrefs_Editor.putBoolean("saveLogin", true);
             loginPrefs_Editor.putString("username", username);
             loginPrefs_Editor.putString("password", password);
@@ -147,23 +204,6 @@ public class LoginActivity extends AppCompatActivity {
         EditText Pass_text = findViewById(R.id.Password_Text);
         Login.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
-
-        // TODO: Implement your own authentication logic here.
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 500);
     }
 
     @Override
