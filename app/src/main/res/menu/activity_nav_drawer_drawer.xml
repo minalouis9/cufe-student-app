@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/Home_Itm"
+            android:icon="@drawable/ic_action_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/Profile_Itm"
+            android:icon="@drawable/ic_action_profile"
+            android:title="My Profile" />
+        <item
+            android:id="@+id/Calendar_Itm"
+            android:icon="@drawable/ic_action_calendar"
+            android:title="Academic Calender" />
+        <item
+            android:id="@+id/Exams_Itm"
+            android:icon="@drawable/ic_action_exam"
+            android:title="Exams Schedules" />
+        <item
+            android:id="@+id/Stats_Itm"
+            android:icon="@drawable/ic_action_stat"
+            android:title="Term Statistics" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/Logout_Itm"
+                android:icon="@drawable/ic_action_logout"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>

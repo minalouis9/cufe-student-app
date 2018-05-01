@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/MidnightBlue"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:padding="@dimen/activity_padding_horizontal">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/deadlineCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_padding_horizontal"
+            android:layout_marginLeft="10dp">
+
+        <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="@dimen/placeholder_image"
+        android:layout_height="@dimen/placeholder_image"
+        android:layout_marginRight="@dimen/padding_10"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/thumbnail"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/name" />
+
+    <TextView
+        android:id="@+id/Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_toRightOf="@id/thumbnail"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/chef" />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Description"
+        android:layout_toRightOf="@id/thumbnail"
+        android:maxLines="1"
+        android:text="2 min ago"
+        android:textColor="@color/oil"
+        android:textSize="@dimen/timestamp" />
+
+    <TextView
+        android:id="@+id/DueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/thumbnail"
+        android:layout_marginTop="@dimen/activity_padding_horizontal"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="@color/midnightBlue"
+        android:textSize="@dimen/description" />
+
+    <TextView
+        android:id="@+id/HoursAndDaysLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DueDate"
+        android:layout_marginTop="@dimen/padding_10"
+        android:textColor="@color/Punch"
+        android:textSize="@dimen/price"
+        android:textStyle="bold" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
