@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://E:\Blur\cufe-student-app-master\cufe-student-app-master\StudentApp.iml" filepath="E:\Blur\cufe-student-app-master\cufe-student-app-master\StudentApp.iml" />
-      <module fileurl="file://C:\Users\Andrew\Desktop\Project\cufe-student-app\StudentCUFEApp.iml" filepath="C:\Users\Andrew\Desktop\Project\cufe-student-app\StudentCUFEApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\Blur\cufe-student-app-master\cufe-student-app-master\app\app.iml" filepath="E:\Blur\cufe-student-app-master\cufe-student-app-master\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/cufe-student-app.iml" filepath="$PROJECT_DIR$/cufe-student-app.iml" />
-      <module fileurl="file://E:\Blur\StudentCUFEApp\cufe-student-app-master.iml" filepath="E:\Blur\StudentCUFEApp\cufe-student-app-master.iml" />
-      <module fileurl="file://C:\Users\Andrew\Desktop\Project\cufe-student-app\cufe-student-app-master.iml" filepath="C:\Users\Andrew\Desktop\Project\cufe-student-app\cufe-student-app-master.iml" />
     </modules>
   </component>
 </project>

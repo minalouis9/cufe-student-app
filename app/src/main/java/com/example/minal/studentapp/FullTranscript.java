@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
 import org.json.JSONArray;
@@ -18,12 +17,12 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 
 
-public class GPATranscript extends AppCompatActivity {
+public class FullTranscript extends AppCompatActivity {
 
     private String TAG = "Response to Class Grades: ";
     private String ID = LoginActivity.username;
     private String Password = LoginActivity.password;
-    private String GPATranscript_invoke = ID+","+Password+",4";
+    private String GPATranscript_invoke = ID+","+Password+",2";
     private SoapPrimitive resultString;
 
     private String data = null;
@@ -59,8 +58,8 @@ public class GPATranscript extends AppCompatActivity {
         String Semester;
         for (int j = 0; j < Count; j++) {
 
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            params.width=1500;
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            params.width=1050;
             params.topMargin=top;
             top+=130;
             // Create LinearLayout
@@ -92,7 +91,7 @@ public class GPATranscript extends AppCompatActivity {
 
     private void OpenSemesterGPA(String s)
     {
-        Intent To_Semester = new Intent(this, SemesterGPA.class);
+        Intent To_Semester = new Intent(this, SemesterTranscipt.class);
         startActivity(To_Semester);
         SemesterName=s;
     }

@@ -50,10 +50,14 @@ public class SensorService extends Service {
     private News_Site Attendanc;
     private News_Site New;
     private News_Site Termclasswork;
+<<<<<<< HEAD
     private News_Site Warning;
     private News_Site Gpa;
     public Handler handler = null;
     public static Runnable runnable = null;
+=======
+    private ConnectionDetector cdx;
+>>>>>>> 966863074b953c8fab16ea428cb8ad85c40376fe
     String data="";
     public SensorService(Context applicationContext) {
         super();
@@ -119,11 +123,19 @@ public class SensorService extends Service {
       //  handler.postDelayed(runnable, 15000);*/
 
         //NewsAlert();
+<<<<<<< HEAD
       //  AttendanceAlert();
         //Term_ClassworkAlert();
        // WarningAlert();
         //GPAAlert();
 
+=======
+        cdx = new ConnectionDetector(this);
+        if (cdx.isConnected()) {
+            AttendanceAlert();
+            Term_ClassworkAlert();
+        }
+>>>>>>> 966863074b953c8fab16ea428cb8ad85c40376fe
         return START_STICKY;
     }
 

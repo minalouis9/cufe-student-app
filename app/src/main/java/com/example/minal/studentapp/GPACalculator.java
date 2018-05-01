@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
 import org.json.JSONArray;
@@ -17,13 +16,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-public class GPATranscript extends AppCompatActivity {
+
+public class GPACalculator extends AppCompatActivity {
 
     private String TAG = "Response to Class Grades: ";
     private String ID = LoginActivity.username;
     private String Password = LoginActivity.password;
-    private String GPATranscript_invoke = ID+","+Password+",4";
+    private String GPATranscript_invoke = ID+","+Password+",2";
     private SoapPrimitive resultString;
 
     private String data = null;
@@ -40,9 +46,9 @@ public class GPATranscript extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gpatranscript);
-        AsyncCallWS_ReadSemesters semesterReader = new AsyncCallWS_ReadSemesters();
-        semesterReader.execute();
+        setContentView(R.layout.activity_gpacalculator);
+                AsyncCallWS_ReadSemesters semesterReader = new AsyncCallWS_ReadSemesters();
+                semesterReader.execute();
 
     }
 
@@ -59,8 +65,8 @@ public class GPATranscript extends AppCompatActivity {
         String Semester;
         for (int j = 0; j < Count; j++) {
 
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            params.width=1500;
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            params.width=1050;
             params.topMargin=top;
             top+=130;
             // Create LinearLayout
@@ -92,7 +98,7 @@ public class GPATranscript extends AppCompatActivity {
 
     private void OpenSemesterGPA(String s)
     {
-        Intent To_Semester = new Intent(this, SemesterGPA.class);
+        Intent To_Semester = new Intent(this, SemesterCalculator.class);
         startActivity(To_Semester);
         SemesterName=s;
     }
@@ -124,18 +130,63 @@ public class GPATranscript extends AppCompatActivity {
 
 
         }
+    }
+
+    private void SaveData(String jsonData)
+    {
+        try {
+            FileOutputStream gpa_File = GPACalculator.this.openFileOutput(ID+"GPA", GPACalculator.this.MODE_PRIVATE);
+            gpa_File.write(jsonData.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
+    private String ReadOfflineData()
+    {
+        String DataOut = "",bufferedLine="";
+        FileInputStream ReadFile = null;
+        try {
+            ReadFile = GPACalculator.this.openFileInput(ID+"GPA");
+            InputStreamReader Reader = new InputStreamReader(ReadFile);
+            BufferedReader Readings_Buffer = new BufferedReader(Reader);
+            while ((bufferedLine = Readings_Buffer.readLine()) != null)
+            {
+                DataOut += bufferedLine+= '\n';
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return DataOut;
+    }
         private void Get_GPA() {
 
-            SOAP_Access serverAccessClass= SOAP_Access._getInstance();
+            if((new ConnectionDetector(GPACalculator.this)).isConnected()==false) {
 
-            resultString = serverAccessClass.getResponse(GPATranscript_invoke);
+                data = ReadOfflineData();
+            }
+            else {
+                SOAP_Access serverAccessClass = SOAP_Access._getInstance();
+
+                resultString = serverAccessClass.getResponse(GPATranscript_invoke);
+                SaveData(resultString.toString());
+                data = resultString.toString();
+            }
 
             try{
-                data = resultString.toString();
-                GPA_Json = resultString.toString();
+
+
+                if(data.length()==0) {
+                    return;
+                }
+                GPA_Json = data;
                 JSONObject JBO_AllData = new JSONObject(data);
                 JSONObject Transcript = (JSONObject)JBO_AllData.get("GPA_Transcript");
                 JSONArray Semeters = (JSONArray) Transcript.get("Semester");
@@ -149,6 +200,8 @@ public class GPATranscript extends AppCompatActivity {
                     dataParsed_SemesterName = dataParsed_SemesterName + SingleParsed_SemesterName + "\n";
                     Semesters[iterator]= DataInstance_SubjectData.get("Semester_Name") + "";
                     Count++;
+
+
                 }
                 dataParsed_Cumulative = details.get("Student_GPA")+"";
                 dataParsed_CreditHrs = details.get("Student_Total_Credits")+"";
@@ -165,4 +218,4 @@ public class GPATranscript extends AppCompatActivity {
         }
 
     }
-}
+

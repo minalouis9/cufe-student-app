@@ -89,15 +89,24 @@ ConnectionDetector cdr;
             }
         });
 
-        CardView GPATranscript = findViewById(R.id.TranscriptCardId);
+        CardView GPATranscript = findViewById(R.id.StaffdataCardId);
         GPATranscript.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
                 if(cdr.isConnected())
-                    OpenTranscript();
+                    OpenGPA();
                 else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
+            }
+        });
+
+        CardView FullTranscript = findViewById(R.id.TranscriptCardId);
+        FullTranscript.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                    OpenTranscript();
             }
         });
 
@@ -111,7 +120,20 @@ ConnectionDetector cdr;
         });
     }
 
+    private void LogOut()
+    {
+        Intent IntentLoginActivity = new Intent(this,LoginActivity.class);
+        startActivity(IntentLoginActivity);
+        finish();
+    }
+
     private void OpenTranscript()
+    {
+        Intent To_Transcript = new Intent(this, GPACalculator.class);
+        startActivity(To_Transcript);
+    }
+
+    private void OpenGPA()
     {
         Intent To_Transcript = new Intent(this, GPATranscript.class);
         startActivity(To_Transcript);
@@ -215,11 +237,19 @@ ConnectionDetector cdr;
         } else if (id == R.id.Stats_Itm) {
 
         } else if (id == R.id.Logout_Itm) {
-
+            // disable going back to the MainActivity
+            moveTaskToBack(true);
+            LoginActivity.loginPrefs_Editor.putBoolean("StayLogged",false);
+            LoginActivity.loginPrefs_Editor.commit();
+            LogOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
+
+
