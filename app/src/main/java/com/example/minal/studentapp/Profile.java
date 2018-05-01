@@ -66,11 +66,21 @@ public class Profile extends AppCompatActivity {
             textView_GPA.setText(GPA_Parsed);
             TextView textView_Total_credits= (TextView) findViewById(R.id.textView10);
             textView_Total_credits.setText(Total_credits_Parsed);
+            if(ID.charAt(0)!='1')
+            {
+                 TextView textView_Student_Address= (TextView) findViewById(R.id.textView7);
+                 textView_Student_Address.setText("Student Address:");
+                 TextView textView_Email= (TextView) findViewById(R.id.textView9);
+                 textView_Email.setText("Email");
+            }
+
 
         }
 
 
         private void Get_Profile() {
+            if(ID.charAt(0)!='1')
+                Profile_invoke= ID+","+Password+",14";
 
             SOAP_Access serverAccessClass = SOAP_Access._getInstance();
 
@@ -82,9 +92,15 @@ public class Profile extends AppCompatActivity {
                 JSONObject DataInstance_Profile = (JSONObject) JBO_AllData.get("Profile_Info");
                 ID_Parsed = DataInstance_Profile.get("Student_Code") + "";
                 Name_Parsed = DataInstance_Profile.get("Student_Name_EN") + "";
-                Program_Parsed = DataInstance_Profile.get("Student_Program_Name") + "";
-                GPA_Parsed = DataInstance_Profile.get("Student_GPA") + "";
-                Total_credits_Parsed = DataInstance_Profile.get("Student_Total_Credits") + "";
+                if(ID.charAt(0)=='1') {
+                    Program_Parsed = DataInstance_Profile.get("Student_Program_Name") + "";
+                    GPA_Parsed = DataInstance_Profile.get("Student_GPA") + "";
+                    Total_credits_Parsed = DataInstance_Profile.get("Student_Total_Credits") + "";
+                } else {
+                    Program_Parsed = DataInstance_Profile.get("Student_Department_Code") + "";
+                    GPA_Parsed = DataInstance_Profile.get("Student_Address") + "";
+                    Total_credits_Parsed = DataInstance_Profile.get("Student_Email") + "";
+                }
 
             } catch (JSONException e)
 

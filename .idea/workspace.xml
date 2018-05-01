@@ -1,7 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57ab4f50-1234-4cc3-a273-991be858fbbb" name="Default" comment="" />
+    <list default="true" id="57ab4f50-1234-4cc3-a273-991be858fbbb" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/.gitignore" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/FullTranscript.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/GPACalculator.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/SemesterCalculator.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/SemesterTranscipt.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/Warning.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/warn.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_full_transcript.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_gpacalculator.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_semester_calculator.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_semester_transcipt.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_warning.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/raw/closed.mp3" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/Attendance.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/Attendance.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/GPATranscript.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/GPATranscript.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/LoginActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/NavDrawerActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/NavDrawerActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/NewDeadline.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/NewDeadline.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/News_Site.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/News_Site.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/Profile.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/Profile.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/SemesterGPA.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/SemesterGPA.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/SensorService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/SensorService.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/Statistics.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/minal/studentapp/Statistics.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_attendance.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_attendance.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_gpatranscript.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_gpatranscript.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_homescreen.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_homescreen.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_semester_gp.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_semester_gp.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_profile.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_profile.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/activity_nav_drawer_drawer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/activity_nav_drawer_drawer.xml" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +57,9 @@
         <projects_view />
       </state>
     </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="myGradleHomes">
@@ -2267,7 +2307,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />

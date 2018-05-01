@@ -95,9 +95,18 @@ ConnectionDetector cdr;
             public void onClick(View v)
             {
                 if(cdr.isConnected())
-                    OpenTranscript();
+                    OpenGPA();
                 else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
+            }
+        });
+
+        CardView FullTranscript = findViewById(R.id.TranscriptCardId);
+        FullTranscript.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                    OpenTranscript();
             }
         });
 
@@ -116,6 +125,13 @@ ConnectionDetector cdr;
         });
     }
 
+    private void LogOut()
+    {
+        Intent IntentLoginActivity = new Intent(this,LoginActivity.class);
+        startActivity(IntentLoginActivity);
+        finish();
+    }
+
     private void OpenTimetable()
     {
         Intent To_Timetable = new Intent(this, TimeTable.class);
@@ -123,6 +139,12 @@ ConnectionDetector cdr;
     }
 
     private void OpenTranscript()
+    {
+        Intent To_Transcript = new Intent(this, GPACalculator.class);
+        startActivity(To_Transcript);
+    }
+
+    private void OpenGPA()
     {
         Intent To_Transcript = new Intent(this, GPATranscript.class);
         startActivity(To_Transcript);
@@ -154,6 +176,11 @@ ConnectionDetector cdr;
     {
         Intent IntentStatistic = new Intent(this,Statistics.class);
         startActivity(IntentStatistic);
+    }
+    public void OpenWarnings()
+    {
+        Intent IntentWarning = new Intent(this,Warning.class);
+        startActivity(IntentWarning);
     }
     public void OpenNews()
     {
@@ -211,18 +238,29 @@ ConnectionDetector cdr;
                 OpenProfile();
             else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
-        } else if (id == R.id.Calendar_Itm) {
+        } else if (id == R.id.Warning_Itm) {
+            if(cdr.isConnected())
+                OpenWarnings();
+            else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.Exams_Itm) {
 
         } else if (id == R.id.Stats_Itm) {
 
         } else if (id == R.id.Logout_Itm) {
-
+            // disable going back to the MainActivity
+            moveTaskToBack(true);
+            LoginActivity.loginPrefs_Editor.putBoolean("StayLogged",false);
+            LoginActivity.loginPrefs_Editor.commit();
+            LogOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
+
+

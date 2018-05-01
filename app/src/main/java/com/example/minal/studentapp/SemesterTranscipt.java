@@ -1,29 +1,21 @@
 package com.example.minal.studentapp;
 
-import android.content.Intent;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Button;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import android.app.ActionBar.LayoutParams;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.RelativeLayout;
 
 import java.text.DecimalFormat;
 
-public class SemesterGPA extends AppCompatActivity {
+public class SemesterTranscipt extends AppCompatActivity {
 
-    private String SemesterNameInJson=GPATranscript.SemesterName;
-    private int CountInJson=GPATranscript.Count;
-    private String[] SemestersInJson= GPATranscript.Semesters;
-    private String GPAInJson=GPATranscript.GPA_Json;
+    private String SemesterNameInJson=FullTranscript.SemesterName;
+    private int CountInJson=FullTranscript.Count;
+    private String[] SemestersInJson= FullTranscript.Semesters;
+    private String GPAInJson=FullTranscript.GPA_Json;
     private String[] StringGrades= new String[10];
     private int[] Hrs= new int[10];
     private double[] Grades= new double[10];
@@ -70,29 +62,29 @@ public class SemesterGPA extends AppCompatActivity {
         for(int i=0;i<Count;i++)
         {
             if (StringGrades[i].equals("A+")|| StringGrades[i].equals("A"))
-                    Grades[i] = 4.0;
+                Grades[i] = 4.0;
             else if (StringGrades[i].equals("A-"))
-                    Grades[i] = 3.7;
+                Grades[i] = 3.7;
             else if (StringGrades[i].equals("B+"))
-                    Grades[i] = 3.3;
+                Grades[i] = 3.3;
             else if (StringGrades[i].equals("B"))
-                    Grades[i] = 3.0;
+                Grades[i] = 3.0;
             else if (StringGrades[i].equals("B-"))
-                    Grades[i] = 2.7;
+                Grades[i] = 2.7;
             else if (StringGrades[i].equals("C+"))
-                    Grades[i] = 2.3;
+                Grades[i] = 2.3;
             else if (StringGrades[i].equals("C"))
-                    Grades[i] = 2.0;
+                Grades[i] = 2.0;
             else if (StringGrades[i].equals("C-"))
-                    Grades[i] = 1.7;
+                Grades[i] = 1.7;
             else if (StringGrades[i].equals("D+"))
-                    Grades[i] = 1.3;
+                Grades[i] = 1.3;
             else if (StringGrades[i].equals("D"))
-                    Grades[i] = 1.0;
+                Grades[i] = 1.0;
             else if (StringGrades[i].equals("D-"))
-                    Grades[i] = 0.7;
+                Grades[i] = 0.7;
             else if (StringGrades[i].equals("F"))
-                    Grades[i] = 0.0;
+                Grades[i] = 0.0;
         }
         double Mul;
         double TotalPoints=0;
