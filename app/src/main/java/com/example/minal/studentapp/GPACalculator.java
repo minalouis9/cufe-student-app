@@ -144,6 +144,8 @@ public class GPACalculator extends AppCompatActivity {
         }
     }
 
+
+
     private String ReadOfflineData()
     {
         String DataOut = "",bufferedLine="";
@@ -167,6 +169,7 @@ public class GPACalculator extends AppCompatActivity {
         private void Get_GPA() {
 
             if((new ConnectionDetector(GPACalculator.this)).isConnected()==false) {
+
                 data = ReadOfflineData();
             }
             else {
@@ -180,8 +183,10 @@ public class GPACalculator extends AppCompatActivity {
             try{
 
 
-
-                GPA_Json = resultString.toString();
+                if(data.length()==0) {
+                    return;
+                }
+                GPA_Json = data;
                 JSONObject JBO_AllData = new JSONObject(data);
                 JSONObject Transcript = (JSONObject)JBO_AllData.get("GPA_Transcript");
                 JSONArray Semeters = (JSONArray) Transcript.get("Semester");

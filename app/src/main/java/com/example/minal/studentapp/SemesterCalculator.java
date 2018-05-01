@@ -1,10 +1,7 @@
 package com.example.minal.studentapp;
 
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,10 +9,8 @@ import android.widget.Spinner;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.serialization.SoapPrimitive;
 import android.app.ActionBar.LayoutParams;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 
 import java.text.DecimalFormat;
@@ -38,7 +33,6 @@ public class SemesterCalculator extends AppCompatActivity {
     private String data = null;
     private String dataParsed_SubjectName = "";
     private String SingleParsed_SubjectName = "";
-    private String dataParsed_Grade = "";
     private String SingleParsed_Grade = "";
     private String dataParsed_Hrs = "";
     private String SingleParsed_Hrs = "";
@@ -86,8 +80,9 @@ public class SemesterCalculator extends AppCompatActivity {
             params.leftMargin=780;
             params.topMargin=top;
             if(CheckArrray[j]==1)
-                top+=50;
-            top+=50;
+                top+=150;
+            else
+                top+=100;
             // Create LinearLayout
             RelativeLayout ll = new RelativeLayout(this);
 
@@ -119,8 +114,6 @@ public class SemesterCalculator extends AppCompatActivity {
                 @Override
                 public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                     String text = Spin.getSelectedItem().toString();
-                    TextView textView_DailyWorkGrade = (TextView) findViewById(R.id.textView11);
-                    textView_DailyWorkGrade.setText(text);
                     int x =Spin.getId();
                     StringGrades[x-1]=text;
                     CalculateGPA();
@@ -219,25 +212,24 @@ public class SemesterCalculator extends AppCompatActivity {
                         n--;
                     }
                     dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName.substring(0, n)+ "\n";
-                    dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName.substring(n+1)+ "\n";
+                    dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName.substring(n+1)+ "\n"+"\n";
                 }
                 else
-                    dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n";
+                    dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n"+"\n";
 
                 SingleParsed_Grade = DataInstance_SubjectData.get("Grade") + "";
-                dataParsed_Grade = dataParsed_Grade + SingleParsed_Grade + "\n";
 
                 SingleParsed_Hrs = DataInstance_SubjectData.get("Hours") + "";
                 dataParsed_Hrs = dataParsed_Hrs + SingleParsed_Hrs + "\n";
 
                 if(SingleParsed_SubjectName.length()>33) {
                     CheckArrray[iterator]=1;
-                    dataParsed_Grade+="\n";
-                    dataParsed_Hrs+="\n";
+                    dataParsed_Hrs+="\n"+"\n";
                 }
                 else
                 {
                     CheckArrray[iterator]=0;
+                    dataParsed_Hrs+="\n";
                 }
                 StringGrades[iterator]= SingleParsed_Grade;
                 Hrs[iterator]= Integer.parseInt(SingleParsed_Hrs);
