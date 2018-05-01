@@ -86,7 +86,7 @@
         </activity>
         <activity android:name=".edit_deadline" />
         <activity android:name=".GPATranscript" />
-        <activity android:name=".SemesterGPA"></activity>
+        <activity android:name=".SemesterGPA" />
 
         <service
             android:name=".SensorService"
@@ -109,7 +109,11 @@
             android:name=".Profile"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Statistics"></activity>
+        <activity android:name=".Statistics" />
+        <activity android:name=".FullTranscript" />
+        <activity android:name=".SemesterTranscipt" />
+        <activity android:name=".GPACalculator" />
+        <activity android:name=".SemesterCalculator"></activity>
     </application>
 
 </manifest>

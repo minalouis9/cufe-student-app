@@ -5,8 +5,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Button;
+import android.widget.Spinner;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,17 +16,19 @@ import org.ksoap2.serialization.SoapPrimitive;
 import android.app.ActionBar.LayoutParams;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.RelativeLayout;
+import android.widget.ArrayAdapter;
 
 import java.text.DecimalFormat;
 
-public class SemesterGPA extends AppCompatActivity {
+public class SemesterCalculator extends AppCompatActivity {
 
-    private String SemesterNameInJson=GPATranscript.SemesterName;
-    private int CountInJson=GPATranscript.Count;
-    private String[] SemestersInJson= GPATranscript.Semesters;
-    private String GPAInJson=GPATranscript.GPA_Json;
+    private String SemesterNameInJson=GPACalculator.SemesterName;
+    private int CountInJson=GPACalculator.Count;
+    private String[] SemestersInJson= GPACalculator.Semesters;
+    private String GPAInJson=GPACalculator.GPA_Json;
+    private String[] SubjectNames= new String[10];
     private String[] StringGrades= new String[10];
+    private int[] CheckArrray= new int[10];
     private int[] Hrs= new int[10];
     private double[] Grades= new double[10];
     private int Count;
@@ -43,26 +47,98 @@ public class SemesterGPA extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_semester_gp);
+        setContentView(R.layout.activity_semester_calculator);
+
         Get_GPA();
         CalculateGPA();
-        DecimalFormat df = new DecimalFormat("#.###");
+        Add_Spinner();
+        //DecimalFormat df = new DecimalFormat("#.###");
         TextView textView_SubjectName = (TextView) findViewById(R.id.text1);
         textView_SubjectName.setText(dataParsed_SubjectName);
-        TextView textView_MidtermGrade = (TextView) findViewById(R.id.text2);
-        textView_MidtermGrade.setText(dataParsed_Grade);
+        //TextView textView_MidtermGrade = (TextView) findViewById(R.id.text2);
+        //textView_MidtermGrade.setText(dataParsed_Grade);
         TextView textView_DailyWorkGrade = (TextView) findViewById(R.id.text3);
         textView_DailyWorkGrade.setText(dataParsed_Hrs);
         TextView textView_SemesterName = (TextView) findViewById(R.id.textView8);
         textView_SemesterName.setText(dataParsed_SemesterName);
-        TextView textView_SemesterGPA = (TextView) findViewById(R.id.textView2);
-        textView_SemesterGPA.setText(df.format(GPA));
+        //TextView textView_SemesterGPA = (TextView) findViewById(R.id.textView2);
+        //textView_SemesterGPA.setText(df.format(GPA));
         TextView textView_SemesterHrs = (TextView) findViewById(R.id.textView4);
         textView_SemesterHrs.setText(String.valueOf(TotalHrs));
+
+
     }
 
+    protected void Add_Spinner() {
+
+        final RelativeLayout lm = (RelativeLayout) findViewById(R.id.LO);
+
+        // create the layout params that will be used to define how your
+        // button will be displayed
+
+        int top=-50;
+
+        for (int j = 0; j < Count; j++) {
+
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            params.width=180;
+            params.alignWithParent=true;
+            params.leftMargin=780;
+            params.topMargin=top;
+            if(CheckArrray[j]==1)
+                top+=50;
+            top+=50;
+            // Create LinearLayout
+            RelativeLayout ll = new RelativeLayout(this);
+
+            // Create Button
+            final Spinner Spin = new Spinner(this);
+            // Give button an ID
+            Spin.setId(j + 1);
+
+            // set the layoutParams on the button
+            Spin.setLayoutParams(params);
+            Spin.bringToFront();
+            // Set click listener for button
 
 
+
+            //create a list of items for the spinner.
+            String[] items = new String[]{"Gr","A+", "A", "A-","B+", "B", "B-","C+", "C", "C-","D+", "D", "D-","F"};
+            //create an adapter to describe how the items are displayed, adapters are used in several places in android.
+            //There are multiple variations of this, but this is the basic variant.
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+            //set the spinners adapter to the previously created one.
+            Spin.setAdapter(adapter);
+
+            int spinnerPosition = adapter.getPosition(StringGrades[j]);
+            Spin.setSelection(spinnerPosition);
+
+
+            Spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    String text = Spin.getSelectedItem().toString();
+                    TextView textView_DailyWorkGrade = (TextView) findViewById(R.id.textView11);
+                    textView_DailyWorkGrade.setText(text);
+                    int x =Spin.getId();
+                    StringGrades[x-1]=text;
+                    CalculateGPA();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parentView) {
+                    // your code here
+                }
+
+            });
+
+
+            ll.addView(Spin);
+
+            lm.addView(ll);
+        }
+    }
 
 
     private void CalculateGPA()
@@ -70,29 +146,29 @@ public class SemesterGPA extends AppCompatActivity {
         for(int i=0;i<Count;i++)
         {
             if (StringGrades[i].equals("A+")|| StringGrades[i].equals("A"))
-                    Grades[i] = 4.0;
+                Grades[i] = 4.0;
             else if (StringGrades[i].equals("A-"))
-                    Grades[i] = 3.7;
+                Grades[i] = 3.7;
             else if (StringGrades[i].equals("B+"))
-                    Grades[i] = 3.3;
+                Grades[i] = 3.3;
             else if (StringGrades[i].equals("B"))
-                    Grades[i] = 3.0;
+                Grades[i] = 3.0;
             else if (StringGrades[i].equals("B-"))
-                    Grades[i] = 2.7;
+                Grades[i] = 2.7;
             else if (StringGrades[i].equals("C+"))
-                    Grades[i] = 2.3;
+                Grades[i] = 2.3;
             else if (StringGrades[i].equals("C"))
-                    Grades[i] = 2.0;
+                Grades[i] = 2.0;
             else if (StringGrades[i].equals("C-"))
-                    Grades[i] = 1.7;
+                Grades[i] = 1.7;
             else if (StringGrades[i].equals("D+"))
-                    Grades[i] = 1.3;
+                Grades[i] = 1.3;
             else if (StringGrades[i].equals("D"))
-                    Grades[i] = 1.0;
+                Grades[i] = 1.0;
             else if (StringGrades[i].equals("D-"))
-                    Grades[i] = 0.7;
+                Grades[i] = 0.7;
             else if (StringGrades[i].equals("F"))
-                    Grades[i] = 0.0;
+                Grades[i] = 0.0;
         }
         double Mul;
         double TotalPoints=0;
@@ -105,6 +181,9 @@ public class SemesterGPA extends AppCompatActivity {
             TotalHrs+=Hrs[i];
         }
         GPA= TotalPoints/TotalHrs;
+        DecimalFormat df = new DecimalFormat("#.###");
+        TextView textView_SemesterGPA = (TextView) findViewById(R.id.textView2);
+        textView_SemesterGPA.setText(df.format(GPA));
     }
 
     private void Get_GPA() {
@@ -152,8 +231,13 @@ public class SemesterGPA extends AppCompatActivity {
                 dataParsed_Hrs = dataParsed_Hrs + SingleParsed_Hrs + "\n";
 
                 if(SingleParsed_SubjectName.length()>33) {
+                    CheckArrray[iterator]=1;
                     dataParsed_Grade+="\n";
                     dataParsed_Hrs+="\n";
+                }
+                else
+                {
+                    CheckArrray[iterator]=0;
                 }
                 StringGrades[iterator]= SingleParsed_Grade;
                 Hrs[iterator]= Integer.parseInt(SingleParsed_Hrs);
@@ -166,4 +250,5 @@ public class SemesterGPA extends AppCompatActivity {
         }
     }
 }
+
 

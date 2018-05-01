@@ -89,15 +89,24 @@ ConnectionDetector cdr;
             }
         });
 
-        CardView GPATranscript = findViewById(R.id.TranscriptCardId);
+        CardView GPATranscript = findViewById(R.id.StaffdataCardId);
         GPATranscript.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
                 if(cdr.isConnected())
-                    OpenTranscript();
+                    OpenGPA();
                 else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
+            }
+        });
+
+        CardView FullTranscript = findViewById(R.id.TranscriptCardId);
+        FullTranscript.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                    OpenTranscript();
             }
         });
 
@@ -112,6 +121,12 @@ ConnectionDetector cdr;
     }
 
     private void OpenTranscript()
+    {
+        Intent To_Transcript = new Intent(this, GPACalculator.class);
+        startActivity(To_Transcript);
+    }
+
+    private void OpenGPA()
     {
         Intent To_Transcript = new Intent(this, GPATranscript.class);
         startActivity(To_Transcript);
