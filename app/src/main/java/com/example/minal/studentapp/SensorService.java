@@ -12,6 +12,7 @@ package com.example.minal.studentapp;
         import android.content.ContentResolver;
         import android.content.Context;
         import android.content.Intent;
+        import android.content.SharedPreferences;
         import android.media.Ringtone;
         import android.media.RingtoneManager;
         import android.net.Uri;
@@ -42,22 +43,21 @@ package com.example.minal.studentapp;
 public class SensorService extends Service {
     private String ID = LoginActivity.username;
     private String Password = LoginActivity.password;
-    private String Attendance_invoke = "1152013,0225541620,7";
-    private String Term_Classwork_invoke = "1152013,0225541620,5";
-    private String Warning_invoke = "1152013,0225541620,8";
-    private String GPA_invoke = "1152013,0225541620,2";
+    private String Attendance_invoke = " ";
+    private String Term_Classwork_invoke = " ";
+    private String Warning_invoke = " ";
+    private String GPA_invoke = " ";
+    public static SharedPreferences loginPreferences=null;
+
     private SoapPrimitive resultString;
     private News_Site Attendanc;
-    private News_Site New;
     private News_Site Termclasswork;
-<<<<<<< HEAD
     private News_Site Warning;
     private News_Site Gpa;
     public Handler handler = null;
     public static Runnable runnable = null;
-=======
+
     private ConnectionDetector cdx;
->>>>>>> 966863074b953c8fab16ea428cb8ad85c40376fe
     String data="";
     public SensorService(Context applicationContext) {
         super();
@@ -85,17 +85,22 @@ public class SensorService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         Attendanc=new News_Site(this,"Attendance");
-        New=new News_Site(this,"News_Site");
         Termclasswork=new News_Site(this,"Term_Classwork");
         Warning=new News_Site(this,"Warning");
         Gpa=new News_Site(this,"Gpa");
-      /* Calendar cal = Calendar.getInstance();
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        Attendance_invoke = loginPreferences.getString("username", "")+","+loginPreferences.getString("password", "")+",7";
+        Term_Classwork_invoke = loginPreferences.getString("username", "")+","+loginPreferences.getString("password", "")+",5";
+        Warning_invoke = loginPreferences.getString("username", "")+","+loginPreferences.getString("password", "")+",8";
+        GPA_invoke = loginPreferences.getString("username", "")+","+loginPreferences.getString("password", "")+",2";
+
+       /*Calendar cal = Calendar.getInstance();
         PendingIntent pintent = PendingIntent
-                .getBroadcast(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                .getBroadcast(this, 0, intent, 0);
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         // Start service every hour
         alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-                60000, pintent);//1000*60 = 5 minute
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pintent);//1000*60 = 5 minute
         /*AlarmManager mgr = (AlarmManager) getApplicationContext()
                 .getSystemService(Context.ALARM_SERVICE);
         Intent notificationIntent = new Intent(this,
@@ -104,12 +109,12 @@ public class SensorService extends Service {
         PendingIntent pintent = PendingIntent
                 .getService(this, 0,notificationIntent , 0);
         mgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                System.currentTimeMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES, pintent);
-       /* AlarmManager alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(this, SensorService.class),PendingIntent.FLAG_CANCEL_CURRENT);
+                System.currentTimeMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES, pintent);*/
+        AlarmManager alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(this, SensorService.class),PendingIntent.FLAG_UPDATE_CURRENT);
 
 // Use inexact repeating which is easier on battery (system can phase events and not wake at exact times)
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),1000*60*2, pendingIntent);*/
+        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
        /*handler = new Handler();
         runnable = new Runnable() {
             public void run() {
@@ -122,38 +127,21 @@ public class SensorService extends Service {
 
       //  handler.postDelayed(runnable, 15000);*/
 
-        //NewsAlert();
-<<<<<<< HEAD
-      //  AttendanceAlert();
-        //Term_ClassworkAlert();
-       // WarningAlert();
-        //GPAAlert();
+        //NewsAlert();<<<<<< HEAD
 
-=======
+        //Term_ClassworkAlert();
+       //
+
         cdx = new ConnectionDetector(this);
-        if (cdx.isConnected()) {
+        if (cdx.isConnected() & !Attendance_invoke.equals(",,7") ) {
             AttendanceAlert();
             Term_ClassworkAlert();
+            WarningAlert();
+            GPAAlert();
         }
->>>>>>> 966863074b953c8fab16ea428cb8ad85c40376fe
         return START_STICKY;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        handler = new Handler();
-        runnable = new Runnable() {
-            public void run() {
-                AttendanceAlert();
-                Term_ClassworkAlert();
-                WarningAlert();
-                handler.postDelayed(runnable, 60000);
-            }
-
-        };
-        handler.postDelayed(runnable, 15000);
-    }
 
     @Override
     public void onDestroy() {
@@ -171,7 +159,7 @@ public class SensorService extends Service {
        String  SoapString= resultString.toString();
         SoapString+="\n";
         if(Attendanc.readSavedData()!=null) {
-            if ((Attendanc.readSavedData().equals(SoapString))) {
+            if (!(Attendanc.readSavedData().equals(SoapString))) {
                 Attendanc.saveData(resultString.toString());
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.attendance1) // notification icon
@@ -232,7 +220,8 @@ public class SensorService extends Service {
         String  SoapString= resultString.toString();
         SoapString+="\n";
         if(Gpa.readSavedData()!=null) {
-            if ((Gpa.readSavedData().equals(SoapString))) {
+            if (
+                    (Gpa.readSavedData().equals(SoapString))) {
                 Gpa.saveData(resultString.toString());
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.transcript1) // notification icon

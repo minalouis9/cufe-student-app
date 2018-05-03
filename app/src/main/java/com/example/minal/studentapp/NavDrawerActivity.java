@@ -135,7 +135,7 @@ ConnectionDetector cdr;
 
     private void OpenGPA()
     {
-        Intent To_Transcript = new Intent(this, GPATranscript.class);
+        Intent To_Transcript = new Intent(this, FullTranscript.class);
         startActivity(To_Transcript);
     }
 

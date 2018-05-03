@@ -43,7 +43,7 @@ public class SemesterGPA extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_semester_gp);
+        setContentView(R.layout.activity_semester_transcipt);
         Get_GPA();
         CalculateGPA();
         DecimalFormat df = new DecimalFormat("#.###");
