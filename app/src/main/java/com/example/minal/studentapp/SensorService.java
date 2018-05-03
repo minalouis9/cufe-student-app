@@ -4,40 +4,38 @@ package com.example.minal.studentapp;
  * Created by lenovoo on 23/04/2018.
  */
 
-        import android.app.AlarmManager;
-        import android.app.Notification;
-        import android.app.NotificationManager;
-        import android.app.PendingIntent;
-        import android.app.Service;
-        import android.content.ContentResolver;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.media.Ringtone;
-        import android.media.RingtoneManager;
-        import android.net.Uri;
-        import android.os.Handler;
-        import android.os.IBinder;
-        import android.os.StrictMode;
-        import android.support.annotation.Nullable;
-        import android.support.annotation.RequiresPermission;
-        import android.support.v4.app.NotificationCompat;
-        import android.util.Log;
-        import android.widget.Toast;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.StrictMode;
+import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
+import android.widget.Toast;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
-        import org.ksoap2.serialization.SoapPrimitive;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.ksoap2.serialization.SoapPrimitive;
 
-        import java.io.BufferedReader;
-        import java.io.InputStreamReader;
-        import java.net.URL;
-        import java.time.Clock;
-        import java.util.ArrayList;
-        import java.util.Calendar;
-        import java.util.List;
-        import java.util.Timer;
-        import java.util.TimerTask;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.time.Clock;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by fabio on 30/01/2016.
@@ -45,13 +43,14 @@ package com.example.minal.studentapp;
 public class SensorService extends Service {
     private String ID = LoginActivity.username;
     private String Password = LoginActivity.password;
-    private String Attendance_invoke = "1152013,0225541620,7";
-    private String Term_Classwork_invoke = "1152013,0225541620,5";
-    private String Warning_invoke = "1152013,0225541620,8";
-    private String GPA_invoke = "1152013,0225541620,2";
+    private String Attendance_invoke = " ";
+    private String Term_Classwork_invoke = " ";
+    private String Warning_invoke = " ";
+    private String GPA_invoke = " ";
+    public static SharedPreferences loginPreferences=null;
+
     private SoapPrimitive resultString;
     private News_Site Attendanc;
-    private News_Site New;
     private News_Site Termclasswork;
 
     private News_Site Warning;
@@ -60,7 +59,6 @@ public class SensorService extends Service {
     public static Runnable runnable = null;
 
     private ConnectionDetector cdx;
-
     String data="";
     public SensorService(Context applicationContext) {
         super();
@@ -69,36 +67,41 @@ public class SensorService extends Service {
 
     public SensorService() {
     }
-   /* @Override
-    public void onCreate() {
-        Toast.makeText(this, "Service created!", Toast.LENGTH_LONG).show();
+    /* @Override
+     public void onCreate() {
+         Toast.makeText(this, "Service created!", Toast.LENGTH_LONG).show();
 
-        handler = new Handler();
-        runnable = new Runnable() {
-            public void run() {
-                AttendanceAlert();
-                handler.postDelayed(runnable, 10000);
-            }
-        };
+         handler = new Handler();
+         runnable = new Runnable() {
+             public void run() {
+                 AttendanceAlert();
+                 handler.postDelayed(runnable, 10000);
+             }
+         };
 
-        handler.postDelayed(runnable, 15000);
+         handler.postDelayed(runnable, 15000);
 
-    }*/
+     }*/
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         Attendanc=new News_Site(this,"Attendance");
-        New=new News_Site(this,"News_Site");
         Termclasswork=new News_Site(this,"Term_Classwork");
         Warning=new News_Site(this,"Warning");
         Gpa=new News_Site(this,"Gpa");
-      /* Calendar cal = Calendar.getInstance();
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        Attendance_invoke = loginPreferences.getString("username", "")+","+loginPreferences.getString("password", "")+",7";
+        Term_Classwork_invoke = loginPreferences.getString("username", "")+","+loginPreferences.getString("password", "")+",5";
+        Warning_invoke = loginPreferences.getString("username", "")+","+loginPreferences.getString("password", "")+",8";
+        GPA_invoke = loginPreferences.getString("username", "")+","+loginPreferences.getString("password", "")+",2";
+
+       /*Calendar cal = Calendar.getInstance();
         PendingIntent pintent = PendingIntent
-                .getBroadcast(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                .getBroadcast(this, 0, intent, 0);
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         // Start service every hour
         alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-                60000, pintent);//1000*60 = 5 minute
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pintent);//1000*60 = 5 minute
         /*AlarmManager mgr = (AlarmManager) getApplicationContext()
                 .getSystemService(Context.ALARM_SERVICE);
         Intent notificationIntent = new Intent(this,
@@ -107,12 +110,12 @@ public class SensorService extends Service {
         PendingIntent pintent = PendingIntent
                 .getService(this, 0,notificationIntent , 0);
         mgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                System.currentTimeMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES, pintent);
-       /* AlarmManager alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(this, SensorService.class),PendingIntent.FLAG_CANCEL_CURRENT);
+                System.currentTimeMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES, pintent);*/
+        AlarmManager alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(this, SensorService.class),PendingIntent.FLAG_UPDATE_CURRENT);
 
 // Use inexact repeating which is easier on battery (system can phase events and not wake at exact times)
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),1000*60*2, pendingIntent);*/
+        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
        /*handler = new Handler();
         runnable = new Runnable() {
             public void run() {
@@ -125,37 +128,21 @@ public class SensorService extends Service {
 
       //  handler.postDelayed(runnable, 15000);*/
 
-        //NewsAlert();
-      //  AttendanceAlert();
+        //NewsAlert();<<<<<< HEAD
+
         //Term_ClassworkAlert();
-       // WarningAlert();
-        //GPAAlert();
+        //
 
         cdx = new ConnectionDetector(this);
-        if (cdx.isConnected()) {
+        if (cdx.isConnected() & !Attendance_invoke.equals(",,7") ) {
             AttendanceAlert();
             Term_ClassworkAlert();
-            CheckDeadlinesAlert();
+            WarningAlert();
+            GPAAlert();
         }
         return START_STICKY;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        handler = new Handler();
-        runnable = new Runnable() {
-            public void run() {
-                AttendanceAlert();
-                Term_ClassworkAlert();
-                WarningAlert();
-                CheckDeadlinesAlert();
-                handler.postDelayed(runnable, 60000);
-            }
-
-        };
-        handler.postDelayed(runnable, 15000);
-    }
 
     @Override
     public void onDestroy() {
@@ -165,51 +152,15 @@ public class SensorService extends Service {
         sendBroadcast(broadcastIntent);
     }
 
-    private void CheckDeadlinesAlert()
-    {
-        List<Deadline> deadlinesList = new ArrayList<>();
-        ReadDeadlines allDeadlines = new ReadDeadlines(getApplicationContext(),deadlinesList);
-
-        int numberOfUpkomingDeadlines = 0;
-        String ifOnlyOne = null, TextMessage = "";
-        //Now we have all deadlines:
-        for(int i=0;i<deadlinesList.size();++i)
-        {
-            if(deadlinesList.get(i).fireAlarm())
-            {
-                ++numberOfUpkomingDeadlines;
-                ifOnlyOne = deadlinesList.get(i).getLabel() + " is Due " +deadlinesList.get(i).getDueDate();
-            }
-        }
-        if(numberOfUpkomingDeadlines == 1) TextMessage = ifOnlyOne;
-        else if(numberOfUpkomingDeadlines > 1) TextMessage = "You have "+ numberOfUpkomingDeadlines +" Upcoming Deadlines";
-
-        if(numberOfUpkomingDeadlines >0) {
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.drawable.deadlines1) // notification icon
-                    .setContentTitle("Upcoming Deadline") // title for notification
-                    .setContentText(TextMessage) // message for notification
-                    .setAutoCancel(true).setDefaults(Notification.DEFAULT_VIBRATE).setOnlyAlertOnce(true); // clear notification after click
-            Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getApplicationContext().getPackageName() + "/raw/sound2");
-            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), alarmSound);
-            r.play();
-            Intent intent = new Intent(this, LoginActivity.class);
-            PendingIntent pi = PendingIntent.getActivity(this, 0, intent, Intent.FILL_IN_CATEGORIES);
-            mBuilder.setContentIntent(pi);
-            NotificationManager mNotificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            mNotificationManager.notify(0, mBuilder.build());
-        }
-    }
-// To notify if there is new absence
+    // To notify if there is new absence
     public void AttendanceAlert() {
         SOAP_Access serverAccessClass = SOAP_Access._getInstance();
 
-       resultString = serverAccessClass.getResponse(Attendance_invoke);
-       String  SoapString= resultString.toString();
+        resultString = serverAccessClass.getResponse(Attendance_invoke);
+        String  SoapString= resultString.toString();
         SoapString+="\n";
         if(Attendanc.readSavedData()!=null) {
-            if ((Attendanc.readSavedData().equals(SoapString))) {
+            if (!(Attendanc.readSavedData().equals(SoapString))) {
                 Attendanc.saveData(resultString.toString());
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.attendance1) // notification icon
@@ -270,7 +221,7 @@ public class SensorService extends Service {
         String  SoapString= resultString.toString();
         SoapString+="\n";
         if(Gpa.readSavedData()!=null) {
-            if ((Gpa.readSavedData().equals(SoapString))) {
+            if (!(Gpa.readSavedData().equals(SoapString))) {
                 Gpa.saveData(resultString.toString());
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.transcript1) // notification icon

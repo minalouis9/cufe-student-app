@@ -25,32 +25,77 @@ public class SemesterTranscipt extends AppCompatActivity {
 
     private String data = null;
     private String dataParsed_SubjectName = "";
-    private String SingleParsed_SubjectName = "";
+    private String SingleParsed_SubjectName[];
     private String dataParsed_Grade = "";
     private String SingleParsed_Grade = "";
     private String dataParsed_Hrs = "";
     private String SingleParsed_Hrs = "";
+    TextView textView_SubjectName;
     private String dataParsed_SemesterName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_semester_gp);
+        SingleParsed_SubjectName=new String[10];
+        setContentView(R.layout.activity_semester_transcipt);
         Get_GPA();
         CalculateGPA();
         DecimalFormat df = new DecimalFormat("#.###");
+<<<<<<< HEAD
         TextView textView_SubjectName = (TextView) findViewById(R.id.text1);
         textView_SubjectName.setText(dataParsed_SubjectName);
         TextView textView_Grade = (TextView) findViewById(R.id.text2);
         textView_Grade.setText(dataParsed_Grade);
         TextView textView_Hrs = (TextView) findViewById(R.id.text3);
         textView_Hrs.setText(dataParsed_Hrs);
+=======
+
+        TextView textView_MidtermGrade = (TextView) findViewById(R.id.text2);
+        textView_MidtermGrade.setText(dataParsed_Grade);
+        TextView textView_DailyWorkGrade = (TextView) findViewById(R.id.text3);
+        textView_DailyWorkGrade.setText(dataParsed_Hrs);
+>>>>>>> 8a05653a2081997d42d616fc950bf398d8723ae0
         TextView textView_SemesterName = (TextView) findViewById(R.id.textView8);
         textView_SemesterName.setText(dataParsed_SemesterName);
         TextView textView_SemesterGPA = (TextView) findViewById(R.id.textView2);
         textView_SemesterGPA.setText(df.format(GPA));
         TextView textView_SemesterHrs = (TextView) findViewById(R.id.textView4);
         textView_SemesterHrs.setText(String.valueOf(TotalHrs));
+
+        int i=0;
+        while(SingleParsed_SubjectName[i]!=null)
+        {
+            if (i == 0)
+                textView_SubjectName = (TextView) findViewById(R.id.text1);
+
+            if(i==1)
+                textView_SubjectName = (TextView) findViewById(R.id.text4);
+            if(i==2)
+                textView_SubjectName = (TextView) findViewById(R.id.text5);
+            if(i==3)
+                textView_SubjectName = (TextView) findViewById(R.id.text6);
+            if(i==4)
+                textView_SubjectName = (TextView) findViewById(R.id.text7);
+            if(i==5)
+                textView_SubjectName = (TextView) findViewById(R.id.text8);
+            if(i==6)
+                textView_SubjectName = (TextView) findViewById(R.id.text9);
+            if(i==7)
+                textView_SubjectName = (TextView) findViewById(R.id.text10);
+            if(i==8)
+                textView_SubjectName = (TextView) findViewById(R.id.text11);
+            if(i==9)
+                textView_SubjectName = (TextView) findViewById(R.id.text12);
+
+            SingleParsed_SubjectName[i]+=" \n";
+            textView_SubjectName.setMaxLines(2);
+            textView_SubjectName.setText(SingleParsed_SubjectName[i]);
+            textView_SubjectName.setMaxLines(2);
+
+            i++;
+
+        }
+
     }
 
 
@@ -122,8 +167,8 @@ public class SemesterTranscipt extends AppCompatActivity {
             for (int iterator = 0; iterator < Subjects.length(); iterator++) {
                 JSONObject DataInstance_SubjectData = (JSONObject) Subjects.get(iterator);
 
-                SingleParsed_SubjectName = DataInstance_SubjectData.get("Course_Name") + "";
-                if(SingleParsed_SubjectName.length()>33)
+                SingleParsed_SubjectName[iterator] = DataInstance_SubjectData.get("Course_Name") + "";
+               /* if(SingleParsed_SubjectName.length()>33)
                 {
                     int n = 33;
 
@@ -135,18 +180,18 @@ public class SemesterTranscipt extends AppCompatActivity {
                     dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName.substring(n+1)+ "\n";
                 }
                 else
-                    dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n";
+                    dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n";*/
 
                 SingleParsed_Grade = DataInstance_SubjectData.get("Grade") + "";
-                dataParsed_Grade = dataParsed_Grade + SingleParsed_Grade + "\n";
+                dataParsed_Grade = dataParsed_Grade + SingleParsed_Grade + "\n\n";
 
                 SingleParsed_Hrs = DataInstance_SubjectData.get("Hours") + "";
-                dataParsed_Hrs = dataParsed_Hrs + SingleParsed_Hrs + "\n";
+                dataParsed_Hrs = dataParsed_Hrs + SingleParsed_Hrs + "\n\n";
 
-                if(SingleParsed_SubjectName.length()>33) {
+                /*if(SingleParsed_SubjectName.length()>33) {
                     dataParsed_Grade+="\n";
                     dataParsed_Hrs+="\n";
-                }
+                }*/
                 StringGrades[iterator]= SingleParsed_Grade;
                 Hrs[iterator]= Integer.parseInt(SingleParsed_Hrs);
             }

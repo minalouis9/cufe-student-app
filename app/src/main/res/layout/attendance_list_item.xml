@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:padding="@dimen/activity_padding_horizontal"
+    android:layout_marginBottom="5dp"
+    >
+    <TextView
+        android:id="@+id/SubjectName1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="2"
+        android:textColor="@color/item_name"
+        android:textSize="@dimen/chef" />
+
+    <TextView
+        android:id="@+id/Day1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/SubjectName1"
+        android:maxLines="1"
+        android:textColor="@color/chef"
+        android:fontFamily="monospace" />
+
+    <TextView
+        android:id="@+id/Week1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/SubjectName1"
+        android:layout_toRightOf="@id/Day1"
+        android:maxLines="1"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/timestamp"
+        android:fontFamily="monospace"
+         />
+
+    <TextView
+        android:id="@+id/Session1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/SubjectName1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_toRightOf="@id/Week1"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/chef"
+        android:fontFamily="monospace" />
+
+</RelativeLayout>

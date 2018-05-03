@@ -55,7 +55,7 @@ public class Warning extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             if(noWarning){
-                toolbar.setTitle("No Warnings");
+                toolbar.setTitle("Warnings");
                 textview_warn.setText("No Warnings");
                 textview_warn.setTextColor(Color.BLACK);
             }

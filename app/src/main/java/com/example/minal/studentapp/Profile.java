@@ -35,7 +35,7 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(Color.GREEN);
+        toolbar.setTitleTextColor(Color.WHITE);
 
         Profile.AsyncCallWS_ReadProfile ProfileReader = new Profile.AsyncCallWS_ReadProfile();
         ProfileReader.execute();
