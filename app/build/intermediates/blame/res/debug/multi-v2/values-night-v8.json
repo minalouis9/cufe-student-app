@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\New folder (3)\\cufe-student-app\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "C:\\Users\\Andrew\\Desktop\\Project\\cufe-student-app\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\lenovoo\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f6fcd4cbbaf221f74dff16712d56d0b3\\res\\values-night-v8\\values-night-v8.xml",
+                    "source": "C:\\Users\\Andrew\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\26c53e7dc8142cf91bcbcf16179ad098\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8",
                         "startColumns": "4,4,4,4,4,4,4",

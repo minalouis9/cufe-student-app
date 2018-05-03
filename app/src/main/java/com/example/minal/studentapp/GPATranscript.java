@@ -135,7 +135,7 @@ public class GPATranscript extends AppCompatActivity {
         private void SaveData(String jsonData)
         {
             try {
-                FileOutputStream gpa_File = GPATranscript.this.openFileOutput(ID+"GPA", GPATranscript.this.MODE_PRIVATE);
+                FileOutputStream gpa_File = GPATranscript.this.openFileOutput(ID+"GPATranscript", GPATranscript.this.MODE_PRIVATE);
                 gpa_File.write(jsonData.getBytes());
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -150,7 +150,7 @@ public class GPATranscript extends AppCompatActivity {
             String DataOut = "",bufferedLine="";
             FileInputStream ReadFile = null;
             try {
-                ReadFile = GPATranscript.this.openFileInput(ID+"GPA");
+                ReadFile = GPATranscript.this.openFileInput(ID+"GPATranscript");
                 InputStreamReader Reader = new InputStreamReader(ReadFile);
                 BufferedReader Readings_Buffer = new BufferedReader(Reader);
                 while ((bufferedLine = Readings_Buffer.readLine()) != null)

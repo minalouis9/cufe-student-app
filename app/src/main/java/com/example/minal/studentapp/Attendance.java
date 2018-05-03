@@ -25,6 +25,12 @@ import android.content.Intent;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,15 +189,60 @@ public class Attendance extends AppCompatActivity {
             });*/
         }
 
+        private void SaveData(String jsonData)
+        {
+            try {
+                FileOutputStream gpa_File = Attendance.this.openFileOutput(ID+"Attendence", Attendance.this.MODE_PRIVATE);
+                gpa_File.write(jsonData.getBytes());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        private String ReadOfflineData()
+        {
+            String DataOut = "",bufferedLine="";
+            FileInputStream ReadFile = null;
+            try {
+                ReadFile = Attendance.this.openFileInput(ID+"Attendence");
+                InputStreamReader Reader = new InputStreamReader(ReadFile);
+                BufferedReader Readings_Buffer = new BufferedReader(Reader);
+                while ((bufferedLine = Readings_Buffer.readLine()) != null)
+                {
+                    DataOut += bufferedLine+= '\n';
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return DataOut;
+        }
 
         public void Get_Attendance() {
 
-            SOAP_Access serverAccessClass = SOAP_Access._getInstance();
+            if((new ConnectionDetector(Attendance.this)).isConnected()==false) {
 
-            resultString = serverAccessClass.getResponse(Attendance_invoke);
+                data = ReadOfflineData();
+            }
+            else {
+                SOAP_Access serverAccessClass = SOAP_Access._getInstance();
 
-            try {
+                resultString = serverAccessClass.getResponse(Attendance_invoke);
+                SaveData(resultString.toString());
                 data = resultString.toString();
+            }
+
+            try{
+
+
+                if(data.length()==0) {
+                    return;
+                }
                 JSONObject JBO_AllData = new JSONObject(data);
                 JSONObject AbsentObject = (JSONObject) JBO_AllData.get("Absence");
                 JSONArray AbsentData = (JSONArray) AbsentObject.get("Entry");

@@ -134,7 +134,7 @@ public class FullTranscript extends AppCompatActivity {
         private void SaveData(String jsonData)
         {
             try {
-                FileOutputStream gpa_File = FullTranscript.this.openFileOutput(ID+"GPA", FullTranscript.this.MODE_PRIVATE);
+                FileOutputStream gpa_File = FullTranscript.this.openFileOutput(ID+"FullTranscript", FullTranscript.this.MODE_PRIVATE);
                 gpa_File.write(jsonData.getBytes());
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -149,7 +149,7 @@ public class FullTranscript extends AppCompatActivity {
             String DataOut = "",bufferedLine="";
             FileInputStream ReadFile = null;
             try {
-                ReadFile = FullTranscript.this.openFileInput(ID+"GPA");
+                ReadFile = FullTranscript.this.openFileInput(ID+"FullTranscript");
                 InputStreamReader Reader = new InputStreamReader(ReadFile);
                 BufferedReader Readings_Buffer = new BufferedReader(Reader);
                 while ((bufferedLine = Readings_Buffer.readLine()) != null)
