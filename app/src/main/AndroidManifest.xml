@@ -116,13 +116,14 @@
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme" />
         <activity android:name=".Statistics" />
-<<<<<<< HEAD
+
         <activity android:name=".Warning"></activity>
-=======
+
         <activity android:name=".FullTranscript" />
         <activity android:name=".SemesterTranscipt" />
         <activity android:name=".GPACalculator" />
         <activity android:name=".SemesterCalculator"></activity>
+
     </application>
 
 </manifest>

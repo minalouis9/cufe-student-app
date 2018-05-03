@@ -52,6 +52,7 @@ public class SensorService extends Service {
     private SoapPrimitive resultString;
     private News_Site Attendanc;
     private News_Site Termclasswork;
+
     private News_Site Warning;
     private News_Site Gpa;
     public Handler handler = null;
