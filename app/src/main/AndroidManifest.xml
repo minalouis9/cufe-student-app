@@ -1,6 +1,5 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="com.example.minal.studentapp">
 
     <!--
@@ -12,9 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
-
-
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -32,9 +29,6 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
 
         <activity
             android:name=".MapsActivity"
@@ -97,7 +91,6 @@
             android:enabled="true" />
 
         <receiver
-
             android:name=".SensorBroadcast"
             android:enabled="true"
             android:exported="true"
@@ -118,7 +111,14 @@
         <activity android:name=".FullTranscript" />
         <activity android:name=".SemesterTranscipt" />
         <activity android:name=".GPACalculator" />
-        <activity android:name=".SemesterCalculator"></activity>
+        <activity android:name=".SemesterCalculator" />
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBn-TGmsckNVQUibvpE_5pB2qNHA_sr3iI "/>
+
+
     </application>
 
 </manifest>

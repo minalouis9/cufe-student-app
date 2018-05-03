@@ -70,17 +70,17 @@ public class SemesterCalculator extends AppCompatActivity {
         // create the layout params that will be used to define how your
         // button will be displayed
 
-        int top=-50;
+        int top=-60;
 
         for (int j = 0; j < Count; j++) {
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            params.width=180;
+            params.width=300;
             params.alignWithParent=true;
-            params.leftMargin=780;
+            params.leftMargin=1000;
             params.topMargin=top;
             if(CheckArrray[j]==1)
-                top+=150;
+                top+=100;
             else
                 top+=100;
             // Create LinearLayout

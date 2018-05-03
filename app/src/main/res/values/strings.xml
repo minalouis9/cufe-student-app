@@ -11,4 +11,5 @@
     <string name="title_activity_news">News</string>
     <string name="title_activity_elearning">Elearning</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_maps2">Map</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.minal.studentapp;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 public class NavDrawerActivity extends AppCompatActivity
@@ -118,6 +120,34 @@ ConnectionDetector cdr;
                 OpenDeadline();
             }
         });
+
+        CardView DeadLinesSemester = findViewById(R.id.DeadlinesCardId2);
+        CardView NewsSemester = findViewById(R.id.NewsCardId2);
+        CardView Schedule = findViewById(R.id.ScheduleCardId);
+        CardView TermResult = findViewById(R.id.TermResultCardId);
+        CardView TranscriptSemester = findViewById(R.id.TranscriptCardId2);
+        CardView CourseWorkSemester = findViewById(R.id.CourseworkCardId2);
+
+        if(LoginActivity.username.startsWith("9"))
+        {
+            Term_classwork.setVisibility(View.GONE);
+            GPATranscript.setVisibility(View.GONE);
+            Attendance.setVisibility(View.GONE);
+            Deadlines.setVisibility(View.GONE);
+            News.setVisibility(View.GONE);
+            Schedule.setVisibility(View.GONE);
+            FullTranscript.setVisibility(View.GONE);
+            Statistic.setVisibility(View.GONE);
+        }
+        else
+        {
+            TermResult.setVisibility(View.GONE);
+            TranscriptSemester.setVisibility(View.GONE);
+            CourseWorkSemester.setVisibility(View.GONE);
+            NewsSemester.setVisibility(View.GONE);
+            DeadLinesSemester.setVisibility(View.GONE);
+        }
+
     }
 
     private void LogOut()
@@ -129,13 +159,13 @@ ConnectionDetector cdr;
 
     private void OpenTranscript()
     {
-        Intent To_Transcript = new Intent(this, GPACalculator.class);
+        Intent To_Transcript = new Intent(this, FullTranscript.class);
         startActivity(To_Transcript);
     }
 
     private void OpenGPA()
     {
-        Intent To_Transcript = new Intent(this, GPATranscript.class);
+        Intent To_Transcript = new Intent(this, GPACalculator.class);
         startActivity(To_Transcript);
     }
 
