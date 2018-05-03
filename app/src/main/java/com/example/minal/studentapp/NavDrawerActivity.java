@@ -88,7 +88,7 @@ ConnectionDetector cdr;
 
             }
         });
-
+/*
         CardView GPATranscript = findViewById(R.id.TranscriptCardId);
         GPATranscript.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -100,7 +100,7 @@ ConnectionDetector cdr;
 
             }
         });
-
+*/
         CardView FullTranscript = findViewById(R.id.TranscriptCardId);
         FullTranscript.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -140,7 +140,7 @@ ConnectionDetector cdr;
 
     private void OpenTranscript()
     {
-        Intent To_Transcript = new Intent(this, GPACalculator.class);
+        Intent To_Transcript = new Intent(this, FullTranscript.class);
         startActivity(To_Transcript);
     }
 

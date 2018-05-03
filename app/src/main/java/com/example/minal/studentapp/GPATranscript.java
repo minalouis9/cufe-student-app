@@ -17,6 +17,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 public class GPATranscript extends AppCompatActivity {
 
@@ -125,17 +132,61 @@ public class GPATranscript extends AppCompatActivity {
 
         }
 
+        private void SaveData(String jsonData)
+        {
+            try {
+                FileOutputStream gpa_File = GPATranscript.this.openFileOutput(ID+"GPA", GPATranscript.this.MODE_PRIVATE);
+                gpa_File.write(jsonData.getBytes());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
+
+        private String ReadOfflineData()
+        {
+            String DataOut = "",bufferedLine="";
+            FileInputStream ReadFile = null;
+            try {
+                ReadFile = GPATranscript.this.openFileInput(ID+"GPA");
+                InputStreamReader Reader = new InputStreamReader(ReadFile);
+                BufferedReader Readings_Buffer = new BufferedReader(Reader);
+                while ((bufferedLine = Readings_Buffer.readLine()) != null)
+                {
+                    DataOut += bufferedLine+= '\n';
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return DataOut;
+        }
 
         private void Get_GPA() {
 
-            SOAP_Access serverAccessClass= SOAP_Access._getInstance();
+            if((new ConnectionDetector(GPATranscript.this)).isConnected()==false) {
 
-            resultString = serverAccessClass.getResponse(GPATranscript_invoke);
+                data = ReadOfflineData();
+            }
+            else {
+                SOAP_Access serverAccessClass = SOAP_Access._getInstance();
+
+                resultString = serverAccessClass.getResponse(GPATranscript_invoke);
+                SaveData(resultString.toString());
+                data = resultString.toString();
+            }
 
             try{
-                data = resultString.toString();
-                GPA_Json = resultString.toString();
+
+
+                if(data.length()==0) {
+                    return;
+                }
+                GPA_Json = data;
                 JSONObject JBO_AllData = new JSONObject(data);
                 JSONObject Transcript = (JSONObject)JBO_AllData.get("GPA_Transcript");
                 JSONArray Semeters = (JSONArray) Transcript.get("Semester");
