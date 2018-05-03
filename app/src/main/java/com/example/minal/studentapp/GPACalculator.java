@@ -66,10 +66,10 @@ public class GPACalculator extends AppCompatActivity {
         String Semester;
         for (int j = 0; j < Count; j++) {
 
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            params.width=1050;
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             params.topMargin=top;
-            top+=130;
+            params.height=140;
+            top+=140;
             // Create LinearLayout
             RelativeLayout ll = new RelativeLayout(this);
 

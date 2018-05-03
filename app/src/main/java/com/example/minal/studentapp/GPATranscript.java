@@ -59,10 +59,10 @@ public class GPATranscript extends AppCompatActivity {
         String Semester;
         for (int j = 0; j < Count; j++) {
 
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            params.width=1500;
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             params.topMargin=top;
-            top+=130;
+            params.height=140;
+            top+=140;
             // Create LinearLayout
             RelativeLayout ll = new RelativeLayout(this);
 
