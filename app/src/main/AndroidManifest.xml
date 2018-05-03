@@ -121,14 +121,11 @@
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme" />
         <activity android:name=".Statistics" />
-<<<<<<< HEAD
         <activity android:name=".Warning"></activity>
-=======
         <activity android:name=".FullTranscript" />
         <activity android:name=".SemesterTranscipt" />
         <activity android:name=".GPACalculator" />
         <activity android:name=".SemesterCalculator"></activity>
->>>>>>> 966863074b953c8fab16ea428cb8ad85c40376fe
         <activity android:name=".TimeTable">
 
             <intent-filter>

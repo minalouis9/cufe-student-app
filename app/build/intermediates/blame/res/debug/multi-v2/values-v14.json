@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\CUFE\\Android development\\cufe-student-app-master\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v14\\values-v14.xml",
+            "outputFile": "C:\\Users\\Andrew\\Desktop\\Project\\cufe-student-app\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v14\\values-v14.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Mina Ashraf Louis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2c9b4eabe18ae0691c198fa756f5545e\\res\\values-v14\\values-v14.xml",
+                    "source": "C:\\Users\\Andrew\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\26c53e7dc8142cf91bcbcf16179ad098\\res\\values-v14\\values-v14.xml",
                     "from": {
                         "startLines": "2,7,8,9,15",
                         "startColumns": "4,4,4,4,4",

@@ -1,4 +1,0 @@
-#Sun Apr 29 19:54:16 EET 2018
-base.0=B\:\\lectures and assignements\\Spring 2018\\Software Engineering\\p\\cufe-student-app-master\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\10
-path.0=classes.dex
-renamed.0=classes.dex

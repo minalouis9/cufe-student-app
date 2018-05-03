@@ -13,6 +13,9 @@ import android.app.ActionBar.LayoutParams;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 
 public class SemesterCalculator extends AppCompatActivity {
@@ -38,6 +41,7 @@ public class SemesterCalculator extends AppCompatActivity {
     private String SingleParsed_Hrs = "";
     private String dataParsed_SemesterName = "";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +63,7 @@ public class SemesterCalculator extends AppCompatActivity {
         //textView_SemesterGPA.setText(df.format(GPA));
         TextView textView_SemesterHrs = (TextView) findViewById(R.id.textView4);
         textView_SemesterHrs.setText(String.valueOf(TotalHrs));
-
-
+        SaveData(Integer.toString(TotalHrs)+"\n"+Double.toString(GPA));
     }
 
     protected void Add_Spinner() {
@@ -177,6 +180,18 @@ public class SemesterCalculator extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat("#.###");
         TextView textView_SemesterGPA = (TextView) findViewById(R.id.textView2);
         textView_SemesterGPA.setText(df.format(GPA));
+    }
+
+    private void SaveData(String SmsesterData)
+    {
+        try {
+            FileOutputStream gpa_File = SemesterCalculator.this.openFileOutput(dataParsed_SemesterName, SemesterCalculator.this.MODE_PRIVATE);
+            gpa_File.write(SmsesterData.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void Get_GPA() {

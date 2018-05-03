@@ -75,26 +75,26 @@ public final class R {
         public static final int googleg_standard_color_18 = 0x7f07007f;
     }
     public static final class id {
-        public static final int adjust_height = 0x7f080059;
-        public static final int adjust_width = 0x7f08005a;
-        public static final int auto = 0x7f08005f;
-        public static final int center = 0x7f080068;
-        public static final int dark = 0x7f08007b;
-        public static final int hybrid = 0x7f08009d;
-        public static final int icon_only = 0x7f0800a0;
-        public static final int light = 0x7f0800ac;
-        public static final int none = 0x7f0800bf;
-        public static final int normal = 0x7f0800c0;
-        public static final int radio = 0x7f0800ce;
-        public static final int satellite = 0x7f0800d7;
-        public static final int standard = 0x7f0800fc;
-        public static final int terrain = 0x7f080103;
-        public static final int text = 0x7f080104;
-        public static final int text1 = 0x7f080105;
-        public static final int text2 = 0x7f080106;
-        public static final int toolbar = 0x7f080120;
-        public static final int wide = 0x7f080135;
-        public static final int wrap_content = 0x7f080138;
+        public static final int adjust_height = 0x7f08005c;
+        public static final int adjust_width = 0x7f08005d;
+        public static final int auto = 0x7f080062;
+        public static final int center = 0x7f08006b;
+        public static final int dark = 0x7f08007e;
+        public static final int hybrid = 0x7f0800a0;
+        public static final int icon_only = 0x7f0800a3;
+        public static final int light = 0x7f0800af;
+        public static final int none = 0x7f0800c2;
+        public static final int normal = 0x7f0800c3;
+        public static final int radio = 0x7f0800d1;
+        public static final int satellite = 0x7f0800da;
+        public static final int standard = 0x7f080100;
+        public static final int terrain = 0x7f080107;
+        public static final int text = 0x7f080108;
+        public static final int text1 = 0x7f080109;
+        public static final int text2 = 0x7f08010a;
+        public static final int toolbar = 0x7f080124;
+        public static final int wide = 0x7f080139;
+        public static final int wrap_content = 0x7f08013c;
     }
     public static final class integer {
         public static final int google_play_services_version = 0x7f090007;

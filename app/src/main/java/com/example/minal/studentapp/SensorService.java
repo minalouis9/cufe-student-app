@@ -126,20 +126,17 @@ public class SensorService extends Service {
       //  handler.postDelayed(runnable, 15000);*/
 
         //NewsAlert();
-<<<<<<< HEAD
       //  AttendanceAlert();
         //Term_ClassworkAlert();
        // WarningAlert();
         //GPAAlert();
 
-=======
         cdx = new ConnectionDetector(this);
         if (cdx.isConnected()) {
             AttendanceAlert();
             Term_ClassworkAlert();
             CheckDeadlinesAlert();
         }
->>>>>>> 966863074b953c8fab16ea428cb8ad85c40376fe
         return START_STICKY;
     }
 

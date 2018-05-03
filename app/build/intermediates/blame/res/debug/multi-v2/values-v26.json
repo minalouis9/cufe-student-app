@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\CUFE\\Android development\\cufe-student-app-master\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v26\\values-v26.xml",
+            "outputFile": "C:\\Users\\Andrew\\Desktop\\Project\\cufe-student-app\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v26\\values-v26.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Mina Ashraf Louis\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\2c9b4eabe18ae0691c198fa756f5545e\\res\\values-v26\\values-v26.xml",
+                    "source": "C:\\Users\\Andrew\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\26c53e7dc8142cf91bcbcf16179ad098\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,3,4,8,12,16",
                         "startColumns": "4,4,4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Mina Ashraf Louis\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\4d392798a72cad2123dfd6dcfab2d05e\\res\\values-v26\\values-v26.xml",
+                    "source": "C:\\Users\\Andrew\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\c8efc59616ae6ffd5526e32b006630ac\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,6",
                         "startColumns": "4,4",
