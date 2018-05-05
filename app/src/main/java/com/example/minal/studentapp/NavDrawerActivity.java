@@ -49,22 +49,20 @@ ConnectionDetector cdr;
             @Override
             public void onClick(View v)
             {
-                if(cdr.isConnected())
                 OpenTerm_classwork();
-                 else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
             }
         });
+
 
         CardView Attendance = findViewById(R.id.AttendanceCardId);
         Attendance.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
-                if(cdr.isConnected())
                 OpenAttendance();
-                else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
             }
         });
+
 
         CardView News = findViewById(R.id.NewsCardId);
         News.setOnClickListener(new View.OnClickListener(){
@@ -88,7 +86,7 @@ ConnectionDetector cdr;
 
             }
         });
-
+/*
         CardView GPATranscript = findViewById(R.id.TranscriptCardId);
         GPATranscript.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -100,7 +98,7 @@ ConnectionDetector cdr;
 
             }
         });
-
+*/
         CardView FullTranscript = findViewById(R.id.TranscriptCardId);
         FullTranscript.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -140,7 +138,7 @@ ConnectionDetector cdr;
 
     private void OpenTranscript()
     {
-        Intent To_Transcript = new Intent(this, GPACalculator.class);
+        Intent To_Transcript = new Intent(this, FullTranscript.class);
         startActivity(To_Transcript);
     }
 

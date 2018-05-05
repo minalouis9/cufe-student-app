@@ -41,6 +41,12 @@ public class SemesterTranscipt extends AppCompatActivity {
         Get_GPA();
         CalculateGPA();
         DecimalFormat df = new DecimalFormat("#.###");
+        TextView textView_SubjectName = (TextView) findViewById(R.id.text1);
+        textView_SubjectName.setText(dataParsed_SubjectName);
+        TextView textView_Grade = (TextView) findViewById(R.id.text2);
+        textView_Grade.setText(dataParsed_Grade);
+        TextView textView_Hrs = (TextView) findViewById(R.id.text3);
+        textView_Hrs.setText(dataParsed_Hrs);
 
         TextView textView_MidtermGrade = (TextView) findViewById(R.id.text2);
         textView_MidtermGrade.setText(dataParsed_Grade);

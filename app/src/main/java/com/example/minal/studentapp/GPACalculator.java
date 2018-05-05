@@ -136,7 +136,7 @@ public class GPACalculator extends AppCompatActivity {
     private void SaveData(String jsonData)
     {
         try {
-            FileOutputStream gpa_File = GPACalculator.this.openFileOutput(ID+"GPA", GPACalculator.this.MODE_PRIVATE);
+            FileOutputStream gpa_File = GPACalculator.this.openFileOutput(ID+"GPACalculator", GPACalculator.this.MODE_PRIVATE);
             gpa_File.write(jsonData.getBytes());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -144,26 +144,6 @@ public class GPACalculator extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-/*
-    private void CalculateGPA()
-    {
-
-        double Mul;
-        double TotalPoints=0;
-        TotalHrs=0;
-
-        for(int i=0;i<Count;i++)
-        {
-            Mul=Grades[i]*Hrs[i];
-            TotalPoints+=Mul;
-            TotalHrs+=Hrs[i];
-        }
-        GPA= TotalPoints/TotalHrs;
-        DecimalFormat df = new DecimalFormat("#.###");
-        TextView textView_SemesterGPA = (TextView) findViewById(R.id.textView2);
-        textView_SemesterGPA.setText(df.format(GPA));
-    }
-    */
 
 
     private String ReadOfflineData()
@@ -171,7 +151,7 @@ public class GPACalculator extends AppCompatActivity {
         String DataOut = "",bufferedLine="";
         FileInputStream ReadFile = null;
         try {
-            ReadFile = GPACalculator.this.openFileInput(ID+"GPA");
+            ReadFile = GPACalculator.this.openFileInput(ID+"GPACalculator");
             InputStreamReader Reader = new InputStreamReader(ReadFile);
             BufferedReader Readings_Buffer = new BufferedReader(Reader);
             while ((bufferedLine = Readings_Buffer.readLine()) != null)

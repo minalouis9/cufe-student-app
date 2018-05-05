@@ -11,6 +11,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.serialization.SoapPrimitive;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 public class Term_Classwork extends AppCompatActivity {
 
@@ -101,14 +108,60 @@ public class Term_Classwork extends AppCompatActivity {
         }
 
 
+        private void SaveData(String jsonData)
+        {
+            try {
+                FileOutputStream gpa_File = Term_Classwork.this.openFileOutput(ID+"TermClasswork", Term_Classwork.this.MODE_PRIVATE);
+                gpa_File.write(jsonData.getBytes());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        private String ReadOfflineData()
+        {
+            String DataOut = "",bufferedLine="";
+            FileInputStream ReadFile = null;
+            try {
+                ReadFile = Term_Classwork.this.openFileInput(ID+"TermClasswork");
+                InputStreamReader Reader = new InputStreamReader(ReadFile);
+                BufferedReader Readings_Buffer = new BufferedReader(Reader);
+                while ((bufferedLine = Readings_Buffer.readLine()) != null)
+                {
+                    DataOut += bufferedLine+= '\n';
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return DataOut;
+        }
+
         private void Get_Grades() {
 
-            SOAP_Access serverAccessClass= SOAP_Access._getInstance();
+            if((new ConnectionDetector(Term_Classwork.this)).isConnected()==false) {
 
-            resultString = serverAccessClass.getResponse(Term_Classwork_invoke);
+                data = ReadOfflineData();
+            }
+            else {
+                SOAP_Access serverAccessClass = SOAP_Access._getInstance();
+
+                resultString = serverAccessClass.getResponse(Term_Classwork_invoke);
+                SaveData(resultString.toString());
+                data = resultString.toString();
+            }
 
             try{
-                data = resultString.toString();
+
+
+                if(data.length()==0) {
+                    return;
+                }
                 JSONObject JBO_AllData = new JSONObject(data);
                 JSONArray Data_TermClasswork = (JSONArray) JBO_AllData.get("Term_Classwork");
             for (int iterator = 0; iterator < Data_TermClasswork.length(); iterator++) {

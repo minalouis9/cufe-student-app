@@ -53,14 +53,10 @@ public class SemesterCalculator extends AppCompatActivity {
         //DecimalFormat df = new DecimalFormat("#.###");
         TextView textView_SubjectName = (TextView) findViewById(R.id.text1);
         textView_SubjectName.setText(dataParsed_SubjectName);
-        //TextView textView_MidtermGrade = (TextView) findViewById(R.id.text2);
-        //textView_MidtermGrade.setText(dataParsed_Grade);
         TextView textView_DailyWorkGrade = (TextView) findViewById(R.id.text3);
         textView_DailyWorkGrade.setText(dataParsed_Hrs);
         TextView textView_SemesterName = (TextView) findViewById(R.id.textView8);
         textView_SemesterName.setText(dataParsed_SemesterName);
-        //TextView textView_SemesterGPA = (TextView) findViewById(R.id.textView2);
-        //textView_SemesterGPA.setText(df.format(GPA));
         TextView textView_SemesterHrs = (TextView) findViewById(R.id.textView4);
         textView_SemesterHrs.setText(String.valueOf(TotalHrs));
         SaveData(Integer.toString(TotalHrs)+"\n"+Double.toString(GPA));
