@@ -28,15 +28,19 @@ public class Profile extends AppCompatActivity {
     private String Program_Parsed = "";
     private String GPA_Parsed = "";
     private String Total_credits_Parsed = "";
+    ConnectionDetector cd;
+    private News_Site profile_file;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        cd=new ConnectionDetector(this);
         toolbar.setTitleTextColor(Color.WHITE);
-
+        profile_file=new News_Site(this,"Profile");
         Profile.AsyncCallWS_ReadProfile ProfileReader = new Profile.AsyncCallWS_ReadProfile();
         ProfileReader.execute();
     }
@@ -81,13 +85,25 @@ public class Profile extends AppCompatActivity {
         private void Get_Profile() {
             if(ID.charAt(0)!='1')
                 Profile_invoke= ID+","+Password+",14";
+            if(cd.isConnected()) {
+                SOAP_Access serverAccessClass = SOAP_Access._getInstance();
 
-            SOAP_Access serverAccessClass = SOAP_Access._getInstance();
-
-            resultString = serverAccessClass.getResponse(Profile_invoke);
+                resultString = serverAccessClass.getResponse(Profile_invoke);
+                profile_file.saveData(resultString.toString());
+                data = resultString.toString();
+            }
+            else{
+                String dataa=profile_file.readSavedData();
+                if(!dataa.contains("Student_Code"))
+                {
+                    toolbar.setTitle("NO DATA...Please connect to internet");
+                    return;
+                }
+                data=dataa;
+            }
 
             try {
-                data = resultString.toString();
+
                 JSONObject JBO_AllData = new JSONObject(data);
                 JSONObject DataInstance_Profile = (JSONObject) JBO_AllData.get("Profile_Info");
                 ID_Parsed = DataInstance_Profile.get("Student_Code") + "";

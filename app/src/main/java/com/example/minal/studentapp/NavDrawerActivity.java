@@ -234,9 +234,9 @@ ConnectionDetector cdr;
         if (id == R.id.Home_Itm) {
             // Handle the camera action
         } else if (id == R.id.Profile_Itm) {
-            if(cdr.isConnected())
+
                 OpenProfile();
-            else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
+
 
         } else if (id == R.id.Warning_Itm) {
             if(cdr.isConnected())
