@@ -28,15 +28,19 @@ public class Profile extends AppCompatActivity {
     private String Program_Parsed = "";
     private String GPA_Parsed = "";
     private String Total_credits_Parsed = "";
+    ConnectionDetector cd;
+    private News_Site profile_file;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(Color.GREEN);
-
+        cd=new ConnectionDetector(this);
+        toolbar.setTitleTextColor(Color.WHITE);
+        profile_file=new News_Site(this,"Profile");
         Profile.AsyncCallWS_ReadProfile ProfileReader = new Profile.AsyncCallWS_ReadProfile();
         ProfileReader.execute();
     }
@@ -66,25 +70,53 @@ public class Profile extends AppCompatActivity {
             textView_GPA.setText(GPA_Parsed);
             TextView textView_Total_credits= (TextView) findViewById(R.id.textView10);
             textView_Total_credits.setText(Total_credits_Parsed);
+            if(ID.charAt(0)!='1')
+            {
+                 TextView textView_Student_Address= (TextView) findViewById(R.id.textView7);
+                 textView_Student_Address.setText("Student Address:");
+                 TextView textView_Email= (TextView) findViewById(R.id.textView9);
+                 textView_Email.setText("Email");
+            }
+
 
         }
 
 
         private void Get_Profile() {
+            if(ID.charAt(0)!='1')
+                Profile_invoke= ID+","+Password+",14";
+            if(cd.isConnected()) {
+                SOAP_Access serverAccessClass = SOAP_Access._getInstance();
 
-            SOAP_Access serverAccessClass = SOAP_Access._getInstance();
-
-            resultString = serverAccessClass.getResponse(Profile_invoke);
+                resultString = serverAccessClass.getResponse(Profile_invoke);
+                profile_file.saveData(resultString.toString());
+                data = resultString.toString();
+            }
+            else{
+                String dataa=profile_file.readSavedData();
+                if(!dataa.contains("Student_Code"))
+                {
+                    toolbar.setTitle("NO DATA...Please connect to internet");
+                    return;
+                }
+                data=dataa;
+            }
 
             try {
-                data = resultString.toString();
+
                 JSONObject JBO_AllData = new JSONObject(data);
                 JSONObject DataInstance_Profile = (JSONObject) JBO_AllData.get("Profile_Info");
                 ID_Parsed = DataInstance_Profile.get("Student_Code") + "";
                 Name_Parsed = DataInstance_Profile.get("Student_Name_EN") + "";
-                Program_Parsed = DataInstance_Profile.get("Student_Program_Name") + "";
-                GPA_Parsed = DataInstance_Profile.get("Student_GPA") + "";
-                Total_credits_Parsed = DataInstance_Profile.get("Student_Total_Credits") + "";
+                if(ID.charAt(0)=='1') {
+                    Program_Parsed = DataInstance_Profile.get("Student_Program_Name") + "";
+                    GPA_Parsed = DataInstance_Profile.get("Student_GPA") + "";
+                    Total_credits_Parsed = DataInstance_Profile.get("Student_Total_Credits") + "";
+                } else {
+                    Program_Parsed = DataInstance_Profile.get("Student_Department_Code") + "";
+                    GPA_Parsed = DataInstance_Profile.get("Student_Address") + "";
+                    Total_credits_Parsed = DataInstance_Profile.get("Student_Email") + "";
+                }
 
             } catch (JSONException e)
 

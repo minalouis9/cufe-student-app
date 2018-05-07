@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -23,6 +25,16 @@ public class Deadlines_Track extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<Deadline> cartList;
     private deadlinelist_adapter mAdapter;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Intent IntentActivity2 = new Intent(this,NavDrawerActivity.class);
+        startActivity(IntentActivity2);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +45,7 @@ public class Deadlines_Track extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         cartList = new ArrayList<>();
-        mAdapter = new deadlinelist_adapter(this, cartList);
+        mAdapter = new deadlinelist_adapter(this, cartList, this);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -41,16 +53,10 @@ public class Deadlines_Track extends AppCompatActivity {
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
 
-
-
-
         // making http call and fetching menu json
         fetchRecipes();
 
         //our reference Layout:
-        //GridLayout ExistingLayout = (GridLayout) findViewById(R.id.gridLayout3) ;
-
-
         FloatingActionButton Add_Deadline_Invoke = (FloatingActionButton) findViewById(R.id.NewDeadline_floatingActionButton);
         Add_Deadline_Invoke.setOnClickListener(
                 new FloatingActionButton.OnClickListener() {
@@ -61,14 +67,24 @@ public class Deadlines_Track extends AppCompatActivity {
                 }
 
         );
+
+
+        EditText No_DeadlinesYet = (EditText)findViewById(R.id.No_DeadlinesYet);
+
+        if(this.cartList.isEmpty())
+        {
+            No_DeadlinesYet.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            No_DeadlinesYet.setVisibility(View.GONE);
+        }
     }
     public void ReadAllDeadlines(ReadDeadlines Reader)
     {
 
 
         if(Reader.isEmpty() == false) {
-            // TextView emptyDeadlines_Text = (TextView) findViewById(R.id.NoDeadlines_Txt);
-            //emptyDeadlines_Text.setVisibility(View.GONE);
         }
     }
 
@@ -106,5 +122,7 @@ public class Deadlines_Track extends AppCompatActivity {
         mShimmerViewContainer.stopShimmerAnimation();
         mShimmerViewContainer.setVisibility(View.GONE);
     }
+
+
 }
 

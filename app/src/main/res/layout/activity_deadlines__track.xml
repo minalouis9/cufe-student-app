@@ -8,13 +8,35 @@
     android:background="@android:color/white"
     tools:context="com.example.minal.studentapp.Deadlines_Track">
 
+    <EditText
+        android:id="@+id/No_DeadlinesYet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="344dp"
+        android:gravity="center_horizontal"
+        android:text="No Deadlines Added Yet"
+        android:textColor="@color/DarkGray"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recycler_view"
+        app:layout_constraintVertical_bias="0.0"
+        android:textStyle="italic"
+        android:editable="false"/>
+
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        shimmer:duration="800">
+        shimmer:duration="800"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp">
 
         <!-- Adding 3 rows of placeholders -->
         <LinearLayout
@@ -22,9 +44,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+
             <include layout="@layout/deadline_list_item" />
 
-            <include layout="@layout/deadline_list_item"  />
+            <include layout="@layout/deadline_list_item" />
 
             <include layout="@layout/deadline_list_item" />
 

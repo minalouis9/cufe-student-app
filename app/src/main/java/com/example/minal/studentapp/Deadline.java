@@ -257,7 +257,51 @@ public class Deadline {
             timeElapsed+= map.get(TimeUnit.MINUTES).toString() + " Minutes";
             flag2 = true;
         }
+
+       if(isOverdue(map)) timeElapsed = "Overdue by: " + timeElapsed;
+
         return timeElapsed;
+    }
+
+    public boolean fireAlarm() {
+        int daysBefore = Integer.parseInt(this.getDaysBefor()) * -1;
+
+        Calendar calendar_5DaysEarlierThanToday = Calendar.getInstance(); // this would default to now
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            calendar_5DaysEarlierThanToday.setTime(sdf.parse(this.getDueDate()));
+            calendar_5DaysEarlierThanToday.add(Calendar.DAY_OF_MONTH, daysBefore);
+            String formatedDate = sdf.format(calendar_5DaysEarlierThanToday.getTime());
+            Date date5DaysEarlier =  sdf.parse(formatedDate);
+
+            if(date5DaysEarlier.compareTo(new Date()) <= 0)
+            {
+                return true;
+            }
+            else return false;
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+        }
+return false;
+    }
+
+    private boolean isOverdue(Map<TimeUnit,Long> map)
+    {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date date = null;
+        try {
+            date = sdf.parse(this.getDueDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(date.compareTo(new Date()) <0)
+        {
+            return true;
+        }
+        return false;
     }
 
     private Map<TimeUnit,Long> computeDiff(Date date1, Date date2) {

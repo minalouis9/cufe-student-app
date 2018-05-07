@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 
 
 public class GPACalculator extends AppCompatActivity {
@@ -65,10 +66,10 @@ public class GPACalculator extends AppCompatActivity {
         String Semester;
         for (int j = 0; j < Count; j++) {
 
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            params.width=1500;
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             params.topMargin=top;
-            top+=130;
+            params.height=140;
+            top+=140;
             // Create LinearLayout
             RelativeLayout ll = new RelativeLayout(this);
 
@@ -135,7 +136,7 @@ public class GPACalculator extends AppCompatActivity {
     private void SaveData(String jsonData)
     {
         try {
-            FileOutputStream gpa_File = GPACalculator.this.openFileOutput(ID+"GPA", GPACalculator.this.MODE_PRIVATE);
+            FileOutputStream gpa_File = GPACalculator.this.openFileOutput(ID+"GPACalculator", GPACalculator.this.MODE_PRIVATE);
             gpa_File.write(jsonData.getBytes());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -145,13 +146,12 @@ public class GPACalculator extends AppCompatActivity {
     }
 
 
-
     private String ReadOfflineData()
     {
         String DataOut = "",bufferedLine="";
         FileInputStream ReadFile = null;
         try {
-            ReadFile = GPACalculator.this.openFileInput(ID+"GPA");
+            ReadFile = GPACalculator.this.openFileInput(ID+"GPACalculator");
             InputStreamReader Reader = new InputStreamReader(ReadFile);
             BufferedReader Readings_Buffer = new BufferedReader(Reader);
             while ((bufferedLine = Readings_Buffer.readLine()) != null)

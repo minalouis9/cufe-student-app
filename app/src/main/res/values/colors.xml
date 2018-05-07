@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#041261</color>
-    <color name="colorPrimaryDark">#303f9f</color>
+    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="primary">#E43F3F</color>
@@ -15,6 +15,7 @@
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
+    <color name="GreenForrest">#0B6623</color>
 
     <color name="colorPrimary2">#FFC107</color>
     <color name="colorPrimaryDark2">#FFA000</color>
@@ -24,9 +25,11 @@
     <color name="yello">#ffb300</color>
     <color name="green">#00bfa5</color>
     <color name="colorAccent2">#FF4081</color>
-    <color name="darkblue">#23283a</color>
+    <color name="darkblue">#000080</color>
     <color name="testcolorblue">#152b38</color>
-    <color name="pink">#fe104d</color>
+    <color name="pink">#fe10bf</color>
+    <color name="CarrotOrange">#D84315</color>
+    <color name="TealTurqoise">#307D7E</color>
 
     <color name="black_overlay">#66000000</color>
 
@@ -36,12 +39,23 @@
     <color name="floralWhite">#fffaf0</color>
     <color name="midnightBlue">#191970</color>
 
+    <color name="MidnightBlue">#191970</color>
+    <color name="TabColor">#00AAFF</color>
+    <color name="TabGrayColor">#00AAFF</color>
 
-
+    <color name="bkgrndlist">#00868b</color>
+    <color name="tabIndicator">#ff6666</color>
 
     <color name="placeholder_bg">#dddddd</color>
     <color name="item_name">#0c0c0c</color>
     <color name="description">#1a1a1a</color>
     <color name="chef">#777</color>
     <color name="timestamp">#777</color>
+
+    <color name="timetable">#FFFAF0</color>
+    <color name="timetableCard">#3669dd</color>
+    <color name="Punch">#EC5578</color>
+    <color name="DarkGray">#212121</color>
+    <color name="Champagne">#EDD2A4</color>
+
 </resources>

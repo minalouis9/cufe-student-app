@@ -148,6 +148,11 @@ ConnectionDetector cdr;
             DeadLinesSemester.setVisibility(View.GONE);
         }
 
+
+        CardView Timetable = findViewById(R.id.ScheduleCardId);
+        Timetable.setOnClickListener(new View.OnClickListener(){@Override public void onClick(View v)
+        {OpenTimetable();}
+        });
     }
 
     private void LogOut()
@@ -157,15 +162,21 @@ ConnectionDetector cdr;
         finish();
     }
 
+    private void OpenTimetable()
+    {
+        Intent To_Timetable = new Intent(this, TimeTable.class);
+        startActivity(To_Timetable);
+    }
+
     private void OpenTranscript()
     {
-        Intent To_Transcript = new Intent(this, FullTranscript.class);
+        Intent To_Transcript = new Intent(this, GPACalculator.class);
         startActivity(To_Transcript);
     }
 
     private void OpenGPA()
     {
-        Intent To_Transcript = new Intent(this, GPACalculator.class);
+        Intent To_Transcript = new Intent(this, GPATranscript.class);
         startActivity(To_Transcript);
     }
 
@@ -195,6 +206,11 @@ ConnectionDetector cdr;
     {
         Intent IntentStatistic = new Intent(this,Statistics.class);
         startActivity(IntentStatistic);
+    }
+    public void OpenWarnings()
+    {
+        Intent IntentWarning = new Intent(this,Warning.class);
+        startActivity(IntentWarning);
     }
     public void OpenNews()
     {
@@ -253,7 +269,9 @@ ConnectionDetector cdr;
             else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.Calendar_Itm) {
-
+            if(cdr.isConnected())
+                OpenWarnings();
+            else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
         } else if (id == R.id.Exams_Itm) {
 
         } else if (id == R.id.Stats_Itm) {

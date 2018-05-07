@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_action_profile"
             android:title="My Profile" />
         <item
-            android:id="@+id/Calendar_Itm"
-            android:icon="@drawable/ic_action_calendar"
-            android:title="Academic Calender" />
+            android:id="@+id/Warning_Itm"
+            android:icon="@drawable/warn"
+            android:title="Warnings" />
         <item
             android:id="@+id/Exams_Itm"
             android:icon="@drawable/ic_action_exam"

@@ -11,11 +11,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Deadline_Write {
 
-    static final String All_Files_Names = "AllFiles2";
+    static final String All_Files_Names =  LoginActivity.password +"_"+ "AllFiles";
     private String DocumentName;
     private FileOutputStream NewDeadlineFile;
 
@@ -42,42 +44,11 @@ public class Deadline_Write {
 
     }
 
-    public String ReadLabel(String FileName,Context ctx) {
-        try {
-            FileInputStream ReadFile = ctx.openFileInput(FileName);
-            InputStreamReader Reader = new InputStreamReader(ReadFile);
-            BufferedReader Readings_Buffer = new BufferedReader(Reader);
-            return Readings_Buffer.readLine() + "\n";
-        } catch (FileNotFoundException e) {
-            this.Invoke_Toast("Could not create Reminder!\nTry changing the Label and try again",ctx);
-            e.printStackTrace();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "Could Not Read Data";
-    }
-
-
     private void Invoke_Toast(String ToastMessage,Context ctx){
 
         Toast Error_CreatingDeadline = Toast.makeText(ctx,ToastMessage,Toast.LENGTH_LONG);
         Error_CreatingDeadline.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         Error_CreatingDeadline.show();
-    }
-
-    public Deadline_Write(Context ctx){
-
-        try {
-            NewDeadlineFile = ctx.openFileOutput("New_Deadline", ctx.MODE_PRIVATE);
-            RegisterFile("New_Deadline",ctx);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast Erro_CreatingDeadline = Toast.makeText(ctx,"Could not create Reminder!\nTry changing the Label and try again",Toast.LENGTH_LONG);
-            Erro_CreatingDeadline.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            Erro_CreatingDeadline.show();
-        }
     }
 
     public void addDeadlineLabel(String Label) {

@@ -5,11 +5,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.serialization.SoapPrimitive;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 public class Term_Classwork extends AppCompatActivity {
@@ -22,16 +29,19 @@ public class Term_Classwork extends AppCompatActivity {
 
     private String data = null;
     private String dataParsed_SubjectName = "";
-    private String SingleParsed_SubjectName = "";
+    private String SingleParsed_SubjectName []=null;
     private String dataParsed_MidtermGrade = "";
     private String SingleParsed_MidtermGrade = "";
     private String dataParsed_DailyWorkGrade = "";
     private String SingleParsed_DailyWorkGrade = "";
+    TextView textView_SubjectName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term__classwork);
+        SingleParsed_SubjectName=new String[10];
+
         AsyncCallWS_ReadGrades gradesReader = new AsyncCallWS_ReadGrades();
         gradesReader.execute();
 
@@ -54,35 +64,114 @@ public class Term_Classwork extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             Log.i(TAG, "onPostExecute");
-            TextView textView_SubjectName = (TextView) findViewById(R.id.text1);
-            textView_SubjectName.setText(dataParsed_SubjectName);
+
             TextView textView_MidtermGrade = (TextView) findViewById(R.id.text2);
             textView_MidtermGrade.setText(dataParsed_MidtermGrade);
             TextView textView_DailyWorkGrade = (TextView) findViewById(R.id.text3);
             textView_DailyWorkGrade.setText(dataParsed_DailyWorkGrade);
+            int i=0;
+            while(SingleParsed_SubjectName[i]!=null)
+            {
+                if (i == 0)
+                    textView_SubjectName = (TextView) findViewById(R.id.text1);
+
+                if(i==1)
+                    textView_SubjectName = (TextView) findViewById(R.id.text4);
+                if(i==2)
+                    textView_SubjectName = (TextView) findViewById(R.id.text5);
+                if(i==3)
+                    textView_SubjectName = (TextView) findViewById(R.id.text6);
+                if(i==4)
+                    textView_SubjectName = (TextView) findViewById(R.id.text7);
+                if(i==5)
+                    textView_SubjectName = (TextView) findViewById(R.id.text8);
+                if(i==6)
+                    textView_SubjectName = (TextView) findViewById(R.id.text9);
+                if(i==7)
+                    textView_SubjectName = (TextView) findViewById(R.id.text10);
+                if(i==8)
+                    textView_SubjectName = (TextView) findViewById(R.id.text11);
+                if(i==9)
+                    textView_SubjectName = (TextView) findViewById(R.id.text12);
+
+                SingleParsed_SubjectName[i]+="\n";
+
+                textView_SubjectName.setText(SingleParsed_SubjectName[i]);
+                textView_SubjectName.setMaxLines(2);
+                i++;
+
+            }
+
+
+
 
         }
 
 
+        private void SaveData(String jsonData)
+        {
+            try {
+                FileOutputStream gpa_File = Term_Classwork.this.openFileOutput(ID+"TermClasswork", Term_Classwork.this.MODE_PRIVATE);
+                gpa_File.write(jsonData.getBytes());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        private String ReadOfflineData()
+        {
+            String DataOut = "",bufferedLine="";
+            FileInputStream ReadFile = null;
+            try {
+                ReadFile = Term_Classwork.this.openFileInput(ID+"TermClasswork");
+                InputStreamReader Reader = new InputStreamReader(ReadFile);
+                BufferedReader Readings_Buffer = new BufferedReader(Reader);
+                while ((bufferedLine = Readings_Buffer.readLine()) != null)
+                {
+                    DataOut += bufferedLine+= '\n';
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return DataOut;
+        }
+
         private void Get_Grades() {
 
-            SOAP_Access serverAccessClass= SOAP_Access._getInstance();
+            if((new ConnectionDetector(Term_Classwork.this)).isConnected()==false) {
 
-            resultString = serverAccessClass.getResponse(Term_Classwork_invoke);
+                data = ReadOfflineData();
+            }
+            else {
+                SOAP_Access serverAccessClass = SOAP_Access._getInstance();
+
+                resultString = serverAccessClass.getResponse(Term_Classwork_invoke);
+                SaveData(resultString.toString());
+                data = resultString.toString();
+            }
 
             try{
-                data = resultString.toString();
+
+
+                if(data.length()==0) {
+                    return;
+                }
                 JSONObject JBO_AllData = new JSONObject(data);
                 JSONArray Data_TermClasswork = (JSONArray) JBO_AllData.get("Term_Classwork");
             for (int iterator = 0; iterator < Data_TermClasswork.length(); iterator++) {
                 JSONObject DataInstance_SubjectData = (JSONObject) Data_TermClasswork.get(iterator);
-                SingleParsed_SubjectName = DataInstance_SubjectData.get("Subject_Name") + "";
+                SingleParsed_SubjectName[iterator] = DataInstance_SubjectData.get("Subject_Name") + "";
                 SingleParsed_MidtermGrade = DataInstance_SubjectData.get("Midterm") + "";
                 SingleParsed_DailyWorkGrade = DataInstance_SubjectData.get("DailyWork") + "";
 
-                dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n";
-                dataParsed_MidtermGrade = dataParsed_MidtermGrade + SingleParsed_MidtermGrade + "\n";
-                dataParsed_DailyWorkGrade = dataParsed_DailyWorkGrade + SingleParsed_DailyWorkGrade + "\n";
+                dataParsed_MidtermGrade = dataParsed_MidtermGrade + SingleParsed_MidtermGrade + "\n\n";
+                dataParsed_DailyWorkGrade = dataParsed_DailyWorkGrade + SingleParsed_DailyWorkGrade + "\n\n";
                 
 
             }

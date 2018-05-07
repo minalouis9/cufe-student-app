@@ -11,9 +11,9 @@
     <dimen name="placeholder_text_height">14dp</dimen>
     <dimen name="activity_padding_horizontal">16dp</dimen>
     <dimen name="padding_10">10dp</dimen>
-    <dimen name="name">35dp</dimen>
-    <dimen name="chef">30dp</dimen>
-    <dimen name="timestamp">25dp</dimen>
-    <dimen name="description">25dp</dimen>
-    <dimen name="price">25dp</dimen>
+    <dimen name="name">28sp</dimen>
+    <dimen name="chef">25dp</dimen>
+    <dimen name="timestamp">20dp</dimen>
+    <dimen name="description">20dp</dimen>
+    <dimen name="price">15dp</dimen>
 </resources>

@@ -1,14 +1,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:background="@color/MidnightBlue"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
-    android:padding="@dimen/activity_padding_horizontal"
-    android:layout_marginBottom="5dp">
+    android:padding="@dimen/activity_padding_horizontal">
 
 
-    <ImageView
+    <android.support.v7.widget.CardView
+        android:id="@+id/deadlineCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_padding_horizontal"
+            android:layout_marginLeft="10dp">
+
+        <ImageView
         android:id="@+id/thumbnail"
         android:layout_width="@dimen/placeholder_image"
         android:layout_height="@dimen/placeholder_image"
@@ -23,7 +39,7 @@
         android:ellipsize="end"
         android:fontFamily="sans-serif-medium"
         android:maxLines="1"
-        android:textColor="@color/item_name"
+        android:textColor="@color/black"
         android:textSize="@dimen/name" />
 
     <TextView
@@ -33,7 +49,7 @@
         android:layout_below="@id/name"
         android:layout_toRightOf="@id/thumbnail"
         android:maxLines="1"
-        android:textColor="@color/chef"
+        android:textColor="@color/black"
         android:textSize="@dimen/chef" />
 
     <TextView
@@ -44,7 +60,7 @@
         android:layout_toRightOf="@id/thumbnail"
         android:maxLines="1"
         android:text="2 min ago"
-        android:textColor="@color/timestamp"
+        android:textColor="@color/oil"
         android:textSize="@dimen/timestamp" />
 
     <TextView
@@ -55,7 +71,7 @@
         android:layout_marginTop="@dimen/activity_padding_horizontal"
         android:ellipsize="end"
         android:maxLines="3"
-        android:textColor="@color/description"
+        android:textColor="@color/midnightBlue"
         android:textSize="@dimen/description" />
 
     <TextView
@@ -64,8 +80,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/DueDate"
         android:layout_marginTop="@dimen/padding_10"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/Punch"
         android:textSize="@dimen/price"
         android:textStyle="bold" />
 
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </RelativeLayout>
