@@ -8,22 +8,10 @@
     tools:context="com.example.minal.studentapp.News"
     tools:showIn="@layout/activity_news">
 
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ScrollView04"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        >
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="ay hary nw"
-        android:id="@+id/News_TextView"
-        android:textColor="@color/DarkGray"
-        android:gravity="center_horizontal"/>
-
-    </ScrollView>
+    <WebView
+        android:id="@+id/Wv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 </android.support.constraint.ConstraintLayout>

@@ -20,7 +20,6 @@ public class News_Site {
     private FileOutputStream NewsSiteFile;
     private Context cntx;
     private String FileName;
-
     public News_Site(Context ctx,String filenam){
         this.cntx = ctx;
         FileName=filenam;

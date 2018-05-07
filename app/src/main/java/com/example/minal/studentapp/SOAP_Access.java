@@ -18,9 +18,7 @@ public class SOAP_Access {
     private static String SOAP_ACTION = "http://tempuri.org/GetData";
     private static String METHOD_NAME = "GetData";
     private static String NAMESPACE = "http://tempuri.org/";
-   public static String URL = "http://chws.eng.cu.edu.eg/webservice1.asmx";
-//private static  String URL = "http://eng.cu.edu.eg/ar/feed/";
-
+    private static String URL = "http://chws.eng.cu.edu.eg/webservice1.asmx";
 
     String TAG = "Response";
 

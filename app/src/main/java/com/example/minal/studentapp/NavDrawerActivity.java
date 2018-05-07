@@ -1,5 +1,6 @@
 package com.example.minal.studentapp;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 public class NavDrawerActivity extends AppCompatActivity
@@ -96,15 +98,24 @@ ConnectionDetector cdr;
             }
         });
 
-        CardView GPATranscript = findViewById(R.id.TranscriptCardId);
+        CardView GPATranscript = findViewById(R.id.StaffdataCardId);
         GPATranscript.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
                 if(cdr.isConnected())
-                    OpenTranscript();
+                    OpenGPA();
                 else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
+            }
+        });
+
+        CardView FullTranscript = findViewById(R.id.TranscriptCardId);
+        FullTranscript.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                    OpenTranscript();
             }
         });
 
@@ -145,6 +156,45 @@ ConnectionDetector cdr;
     {
         Intent To_SemesterTermResult = new Intent(this, Semester_TermResult.class);
         startActivity(To_SemesterTermResult);
+        CardView DeadLinesSemester = findViewById(R.id.DeadlinesCardId2);
+        CardView NewsSemester = findViewById(R.id.NewsCardId2);
+        CardView Schedule = findViewById(R.id.ScheduleCardId);
+        CardView TermResult = findViewById(R.id.TermResultCardId);
+        CardView TranscriptSemester = findViewById(R.id.TranscriptCardId2);
+        CardView CourseWorkSemester = findViewById(R.id.CourseworkCardId2);
+
+        if(LoginActivity.username.startsWith("9"))
+        {
+            Term_classwork.setVisibility(View.GONE);
+            GPATranscript.setVisibility(View.GONE);
+            Attendance.setVisibility(View.GONE);
+            Deadlines.setVisibility(View.GONE);
+            News.setVisibility(View.GONE);
+            Schedule.setVisibility(View.GONE);
+            FullTranscript.setVisibility(View.GONE);
+            Statistic.setVisibility(View.GONE);
+        }
+        else
+        {
+            TermResult.setVisibility(View.GONE);
+            TranscriptSemester.setVisibility(View.GONE);
+            CourseWorkSemester.setVisibility(View.GONE);
+            NewsSemester.setVisibility(View.GONE);
+            DeadLinesSemester.setVisibility(View.GONE);
+        }
+
+
+        CardView Timetable = findViewById(R.id.ScheduleCardId);
+        Timetable.setOnClickListener(new View.OnClickListener(){@Override public void onClick(View v)
+        {OpenTimetable();}
+        });
+    }
+
+    private void LogOut()
+    {
+        Intent IntentLoginActivity = new Intent(this,LoginActivity.class);
+        startActivity(IntentLoginActivity);
+        finish();
     }
 
     private void OpenTimetable()
@@ -154,6 +204,12 @@ ConnectionDetector cdr;
     }
 
     private void OpenTranscript()
+    {
+        Intent To_Transcript = new Intent(this, GPACalculator.class);
+        startActivity(To_Transcript);
+    }
+
+    private void OpenGPA()
     {
         Intent To_Transcript = new Intent(this, GPATranscript.class);
         startActivity(To_Transcript);
@@ -188,13 +244,15 @@ ConnectionDetector cdr;
     }
     public void OpenNews()
     {
-
-
         Intent IntentNews = new Intent(this,News_Rss.class);
         startActivity(IntentNews);
         /*Intent IntentNews = new Intent(this,News.class);
         startActivity(IntentNews);
         */
+    public void OpenWarnings()
+    {
+        Intent IntentWarning = new Intent(this,Warning.class);
+        startActivity(IntentWarning);
     }
     public void OpenTerm_classwork()
     {
@@ -248,13 +306,19 @@ ConnectionDetector cdr;
             else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.Calendar_Itm) {
-
+            if(cdr.isConnected())
+                OpenWarnings();
+            else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
         } else if (id == R.id.Exams_Itm) {
 
         } else if (id == R.id.Stats_Itm) {
 
         } else if (id == R.id.Logout_Itm) {
-
+            // disable going back to the MainActivity
+            moveTaskToBack(true);
+            LoginActivity.loginPrefs_Editor.putBoolean("StayLogged",false);
+            LoginActivity.loginPrefs_Editor.commit();
+            LogOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

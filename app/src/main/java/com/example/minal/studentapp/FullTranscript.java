@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
 import org.json.JSONArray;
@@ -25,12 +24,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 
-public class GPATranscript extends AppCompatActivity {
+public class FullTranscript extends AppCompatActivity {
 
     private String TAG = "Response to Class Grades: ";
     private String ID = LoginActivity.username;
     private String Password = LoginActivity.password;
-    private String GPATranscript_invoke = ID+","+Password+",4";
+    private String GPATranscript_invoke = ID+","+Password+",2";
     private SoapPrimitive resultString;
 
     private String data = null;
@@ -99,7 +98,7 @@ public class GPATranscript extends AppCompatActivity {
 
     private void OpenSemesterGPA(String s)
     {
-        Intent To_Semester = new Intent(this, SemesterGPA.class);
+        Intent To_Semester = new Intent(this, SemesterTranscipt.class);
         startActivity(To_Semester);
         SemesterName=s;
     }
@@ -135,7 +134,7 @@ public class GPATranscript extends AppCompatActivity {
         private void SaveData(String jsonData)
         {
             try {
-                FileOutputStream gpa_File = GPATranscript.this.openFileOutput(ID+"GPATranscript", GPATranscript.this.MODE_PRIVATE);
+                FileOutputStream gpa_File = FullTranscript.this.openFileOutput(ID+"FullTranscript", FullTranscript.this.MODE_PRIVATE);
                 gpa_File.write(jsonData.getBytes());
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -150,7 +149,7 @@ public class GPATranscript extends AppCompatActivity {
             String DataOut = "",bufferedLine="";
             FileInputStream ReadFile = null;
             try {
-                ReadFile = GPATranscript.this.openFileInput(ID+"GPATranscript");
+                ReadFile = FullTranscript.this.openFileInput(ID+"FullTranscript");
                 InputStreamReader Reader = new InputStreamReader(ReadFile);
                 BufferedReader Readings_Buffer = new BufferedReader(Reader);
                 while ((bufferedLine = Readings_Buffer.readLine()) != null)
@@ -168,7 +167,7 @@ public class GPATranscript extends AppCompatActivity {
 
         private void Get_GPA() {
 
-            if((new ConnectionDetector(GPATranscript.this)).isConnected()==false) {
+            if((new ConnectionDetector(FullTranscript.this)).isConnected()==false) {
 
                 data = ReadOfflineData();
             }

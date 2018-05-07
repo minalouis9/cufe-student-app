@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.minal.studentapp">
 
@@ -41,9 +41,6 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
 
         <activity
             android:name=".MapsActivity"
@@ -114,6 +111,15 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
             <intent-filter>
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_ON" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="com.example.minal.studentapp.SenorBroadcast" />
             </intent-filter>
         </receiver>
@@ -123,11 +129,22 @@
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme" />
         <activity android:name=".Statistics" />
+        <activity android:name=".Warning"></activity>
+        <activity android:name=".FullTranscript" />
+        <activity android:name=".SemesterTranscipt" />
+        <activity android:name=".GPACalculator" />
+        <activity android:name=".SemesterCalculator" />
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBn-TGmsckNVQUibvpE_5pB2qNHA_sr3iI "/>
+
         <activity android:name=".TimeTable">
+
             <intent-filter>
-                <action
-                    android:name="com.example.minal.studentapp.TimeTable"
-                    android:theme="@style/AppTheme" />
+                <action android:name="com.example.minal.studentapp.TimeTable"
+                    android:theme="@style/AppTheme"/>
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

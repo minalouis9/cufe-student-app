@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.minal.studentapp.GPATranscript">
+    tools:context="com.example.minal.studentapp.FullTranscript">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar1"
@@ -14,55 +14,55 @@
         app:popupTheme="@style/AppTheme.PopupOverlay"
         />
 
-        <RelativeLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:id="@+id/relativeLayout2">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/CardView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical"
-            android:id="@+id/relativeLayout2">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="60dp"
+            app:cardBackgroundColor="?android:attr/colorPrimaryDark"
+            app:cardCornerRadius="5dp">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/CardView1"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="60dp"
-                app:cardBackgroundColor="?android:attr/colorPrimaryDark"
-                app:cardCornerRadius="5dp">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="Cumulative GPA"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="36sp" />
 
-                    <TextView
-                        android:id="@+id/textView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:text="Cumulative GPA"
-                        android:textColor="@color/cardview_light_background"
-                        android:textSize="36sp" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="Loading"
+                    android:textColor="@color/lightgray"
+                    android:textSize="30sp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/textView1"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="5dp"
-                        android:text="Loading"
-                        android:textColor="@color/lightgray"
-                        android:textSize="30sp" />
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-
-        </RelativeLayout>
+    </RelativeLayout>
 
     <android.support.v7.widget.CardView
         android:id="@+id/CardView3"
@@ -76,7 +76,7 @@
         app:cardBackgroundColor="?android:attr/colorPrimaryDark"
         app:cardCornerRadius="5dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -90,8 +90,7 @@
                 android:layout_marginStart="10dp"
                 android:text="Total Credits:"
                 android:textColor="@color/cardview_light_background"
-                android:textSize="14sp"
-                android:layout_weight="4"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -101,11 +100,10 @@
                 android:layout_marginStart="15dp"
                 android:layout_toEndOf="@+id/textView3"
                 android:text="Loading"
-                android:layout_weight="1"
                 android:textColor="@color/lightgray"
                 android:textSize="14sp" />
 
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
@@ -132,4 +130,3 @@
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>
-

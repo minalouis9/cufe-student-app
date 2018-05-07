@@ -87,6 +87,4 @@ public class TimeSlot {
     public String getLocation() {
         return Location;
     }
-
-
 }

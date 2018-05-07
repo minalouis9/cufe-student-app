@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
 import org.json.JSONArray;
@@ -23,14 +22,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 
 
-public class GPATranscript extends AppCompatActivity {
+public class GPACalculator extends AppCompatActivity {
 
     private String TAG = "Response to Class Grades: ";
     private String ID = LoginActivity.username;
     private String Password = LoginActivity.password;
-    private String GPATranscript_invoke = ID+","+Password+",4";
+    private String GPATranscript_invoke = ID+","+Password+",2";
     private SoapPrimitive resultString;
 
     private String data = null;
@@ -47,9 +47,9 @@ public class GPATranscript extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gpatranscript);
-        AsyncCallWS_ReadSemesters semesterReader = new AsyncCallWS_ReadSemesters();
-        semesterReader.execute();
+        setContentView(R.layout.activity_gpacalculator);
+                AsyncCallWS_ReadSemesters semesterReader = new AsyncCallWS_ReadSemesters();
+                semesterReader.execute();
 
     }
 
@@ -99,7 +99,7 @@ public class GPATranscript extends AppCompatActivity {
 
     private void OpenSemesterGPA(String s)
     {
-        Intent To_Semester = new Intent(this, SemesterGPA.class);
+        Intent To_Semester = new Intent(this, SemesterCalculator.class);
         startActivity(To_Semester);
         SemesterName=s;
     }
@@ -131,44 +131,44 @@ public class GPATranscript extends AppCompatActivity {
 
 
         }
+    }
 
-        private void SaveData(String jsonData)
-        {
-            try {
-                FileOutputStream gpa_File = GPATranscript.this.openFileOutput(ID+"GPATranscript", GPATranscript.this.MODE_PRIVATE);
-                gpa_File.write(jsonData.getBytes());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private void SaveData(String jsonData)
+    {
+        try {
+            FileOutputStream gpa_File = GPACalculator.this.openFileOutput(ID+"GPACalculator", GPACalculator.this.MODE_PRIVATE);
+            gpa_File.write(jsonData.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
 
-        private String ReadOfflineData()
-        {
-            String DataOut = "",bufferedLine="";
-            FileInputStream ReadFile = null;
-            try {
-                ReadFile = GPATranscript.this.openFileInput(ID+"GPATranscript");
-                InputStreamReader Reader = new InputStreamReader(ReadFile);
-                BufferedReader Readings_Buffer = new BufferedReader(Reader);
-                while ((bufferedLine = Readings_Buffer.readLine()) != null)
-                {
-                    DataOut += bufferedLine+= '\n';
-                }
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+    private String ReadOfflineData()
+    {
+        String DataOut = "",bufferedLine="";
+        FileInputStream ReadFile = null;
+        try {
+            ReadFile = GPACalculator.this.openFileInput(ID+"GPACalculator");
+            InputStreamReader Reader = new InputStreamReader(ReadFile);
+            BufferedReader Readings_Buffer = new BufferedReader(Reader);
+            while ((bufferedLine = Readings_Buffer.readLine()) != null)
+            {
+                DataOut += bufferedLine+= '\n';
             }
-            return DataOut;
-        }
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return DataOut;
+    }
         private void Get_GPA() {
 
-            if((new ConnectionDetector(GPATranscript.this)).isConnected()==false) {
+            if((new ConnectionDetector(GPACalculator.this)).isConnected()==false) {
 
                 data = ReadOfflineData();
             }
@@ -200,6 +200,8 @@ public class GPATranscript extends AppCompatActivity {
                     dataParsed_SemesterName = dataParsed_SemesterName + SingleParsed_SemesterName + "\n";
                     Semesters[iterator]= DataInstance_SubjectData.get("Semester_Name") + "";
                     Count++;
+
+
                 }
                 dataParsed_Cumulative = details.get("Student_GPA")+"";
                 dataParsed_CreditHrs = details.get("Student_Total_Credits")+"";
@@ -216,4 +218,4 @@ public class GPATranscript extends AppCompatActivity {
         }
 
     }
-}
+

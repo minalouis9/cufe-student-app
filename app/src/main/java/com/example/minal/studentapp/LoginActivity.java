@@ -1,5 +1,6 @@
 package com.example.minal.studentapp;
 
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,13 +24,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public static String username,password;
-    private String TAG = "Response Login: ";
+    //private String TAG = "Response Login: ";
 
     private EditText editText_ID=null,editText_Password=null;
     private CheckBox saveLogin_CheckBox=null;
-    private SharedPreferences loginPreferences=null;
-    private SharedPreferences.Editor loginPrefs_Editor=null;
+    public static SharedPreferences loginPreferences=null;
+    public static SharedPreferences.Editor loginPrefs_Editor=null;
     private Boolean saveLogin=null;
+    public static Boolean StayLogged=null;
     private SoapPrimitive resultString=null;
     private String data =null;
     private String dataParsed =null;
@@ -40,43 +42,104 @@ public class LoginActivity extends AppCompatActivity {
     private AutoStarting_BackgroundApplication alarm_Coursework;
     private AutoStarting_BackgroundApplication alarm_Warning;
     private AutoStarting_BackgroundApplication alarm_News;
+    private ConnectionDetector cdr;
+    Intent mServiceIntent;
+    private SensorService mSensorService;
+
+    Context ctx;
+
+    public Context getCtx() {
+        return ctx;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_login);
-
+        cdr=new ConnectionDetector(this);
 
         CardView Login = findViewById(R.id.Login_Card);
-        Login.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                //login();
-                LoginActivity.AsyncCallWS_LoginAuthentication loginAuthenticator = new LoginActivity.AsyncCallWS_LoginAuthentication();
-                loginAuthenticator.execute();
-            }
-        });
-
-
         editText_ID = findViewById(R.id.ID_Text);
         editText_Password = findViewById(R.id.Password_Text);
         saveLogin_CheckBox = findViewById(R.id.RememberMecheckBox);
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefs_Editor = loginPreferences.edit();
 
+        Login.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                if(cdr.isConnected()){
+                //login();
+
+                    final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
+                            R.style.AppTheme_Dark_Dialog);
+                    progressDialog.setIndeterminate(true);
+                    progressDialog.setMessage("Authenticating...");
+                    progressDialog.show();
+
+                    // TODO: Implement your own authentication logic here.
+                    LoginActivity.AsyncCallWS_LoginAuthentication loginAuthenticator = new LoginActivity.AsyncCallWS_LoginAuthentication();
+                    loginAuthenticator.execute();
+
+                    new android.os.Handler().postDelayed(
+                            new Runnable() {
+                                public void run() {
+                                    // On complete call either onLoginSuccess or onLoginFailed
+                                    onLoginSuccess();
+                                    // onLoginFailed();
+                                    progressDialog.dismiss();
+                                }
+                            }, 500);
+
+                }
+                else
+                {
+                    if(StayLogged && saveLogin)
+                        onLoginSuccess();
+                }
+            }
+        });
+
+        StayLogged = loginPreferences.getBoolean("StayLogged",false);
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        if (saveLogin == true) {
+        if (saveLogin) {
             editText_ID.setText(loginPreferences.getString("username", ""));
             editText_Password.setText(loginPreferences.getString("password", ""));
             saveLogin_CheckBox.setChecked(true);
+            if(StayLogged)
+                Login.performClick();
         }
+        ctx = this;
+        mSensorService = new SensorService(getCtx());
+        mServiceIntent = new Intent(getCtx(), mSensorService.getClass());
+        if (!isMyServiceRunning(mSensorService.getClass())) {
+            startService(mServiceIntent);
+        }
+    }
 
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i ("isMyServiceRunning?", true+"");
+                return true;
+            }
+        }
+        Log.i ("isMyServiceRunning?", false+"");
+        return false;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        stopService(mServiceIntent);
+        Log.i("MAINACT", "onDestroy!");
+        super.onDestroy();
 
     }
 
 
-    //Andrew part
     private class AsyncCallWS_LoginAuthentication extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -165,6 +228,7 @@ public class LoginActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(editText_ID.getWindowToken(), 0);
 
         if (saveLogin_CheckBox.isChecked()) {
+            loginPrefs_Editor.putBoolean("StayLogged",true);
             loginPrefs_Editor.putBoolean("saveLogin", true);
             loginPrefs_Editor.putString("username", username);
             loginPrefs_Editor.putString("password", password);
@@ -179,23 +243,6 @@ public class LoginActivity extends AppCompatActivity {
         EditText Pass_text = findViewById(R.id.Password_Text);
         Login.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
-
-        // TODO: Implement your own authentication logic here.
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 500);
     }
 
     @Override

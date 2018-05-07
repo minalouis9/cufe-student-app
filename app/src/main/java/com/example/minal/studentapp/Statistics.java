@@ -1,5 +1,7 @@
 package com.example.minal.studentapp;
 
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 public class Statistics extends AppCompatActivity {
 
@@ -40,10 +43,37 @@ public class Statistics extends AppCompatActivity {
         wv.getSettings().setDatabaseEnabled(true);
         wv.getSettings().setAppCacheEnabled(true);
         wv.getSettings().setDomStorageEnabled(true);
+        wv.getSettings().setLoadWithOverviewMode(true);
+        wv.getSettings().setUseWideViewPort(true);
         wv.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         wv.loadUrl("https://std.eng.cu.edu.eg/chsresultstatistics.aspx?s=1");
-        wv.setWebViewClient(new WebViewClient());
+        wv.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onPageStarted(
+                    WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                final ProgressDialog progressDialog = new ProgressDialog(Statistics.this,
+                        R.style.Theme_AppCompat_DayNight_Dialog);
+                progressDialog.setIndeterminate(true);
+                progressDialog.setMessage("Loading...");
+                progressDialog.show();
+
+                // TODO: Implement your own authentication logic here.
+
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+
+                                progressDialog.dismiss();
+                            }
+                        }, 1000);
+
+            }
+        });
+
     }
+
 
 
 

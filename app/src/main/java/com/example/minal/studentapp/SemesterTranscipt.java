@@ -1,29 +1,21 @@
 package com.example.minal.studentapp;
 
-import android.content.Intent;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Button;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import android.app.ActionBar.LayoutParams;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.RelativeLayout;
 
 import java.text.DecimalFormat;
 
-public class SemesterGPA extends AppCompatActivity {
+public class SemesterTranscipt extends AppCompatActivity {
 
-    private String SemesterNameInJson=GPATranscript.SemesterName;
-    private int CountInJson=GPATranscript.Count;
-    private String[] SemestersInJson= GPATranscript.Semesters;
-    private String GPAInJson=GPATranscript.GPA_Json;
+    private String SemesterNameInJson=FullTranscript.SemesterName;
+    private int CountInJson=FullTranscript.Count;
+    private String[] SemestersInJson= FullTranscript.Semesters;
+    private String GPAInJson=FullTranscript.GPA_Json;
     private String[] StringGrades= new String[10];
     private int[] Hrs= new int[10];
     private double[] Grades= new double[10];
@@ -33,17 +25,19 @@ public class SemesterGPA extends AppCompatActivity {
 
     private String data = null;
     private String dataParsed_SubjectName = "";
-    private String SingleParsed_SubjectName = "";
+    private String SingleParsed_SubjectName[];
     private String dataParsed_Grade = "";
     private String SingleParsed_Grade = "";
     private String dataParsed_Hrs = "";
     private String SingleParsed_Hrs = "";
+    TextView textView_SubjectName;
     private String dataParsed_SemesterName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_semester_gp);
+        SingleParsed_SubjectName=new String[10];
+        setContentView(R.layout.activity_semester_transcipt);
         Get_GPA();
         CalculateGPA();
         DecimalFormat df = new DecimalFormat("#.###");
@@ -53,12 +47,52 @@ public class SemesterGPA extends AppCompatActivity {
         textView_Grade.setText(dataParsed_Grade);
         TextView textView_Hrs = (TextView) findViewById(R.id.text3);
         textView_Hrs.setText(dataParsed_Hrs);
+
+        TextView textView_MidtermGrade = (TextView) findViewById(R.id.text2);
+        textView_MidtermGrade.setText(dataParsed_Grade);
+        TextView textView_DailyWorkGrade = (TextView) findViewById(R.id.text3);
+        textView_DailyWorkGrade.setText(dataParsed_Hrs);
         TextView textView_SemesterName = (TextView) findViewById(R.id.textView8);
         textView_SemesterName.setText(dataParsed_SemesterName);
         TextView textView_SemesterGPA = (TextView) findViewById(R.id.textView2);
         textView_SemesterGPA.setText(df.format(GPA));
         TextView textView_SemesterHrs = (TextView) findViewById(R.id.textView4);
         textView_SemesterHrs.setText(String.valueOf(TotalHrs));
+
+        int i=0;
+        while(SingleParsed_SubjectName[i]!=null)
+        {
+            if (i == 0)
+                textView_SubjectName = (TextView) findViewById(R.id.text1);
+
+            if(i==1)
+                textView_SubjectName = (TextView) findViewById(R.id.text4);
+            if(i==2)
+                textView_SubjectName = (TextView) findViewById(R.id.text5);
+            if(i==3)
+                textView_SubjectName = (TextView) findViewById(R.id.text6);
+            if(i==4)
+                textView_SubjectName = (TextView) findViewById(R.id.text7);
+            if(i==5)
+                textView_SubjectName = (TextView) findViewById(R.id.text8);
+            if(i==6)
+                textView_SubjectName = (TextView) findViewById(R.id.text9);
+            if(i==7)
+                textView_SubjectName = (TextView) findViewById(R.id.text10);
+            if(i==8)
+                textView_SubjectName = (TextView) findViewById(R.id.text11);
+            if(i==9)
+                textView_SubjectName = (TextView) findViewById(R.id.text12);
+
+            SingleParsed_SubjectName[i]+=" \n";
+            textView_SubjectName.setMaxLines(2);
+            textView_SubjectName.setText(SingleParsed_SubjectName[i]);
+            textView_SubjectName.setMaxLines(2);
+
+            i++;
+
+        }
+
     }
 
 
@@ -70,29 +104,29 @@ public class SemesterGPA extends AppCompatActivity {
         for(int i=0;i<Count;i++)
         {
             if (StringGrades[i].equals("A+")|| StringGrades[i].equals("A"))
-                    Grades[i] = 4.0;
+                Grades[i] = 4.0;
             else if (StringGrades[i].equals("A-"))
-                    Grades[i] = 3.7;
+                Grades[i] = 3.7;
             else if (StringGrades[i].equals("B+"))
-                    Grades[i] = 3.3;
+                Grades[i] = 3.3;
             else if (StringGrades[i].equals("B"))
-                    Grades[i] = 3.0;
+                Grades[i] = 3.0;
             else if (StringGrades[i].equals("B-"))
-                    Grades[i] = 2.7;
+                Grades[i] = 2.7;
             else if (StringGrades[i].equals("C+"))
-                    Grades[i] = 2.3;
+                Grades[i] = 2.3;
             else if (StringGrades[i].equals("C"))
-                    Grades[i] = 2.0;
+                Grades[i] = 2.0;
             else if (StringGrades[i].equals("C-"))
-                    Grades[i] = 1.7;
+                Grades[i] = 1.7;
             else if (StringGrades[i].equals("D+"))
-                    Grades[i] = 1.3;
+                Grades[i] = 1.3;
             else if (StringGrades[i].equals("D"))
-                    Grades[i] = 1.0;
+                Grades[i] = 1.0;
             else if (StringGrades[i].equals("D-"))
-                    Grades[i] = 0.7;
+                Grades[i] = 0.7;
             else if (StringGrades[i].equals("F"))
-                    Grades[i] = 0.0;
+                Grades[i] = 0.0;
         }
         double Mul;
         double TotalPoints=0;
@@ -130,8 +164,8 @@ public class SemesterGPA extends AppCompatActivity {
             for (int iterator = 0; iterator < Subjects.length(); iterator++) {
                 JSONObject DataInstance_SubjectData = (JSONObject) Subjects.get(iterator);
 
-                SingleParsed_SubjectName = DataInstance_SubjectData.get("Course_Name") + "";
-                if(SingleParsed_SubjectName.length()>33)
+                SingleParsed_SubjectName[iterator] = DataInstance_SubjectData.get("Course_Name") + "";
+               /* if(SingleParsed_SubjectName.length()>33)
                 {
                     int n = 33;
 
@@ -143,18 +177,18 @@ public class SemesterGPA extends AppCompatActivity {
                     dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName.substring(n+1)+ "\n";
                 }
                 else
-                    dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n";
+                    dataParsed_SubjectName = dataParsed_SubjectName + SingleParsed_SubjectName + "\n";*/
 
                 SingleParsed_Grade = DataInstance_SubjectData.get("Grade") + "";
-                dataParsed_Grade = dataParsed_Grade + SingleParsed_Grade + "\n";
+                dataParsed_Grade = dataParsed_Grade + SingleParsed_Grade + "\n\n";
 
                 SingleParsed_Hrs = DataInstance_SubjectData.get("Hours") + "";
-                dataParsed_Hrs = dataParsed_Hrs + SingleParsed_Hrs + "\n";
+                dataParsed_Hrs = dataParsed_Hrs + SingleParsed_Hrs + "\n\n";
 
-                if(SingleParsed_SubjectName.length()>33) {
+                /*if(SingleParsed_SubjectName.length()>33) {
                     dataParsed_Grade+="\n";
                     dataParsed_Hrs+="\n";
-                }
+                }*/
                 StringGrades[iterator]= SingleParsed_Grade;
                 Hrs[iterator]= Integer.parseInt(SingleParsed_Hrs);
             }
