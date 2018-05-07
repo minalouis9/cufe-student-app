@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public static String username,password;
-    //private String TAG = "Response Login: ";
+    private String TAG = "Response Login: ";
 
     private EditText editText_ID=null,editText_Password=null;
     private CheckBox saveLogin_CheckBox=null;
