@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/Type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="5dp"
+        android:text="aaaaa"
+        android:textSize="20sp"
+        android:textColor="@color/jet"/>
+
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="5dp"
+        android:text="aaaaa"
+        android:textSize="20sp"
+        android:textColor="@color/oil"
+        android:layout_below="@+id/Type"/>
+
+    <TextView
+        android:id="@+id/timeStamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/Punch"
+        android:layout_below="@+id/Title"        />
+
+
+    <Button
+        android:id="@+id/dialogButtonDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@+id/dialogButtonEdit"
+        android:layout_below="@+id/timeStamp"
+        />
+
+    <Button
+        android:id="@+id/dialogButtonEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/timeStamp"
+        />
+    <Button
+        android:id="@+id/dialogButtonOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dismiss"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@+id/dialogButtonDelete"
+        android:layout_below="@+id/timeStamp"
+        />
+</RelativeLayout>
