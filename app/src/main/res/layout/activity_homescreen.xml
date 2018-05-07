@@ -50,7 +50,7 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:padding="10dp"
-                            android:background="@drawable/schedule1"/>
+                            android:background="@drawable/schedule2"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                         <ImageView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:background="@drawable/news1"
+                            android:background="@drawable/news2"
                             android:padding="10dp" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
                         <ImageView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:background="@drawable/news1"
+                            android:background="@drawable/news2"
                             android:padding="10dp" />
                         <TextView
                             android:layout_width="wrap_content"
@@ -312,7 +312,7 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:padding="10dp"
-                            android:background="@drawable/transcript1"/>
+                            android:background="@drawable/transcript2"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -446,14 +446,14 @@
                         <ImageView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:background="@drawable/staffdata1"
+                            android:background="@drawable/gpa3"
                             android:padding="10dp" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:layout_marginTop="10dp"
-                            android:text="Staff Data"/>
+                            android:text="GPA Calculator"/>
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -463,7 +463,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Know your instructor's office hours"
+                            android:text="Calculate your accumulative GPA"
                             android:padding="5dp"
                             android:textColor="@android:color/darker_gray"/>
 
@@ -487,7 +487,7 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:padding="10dp"
-                            android:background="@drawable/coursework2"/>
+                            android:background="@drawable/coursework3"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -536,7 +536,7 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:padding="10dp"
-                        android:background="@drawable/transcript1"/>
+                        android:background="@drawable/transcript2"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -632,7 +632,7 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:padding="10dp"
-                        android:background="@drawable/coursework2"/>
+                        android:background="@drawable/coursework3"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
