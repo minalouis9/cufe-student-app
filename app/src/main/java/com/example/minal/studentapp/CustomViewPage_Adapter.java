@@ -25,7 +25,7 @@ public class CustomViewPage_Adapter extends PagerAdapter {
     private List<Model> modelsList;
     private Context cntxt;
     private String[] DaysInitials = {"Sat","Sun","Mon","Tues","Wed","Thurs"};
-    private String[] Days = { LoginActivity.password +"_"+"Saturday",LoginActivity.password +"_"+"Sunday",LoginActivity.password +"_"+"Monday",LoginActivity.password +"_"+"Tuesday",LoginActivity.password +"_"+"Wednesday",LoginActivity.password +"_"+"Thursday"};
+    private String[] Days = { LoginActivity.username +"_"+"Saturday",LoginActivity.username +"_"+"Sunday",LoginActivity.username +"_"+"Monday",LoginActivity.username +"_"+"Tuesday",LoginActivity.username +"_"+"Wednesday",LoginActivity.username +"_"+"Thursday"};
 
 
     public CustomViewPage_Adapter(Context inCont ,List<TimeSlot> inCartList)

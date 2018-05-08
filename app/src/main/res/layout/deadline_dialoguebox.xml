@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/darkblue">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/Type"
@@ -12,7 +12,7 @@
         android:layout_marginRight="5dp"
         android:text="aaaaa"
         android:textSize="20sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/jet"/>
 
     <TextView
         android:id="@+id/Title"
@@ -22,7 +22,7 @@
         android:layout_marginRight="5dp"
         android:text="aaaaa"
         android:textSize="20sp"
-        android:textColor="@color/white"
+        android:textColor="@color/oil"
         android:layout_below="@+id/Type"/>
 
     <TextView

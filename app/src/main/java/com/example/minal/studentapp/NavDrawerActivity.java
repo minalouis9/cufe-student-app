@@ -23,8 +23,15 @@ public class NavDrawerActivity extends AppCompatActivity
 ConnectionDetector cdr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_drawer);
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         cdr=new ConnectionDetector(this);
@@ -121,12 +128,41 @@ ConnectionDetector cdr;
             }
         });
 
+        CardView Timetable = findViewById(R.id.ScheduleCardId);
+        Timetable.setOnClickListener(new View.OnClickListener(){@Override public void onClick(View v)
+        {
+           // Semester_TermResult.TermOrCoursework=1; //1-->Term Results, 2-->Coursework
+           // Semester_TermResult.TermOrCoursework=2;
+            //OpenSemesterTermResult();
+            OpenTimetable();
+            //Open_semester_transcript();
+
+        }
+        });
+
         CardView DeadLinesSemester = findViewById(R.id.DeadlinesCardId2);
         CardView NewsSemester = findViewById(R.id.NewsCardId2);
+        CardView Schedule = findViewById(R.id.ScheduleCardId);
         CardView TermResult = findViewById(R.id.TermResultCardId);
-        CardView Timetable = findViewById(R.id.ScheduleCardId);
+        TermResult.setOnClickListener(new View.OnClickListener(){@Override public void onClick(View v)
+        {
+            Semester_TermResult.TermOrCoursework=1; //1-->Term Results, 2-->Coursework
+            OpenSemesterTermResult();
+        }
+        });
         CardView TranscriptSemester = findViewById(R.id.TranscriptCardId2);
+        TranscriptSemester.setOnClickListener(new View.OnClickListener(){@Override public void onClick(View v)
+        {
+            Open_semester_transcript();
+        }
+        });
         CardView CourseWorkSemester = findViewById(R.id.CourseworkCardId2);
+        CourseWorkSemester.setOnClickListener(new View.OnClickListener(){@Override public void onClick(View v)
+        {
+            Semester_TermResult.TermOrCoursework=2;
+            OpenSemesterTermResult();
+        }
+        });
 
         if(LoginActivity.username.startsWith("9"))
         {
@@ -135,7 +171,7 @@ ConnectionDetector cdr;
             Attendance.setVisibility(View.GONE);
             Deadlines.setVisibility(View.GONE);
             News.setVisibility(View.GONE);
-            Timetable.setVisibility(View.GONE);
+            Schedule.setVisibility(View.GONE);
             FullTranscript.setVisibility(View.GONE);
             Statistic.setVisibility(View.GONE);
         }
@@ -149,10 +185,20 @@ ConnectionDetector cdr;
         }
 
 
+    }
 
-        Timetable.setOnClickListener(new View.OnClickListener(){@Override public void onClick(View v)
-        {OpenTimetable();}
-        });
+
+    private void Open_semester_transcript(    )
+    {
+        Intent To_SemesterTermResult = new Intent(this, semester_transcript.class);
+        startActivity(To_SemesterTermResult);
+    }
+
+    private void OpenSemesterTermResult(    )
+    {
+        Intent To_SemesterTermResult = new Intent(this, Semester_TermResult.class);
+        startActivity(To_SemesterTermResult);
+
     }
 
     private void LogOut()
@@ -207,15 +253,17 @@ ConnectionDetector cdr;
         Intent IntentStatistic = new Intent(this,Statistics.class);
         startActivity(IntentStatistic);
     }
+    public void OpenNews() {
+        Intent IntentNews = new Intent(this, News_Rss.class);
+        startActivity(IntentNews);
+        /*Intent IntentNews = new Intent(this,News.class);
+        startActivity(IntentNews);
+        */
+    }
     public void OpenWarnings()
     {
         Intent IntentWarning = new Intent(this,Warning.class);
         startActivity(IntentWarning);
-    }
-    public void OpenNews()
-    {
-        Intent IntentNews = new Intent(this,News.class);
-        startActivity(IntentNews);
     }
     public void OpenTerm_classwork()
     {
@@ -288,8 +336,4 @@ ConnectionDetector cdr;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 }
-
-

@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/MidnightBlue"
+    android:background="@color/Deepskyblue"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     android:padding="@dimen/activity_padding_horizontal">
@@ -18,7 +18,7 @@
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/base"
+            android:background="@color/lightgray"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
             android:padding="@dimen/activity_padding_horizontal"
@@ -26,8 +26,8 @@
 
         <ImageView
         android:id="@+id/thumbnail"
-        android:layout_width="@dimen/placeholder_image"
-        android:layout_height="@dimen/placeholder_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginRight="@dimen/padding_10"
         android:scaleType="centerCrop" />
 
@@ -67,8 +67,8 @@
         android:id="@+id/DueDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/thumbnail"
-        android:layout_marginTop="@dimen/activity_padding_horizontal"
+        android:layout_below="@id/type"
+        android:layout_marginTop="2dp"
         android:ellipsize="end"
         android:maxLines="3"
         android:textColor="@color/midnightBlue"
@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/DueDate"
-        android:layout_marginTop="@dimen/padding_10"
+        android:layout_marginTop="2dp"
         android:textColor="@color/Punch"
         android:textSize="@dimen/price"
         android:textStyle="bold" />

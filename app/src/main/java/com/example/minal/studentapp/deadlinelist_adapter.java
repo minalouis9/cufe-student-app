@@ -221,7 +221,5 @@ public class deadlinelist_adapter extends RecyclerView.Adapter<deadlinelist_adap
         Intent To_EditDeadlines = new Intent(context, edit_deadline.class);
         edit_deadline.FileName = filename;
         context.startActivity(To_EditDeadlines);
-
-
     }
 }

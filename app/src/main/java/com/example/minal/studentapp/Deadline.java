@@ -28,7 +28,8 @@ import java.util.concurrent.TimeUnit;
  * Created by ahmed on 3/6/2018.
  */
 
-public class Deadline {
+public class Deadline
+{
 
     private String Label, Description, Type, DueDate, DaysBefor, HoursBefore;
 
@@ -125,20 +126,6 @@ public class Deadline {
         return this.DaysBefor;
     }
 
-    public void setHoursBefore(String HoursBeforeInput)
-    {
-        this.HoursBefore = HoursBeforeInput;
-    }
-    public String getHoursBefore()
-    {
-        return this.HoursBefore;
-    }
-
-    public int getIndex(){
-        return this.index;
-    }
-
-
     public long UpdateDaysAndHoursBefore(TimeUnit timeUnit)
     {
 
@@ -161,24 +148,8 @@ public class Deadline {
         long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
-        /*Date date1 = new Date(Integer.parseInt(this.DueDate.substring(6,9)),Integer.parseInt(this.DueDate.substring(0,1)),Integer.parseInt(this.DueDate.substring(3,4)));
-*/
-        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+   return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
 
-    }
-
-    public String GetBasicInfo()
-    {
-        String Label_Basic = this.Label;
-        if( this.Label.length() > 20)
-        {
-            Label_Basic = this.Label.substring(0,19);
-        }
-
-        Label_Basic += "\n";
-        Label_Basic += ("Due on "+this.DueDate);
-
-        return Label_Basic;
     }
 
     public int getThumbnail()
@@ -207,8 +178,6 @@ public class Deadline {
         }
     }
 
-    public boolean beginNotifying(){return true;}
-
     public String getDifferenceBetweenDates()
     {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -230,10 +199,7 @@ public class Deadline {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
         return "Not_Calculated";
-
     }
 
     private String getTimeElapsed(Map<TimeUnit,Long> map)

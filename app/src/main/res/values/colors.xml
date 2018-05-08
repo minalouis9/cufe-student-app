@@ -16,6 +16,11 @@
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
     <color name="GreenForrest">#0B6623</color>
+    <color name="Maroon">#800000</color>
+
+    <color name="IndianRed">#7c0A02</color>
+
+    <color name="Deepskyblue">#00bfff</color>
 
     <color name="colorPrimary2">#FFC107</color>
     <color name="colorPrimaryDark2">#FFA000</color>

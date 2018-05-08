@@ -1,8 +1,18 @@
 package com.example.minal.studentapp;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +25,11 @@ import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Deadlines_Track extends AppCompatActivity {
@@ -39,12 +53,19 @@ public class Deadlines_Track extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deadlines__track);
+/////////////////////////////
+
+///////////////////////////////////////
+
 
         //initiating shimmer viewer:
         mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
 
         recyclerView = findViewById(R.id.recycler_view);
-        cartList = new ArrayList<>();
+
+
+        ReadDeadlines.LoadAllDeadlines(Deadlines_Track.this,LoginActivity.username);
+        this.cartList = ReadDeadlines.DeadlinesList;
         mAdapter = new deadlinelist_adapter(this, cartList, this);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -54,8 +75,8 @@ public class Deadlines_Track extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
 
         // making http call and fetching menu json
-        fetchRecipes();
 
+        fetchRecipes();
         //our reference Layout:
         FloatingActionButton Add_Deadline_Invoke = (FloatingActionButton) findViewById(R.id.NewDeadline_floatingActionButton);
         Add_Deadline_Invoke.setOnClickListener(
@@ -65,7 +86,6 @@ public class Deadlines_Track extends AppCompatActivity {
                         startActivity(To_NewDeadlines);
                     }
                 }
-
         );
 
 
@@ -79,6 +99,16 @@ public class Deadlines_Track extends AppCompatActivity {
         {
             No_DeadlinesYet.setVisibility(View.GONE);
         }
+
+        SharedPreferences sharedpreferences = getSharedPreferences("Deadlines", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        String[] Message2 = ReadDeadlines.getNoyification(Deadlines_Track.this);
+        editor.putString("Deadlines_Notification_Message", Message2[0]);
+        editor.putString("Deadlines_DueDate", Message2[1]);
+        editor.putString("Deadlines_DueDate_Increment",Message2[2]);
+
+        editor.commit();
     }
     public void ReadAllDeadlines(ReadDeadlines Reader)
     {
@@ -105,7 +135,8 @@ public class Deadlines_Track extends AppCompatActivity {
     {
 
         try{
-            ReadDeadlines Reader = new ReadDeadlines(getApplicationContext(), this.cartList);
+            ReadDeadlines.LoadAllDeadlines(this,LoginActivity.username);
+            this.cartList = ReadDeadlines.DeadlinesList;
         }
         catch (Exception e)
         {

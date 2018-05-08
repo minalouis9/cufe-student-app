@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public static String username,password;
-    //private String TAG = "Response Login: ";
+    private String TAG = "Response Login: ";
 
     private EditText editText_ID=null,editText_Password=null;
     private CheckBox saveLogin_CheckBox=null;
@@ -36,6 +36,12 @@ public class LoginActivity extends AppCompatActivity {
     private String data =null;
     private String dataParsed =null;
     private String Authenticated = "Authenticated";
+    private AutoStarting_BackgroundApplication alarm_GPA;
+    private AutoStarting_BackgroundApplication alarm_Deadlines;
+    private AutoStarting_BackgroundApplication alarm_Attendence;
+    private AutoStarting_BackgroundApplication alarm_Coursework;
+    private AutoStarting_BackgroundApplication alarm_Warning;
+    private AutoStarting_BackgroundApplication alarm_News;
     private ConnectionDetector cdr;
     Intent mServiceIntent;
     private SensorService mSensorService;
@@ -138,21 +144,48 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            //Log.i(TAG, "onPreExecute");
+            Log.i(TAG, "onPreExecute");
+
+            SharedPreferences sharedpreferences = getSharedPreferences("Deadlines", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+
+            editor.putString("Deadlines_Notification_Message", "No Deadline Yet");
+            editor.putString("Deadlines_DueDate", "1/1/2000");
+            editor.commit();
+
+            sharedpreferences = getSharedPreferences("Alarm Counter", Context.MODE_PRIVATE);
+            editor = sharedpreferences.edit();
+            editor.putInt("Counter", 1);
+            editor.commit();
+
+
+            sharedpreferences = getSharedPreferences("Alarm_secondCounter", MODE_PRIVATE);
+            editor = sharedpreferences.edit();
+            editor.putInt("Counter2", 1);
+            editor.commit();
+
+
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            //Log.i(TAG, "doInBackground");
+            Log.i(TAG, "doInBackground");
             Get_Login();
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            //Log.i(TAG, "onPostExecute");
+            Log.i(TAG, "onPostExecute");
             if(dataParsed.compareTo(Authenticated) == 0)
-                login();
+            { login();
+
+            //alarm should start only on complete authentication
+                ReadDeadlines.LoadAllDeadlines(LoginActivity.this, username);
+            alarm_Deadlines =new AutoStarting_BackgroundApplication(0, 1,LoginActivity.this,username);
+            alarm_Deadlines.setAlarm(getApplicationContext());
+}
+
             else
                 onLoginFailed();
         }

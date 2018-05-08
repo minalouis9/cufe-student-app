@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Deadline_Write {
 
-    static final String All_Files_Names =  LoginActivity.password +"_"+ "AllFiles";
+    static final String All_Files_Names =  LoginActivity.username +"_"+ "AllFiles";
     private String DocumentName;
     private FileOutputStream NewDeadlineFile;
 

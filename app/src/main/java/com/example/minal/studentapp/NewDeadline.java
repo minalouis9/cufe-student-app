@@ -3,6 +3,7 @@ package com.example.minal.studentapp;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import java.util.Date;
 public class NewDeadline extends AppCompatActivity {
 
 
+    private SharedPreferences sharedpreferences;
 
     public class CustomDatePicker extends DatePicker
     {
@@ -135,6 +137,7 @@ gotten a touch down */
                                 else {
 
                                 }
+                                //update pereferences:
                                 //Shift Back to Deadlines Viewer:
                                 Intent To_Deadlines = new Intent(getBaseContext(), Deadlines_Track.class);
                                 startActivity(To_Deadlines);
@@ -145,6 +148,7 @@ gotten a touch down */
                 }
 
         );
+
     }
 
 

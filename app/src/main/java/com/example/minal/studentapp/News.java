@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
@@ -17,9 +18,15 @@ import android.webkit.URLUtil;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.HttpClientStack;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.XML;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -28,11 +35,13 @@ import java.net.URL;
 
 public class News extends AppCompatActivity {
     WebView wv;
-    String url="http://eng.cu.edu.eg/ar/credit-hour-system/";
+    String urlCred="http://eng.cu.edu.eg/ar/credit-hour-system/";
+    String urlSem = "http://eng.cu.edu.eg/ar/bachelors-2/smester-system/";
     String fullString;
     News_Site stringsave;
 
-
+    private HandleXML obj;
+    private String finalUrl ="http://eng.cu.edu.eg/ar/feed/";
 
 
     @Override
@@ -67,7 +76,15 @@ public class News extends AppCompatActivity {
         wv.getSettings().setDomStorageEnabled(true);
         wv.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         wv.getSettings().setBuiltInZoomControls(true);
-        wv.loadUrl(url);
+
+        if(LoginActivity.username.charAt(0) == '1')
+        {
+            wv.loadUrl(urlCred);
+
+        }
+        else {
+            wv.loadUrl(urlSem);
+        }
         wv.setWebViewClient(new WebViewClient());
         wv.setDownloadListener(new DownloadListener() {
             public void onDownloadStart(String url, String userAgent,
@@ -78,25 +95,6 @@ public class News extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
-        try {
-            URL url = new URL("http://eng.cu.edu.eg/ar/credit-hour-system/");
-            enableStrictMode();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-
-            String line;
-            while ( (line = br.readLine()) != null)
-                fullString += line;
-
-            br.close();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        stringsave.saveData(fullString);
 
     }
 

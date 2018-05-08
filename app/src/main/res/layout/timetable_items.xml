@@ -23,13 +23,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/timetable_list_item" />
-
-                <include layout="@layout/timetable_list_item"  />
-
-                <include layout="@layout/timetable_list_item" />
-
-
             </LinearLayout>
 
         </ScrollView>

@@ -15,30 +15,24 @@
         android:background="@android:color/white"
         tools:context="com.example.minal.studentapp.TimeTable">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar2"
+    <TextView
+        android:id="@+id/StudentName_Sem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="  Student Name: "
+        android:textColor="@color/white"
+        android:background="@color/DarkGray"
+        android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/total_Grade_Sem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="  Total Grade: "
+            android:textColor="@color/white"
             android:background="@color/DarkGray"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:textAlignment="center"
-            app:titleTextColor="@color/white"
-            app:titleTextAppearance="@color/white"
-            app:titleMargin="@dimen/activity_horizontal_margin"
-            />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_page"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/tabs_indicator"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tabs_indicator"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-
-
-        </android.support.v4.view.ViewPager>
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/StudentName_Sem"/>
 
 
         <com.facebook.shimmer.ShimmerFrameLayout
@@ -62,7 +56,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                                        >
+
+                    >
 
 
                 </LinearLayout>
@@ -76,30 +71,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:scrollbars="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/tabs_indicator"
+            app:layout_constraintTop_toBottomOf="@+id/total_Grade_Sem"
             />
 
 
-        <com.hold1.pagertabsindicator.PagerTabsIndicator
-            android:id="@+id/tabs_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/timetableCard"
-            app:layout_constraintTop_toBottomOf="@id/toolbar2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:tab_text_size="18sp"
-            app:tab_indicator= "bottom_bar"
-            app:tab_indicator_scale_type= "centerInside"
-            app:tab_lock_expanded="true"
-            app:tab_divider_color="@color/colorPrimary"
-            app:tab_highlight_text_color="@color/white"
-            app:tab_indicator_bg_color="@color/timetableCard"
-            app:tab_indicator_color="@color/white"
-            app:tab_text_color="@color/DarkGray"
-
-            />
 
 
     </android.support.constraint.ConstraintLayout>
