@@ -123,8 +123,8 @@ ConnectionDetector cdr;
 
         CardView DeadLinesSemester = findViewById(R.id.DeadlinesCardId2);
         CardView NewsSemester = findViewById(R.id.NewsCardId2);
-        CardView Schedule = findViewById(R.id.ScheduleCardId);
         CardView TermResult = findViewById(R.id.TermResultCardId);
+        CardView Timetable = findViewById(R.id.ScheduleCardId);
         CardView TranscriptSemester = findViewById(R.id.TranscriptCardId2);
         CardView CourseWorkSemester = findViewById(R.id.CourseworkCardId2);
 
@@ -135,7 +135,7 @@ ConnectionDetector cdr;
             Attendance.setVisibility(View.GONE);
             Deadlines.setVisibility(View.GONE);
             News.setVisibility(View.GONE);
-            Schedule.setVisibility(View.GONE);
+            Timetable.setVisibility(View.GONE);
             FullTranscript.setVisibility(View.GONE);
             Statistic.setVisibility(View.GONE);
         }
@@ -149,7 +149,7 @@ ConnectionDetector cdr;
         }
 
 
-        CardView Timetable = findViewById(R.id.ScheduleCardId);
+
         Timetable.setOnClickListener(new View.OnClickListener(){@Override public void onClick(View v)
         {OpenTimetable();}
         });
@@ -268,7 +268,7 @@ ConnectionDetector cdr;
                 OpenProfile();
             else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
 
-        } else if (id == R.id.Calendar_Itm) {
+        } else if (id == R.id.Warning_Itm) {
             if(cdr.isConnected())
                 OpenWarnings();
             else  Toast.makeText(getBaseContext(), "Network Connection Failed", Toast.LENGTH_LONG).show();
