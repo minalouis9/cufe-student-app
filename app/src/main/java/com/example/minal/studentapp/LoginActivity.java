@@ -65,12 +65,20 @@ public class LoginActivity extends AppCompatActivity {
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefs_Editor = loginPreferences.edit();
 
+        StayLogged = loginPreferences.getBoolean("StayLogged",false);
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+
         Login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
                 if(cdr.isConnected()){
                 //login();
+
+                    if (!validateInput()) {
+                        onLoginFailed();
+                        return;
+                    }
 
                     final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
                             R.style.AppTheme_Dark_Dialog);
@@ -85,9 +93,9 @@ public class LoginActivity extends AppCompatActivity {
                     new android.os.Handler().postDelayed(
                             new Runnable() {
                                 public void run() {
+
                                     // On complete call either onLoginSuccess or onLoginFailed
-                                    onLoginSuccess();
-                                    // onLoginFailed();
+
                                     progressDialog.dismiss();
                                 }
                             }, 500);
@@ -96,13 +104,13 @@ public class LoginActivity extends AppCompatActivity {
                 else
                 {
                     if(StayLogged && saveLogin)
-                        onLoginSuccess();
+                        login();
+                    else
+                        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        StayLogged = loginPreferences.getBoolean("StayLogged",false);
-        saveLogin = loginPreferences.getBoolean("saveLogin", false);
         if (saveLogin) {
             editText_ID.setText(loginPreferences.getString("username", ""));
             editText_Password.setText(loginPreferences.getString("password", ""));
@@ -178,14 +186,13 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             Log.i(TAG, "onPostExecute");
             if(dataParsed.compareTo(Authenticated) == 0)
-            { login();
-
-            //alarm should start only on complete authentication
+            {
+                login();
+                //alarm should start only on complete authentication
                 ReadDeadlines.LoadAllDeadlines(LoginActivity.this, username);
-            alarm_Deadlines =new AutoStarting_BackgroundApplication(0, 1,LoginActivity.this,username);
-            alarm_Deadlines.setAlarm(getApplicationContext());
-}
-
+                alarm_Deadlines =new AutoStarting_BackgroundApplication(0, 1,LoginActivity.this,username);
+                alarm_Deadlines.setAlarm(getApplicationContext());
+            }
             else
                 onLoginFailed();
         }
@@ -239,9 +246,9 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         CardView Login = findViewById(R.id.Login_Card);
-        EditText ID_text = findViewById(R.id.ID_Text);
-        EditText Pass_text = findViewById(R.id.Password_Text);
         Login.setEnabled(false);
+
+        onLoginSuccess();
 
     }
 

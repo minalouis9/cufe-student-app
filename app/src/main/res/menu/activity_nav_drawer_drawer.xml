@@ -14,12 +14,12 @@
             android:title="My Profile" />
         <item
             android:id="@+id/Warning_Itm"
-            android:icon="@drawable/warn"
+            android:icon="@drawable/ic_warning"
             android:title="Warnings" />
         <item
-            android:id="@+id/Exams_Itm"
+            android:id="@+id/FullTranscript_Itm"
             android:icon="@drawable/ic_action_exam"
-            android:title="Exams Schedules" />
+            android:title="Full Transcript" />
         <item
             android:id="@+id/Stats_Itm"
             android:icon="@drawable/ic_action_stat"

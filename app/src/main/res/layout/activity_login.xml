@@ -8,7 +8,6 @@
     tools:context="com.example.minal.studentapp.LoginActivity"
     android:background="#003">
 
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="120dp"
